@@ -29,11 +29,11 @@ public class CodeGroup {
 
 	@NotBlank
 	@Id
-	@Column(length = 50)
+	@Column(length = 3)
 	private String groupCode;
 	
 	@NotBlank
-	@Column(length = 200, nullable = false)
+	@Column(length = 30, nullable = false)
 	private String groupName;
 	
 	@Column(length = 1)

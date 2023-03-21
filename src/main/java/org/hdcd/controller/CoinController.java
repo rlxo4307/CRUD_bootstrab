@@ -65,7 +65,7 @@ public class CoinController {
 
 		Long userNo = member.getUserNo();
 		
-		model.addAttribute("list", service.personalList(userNo));
+		model.addAttribute("list", service.list(userNo));
 	}
 
 	@GetMapping("/success")

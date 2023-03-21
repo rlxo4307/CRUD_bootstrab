@@ -46,27 +46,6 @@ public class CoinServiceImpl implements CoinService {
 	public List<ChargeCoin> list(Long userNo) throws Exception {
 		return chargeCoinRepository.findAll(Sort.by(Direction.DESC, "historyNo"));
 	}
-
-	@Override
-	public List<ChargeCoin> personalList(Long userNo) throws Exception {
-
-		List<Object[]> coinArrays = chargeCoinRepository.personalList(userNo);
-
-		List<ChargeCoin>  coinList = new ArrayList<ChargeCoin>();
-		for(Object[] valueArray : coinArrays) {
-			ChargeCoin chargeCoin = new ChargeCoin();
-
-			chargeCoin.setUserNo((Long)valueArray[0]);
-			chargeCoin.setAmount((int)valueArray[1]);
-			chargeCoin.setRegDate((LocalDateTime)valueArray[2]);
-			chargeCoin.setUpdDate((LocalDateTime)valueArray[3]);
-			chargeCoin.setUserNo((Long)valueArray[4]);;
-
-			coinList.add(chargeCoin);
-		}
-
-		return coinList;
-	}
 		
 	@Override
 	public List<PayCoin> listPayHistory(Long userNo) throws Exception {

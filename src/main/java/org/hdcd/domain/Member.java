@@ -46,10 +46,10 @@ public class Member {
 	private String userPw;
 	
 	@NotBlank
-	@Column(length = 300, nullable = false)
+	@Column(length = 100, nullable = false)
 	private String userName;
 	
-	@Column(length = 300, nullable = false)
+	@Column(length = 3, nullable = false)
 	private String job;
 	
 	private int coin;
