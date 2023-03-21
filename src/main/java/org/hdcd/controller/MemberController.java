@@ -43,9 +43,9 @@ public class MemberController {
 		if(result.hasErrors()) {
 			String groupCode = "A01";
 			List<CodeLabelValue> jobList = codeService.getCodeList(groupCode);
-			
+
 			model.addAttribute("jobList", jobList);
-			
+
 			return "user/register";
 		}
 		

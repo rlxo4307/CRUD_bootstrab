@@ -34,6 +34,8 @@
 				<td>
 					<select th:field="*{job}">
 						<option th:each="item : ${jobList}" th:value="${item.value}" th:text="${item.label}"></option>
+<!--						<option th:each="jobList : ${jobList}" th:value="${jobList.value}" th:text="${jobList.label}">developer</option>-->
+<!--						<option th:each="jobList : ${jobList}" th:value="${jobList.value}" th:text="${jobList.label}">developer</option>-->
 					</select>
 				</td>
 				<td><span class="error_message" th:if="${#fields.hasErrors('job')}" th:errors="*{job}">job의 에러 메시지</span></td>
