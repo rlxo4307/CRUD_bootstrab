@@ -28,16 +28,16 @@ public class CodeDetail {
 
 	@NotBlank
 	@Id
-	@Column(length = 3)
+	@Column(length = 50)
 	private String groupCode;
 	
 	@NotBlank
 	@Id
-	@Column(length = 3)
+	@Column(length = 200)
 	private String codeValue;
 	
 	@NotBlank
-	@Column(length = 30, nullable = false)
+	@Column(length = 200, nullable = false)
 	private String codeName;
 	
 	private int sortSeq;
