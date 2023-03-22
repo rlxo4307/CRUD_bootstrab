@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
+import org.apache.catalina.Session;
 import org.hdcd.common.security.domain.CustomUser;
 import org.hdcd.domain.Item;
 import org.hdcd.domain.Member;
@@ -73,10 +74,17 @@ public class ItemController {
 	}
 
 	@GetMapping("/list")
-	public void list(Model model) throws Exception {
+	public void list(Model model, Authentication authentication) throws Exception {
 		List<Item> itemList = itemService.list();
 
+		CustomUser customUser = (CustomUser)authentication.getPrincipal();
+		Member member = customUser.getMember();
+
+		Long userNo = member.getUserNo();
+		int coins = memberService.getCoin(userNo);
+
 		model.addAttribute("itemList", itemList);
+		model.addAttribute("coins", coins);
 	}
 
 	@GetMapping("/read")
