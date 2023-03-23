@@ -25,7 +25,7 @@ Lifecycle -> clean 더블클릭 -> install 더블클릭
 
 
 # Annotation 정리
-### Controller
+### Controller의 @
 @Controller
 클래스에 @Controller를 선언함으로써 클라이언트의 요청을 직접적으로 받는 컴포넌트가 된다.
 클라이언트가 url을 통해 요청을 보낸 경로가 @GetMapping에 설정된 경로와 일치한다면 return 값에 명시된 html로 페이지를 이동시킨다.
