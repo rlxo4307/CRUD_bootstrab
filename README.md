@@ -25,6 +25,8 @@ Lifecycle -> clean 더블클릭 -> install 더블클릭
 
 
 # Annotation 정리
+선행 조건 : intellij 내 lombok 설치 (plugins)
+
 ### Controller의 @
 1. @Controller
 클래스에 @Controller를 선언함으로써 클라이언트의 요청을 직접적으로 받는 컴포넌트가 된다.
