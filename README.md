@@ -65,3 +65,17 @@ class에 붙이지 않고 method에 붙이면 해당 method에만 적용된다.
 4. @Override
 각 Service의 interface에 선언된 함수를 구현하기 위해 Override 한다.
 
+### Domain의 @
+1. @Getter
+class에 사용하면 해당 class 내 인자에 대한 Getter를 자동으로 생성해준다.
+
+2. @Setter
+class에 사용하면 해당 class 내 인자에 대한 Setter를 자동으로 생성해준다.
+
+3. @EqualsAndHashCode
+두 객체의 내용이 같은 지 동등성을 비교하는 연산자인 equals와
+두 객체가 같은 객체인지 동일성을 비교하는 연산자인 hashCode를 자동 생성해준다.
+
+4. @ToString
+class에 사용하면 toString() 메소드를 자동으로 생성해준다.
+
