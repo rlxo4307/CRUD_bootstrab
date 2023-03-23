@@ -1,4 +1,4 @@
-Spring Boot CRUD 게시판 생성 전 세팅 목록
+# Spring Boot CRUD 게시판 생성 전 세팅 목록
 1. Encoding을 UTF-8로 맞추기
 프로젝트를 생성할 때마다 세팅은 초기화 되므로
 매번 File -> Settings에 들어가서 encode 입력 후
