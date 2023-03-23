@@ -81,3 +81,10 @@ class에 사용하면 해당 class 내 인자에 대한 Setter를 자동으로 �
 4. @ToString
 class에 사용하면 toString() 메소드를 자동으로 생성해준다.
 
+5. @Entity
+테이블과 매핑하며 @Entity가 붙은 클래스는 JPA가 관리하는 것으로, 엔티티라 부른다.
+
+6. @Table
+엔티티와 매핑할 테이블을 지정, 생략 시 엔티티 이름을 테이블 이름으로 사용
+예) @Table(name=”member”), 해당 class 내 엔티티들을 member 테이블과 매핑
+
