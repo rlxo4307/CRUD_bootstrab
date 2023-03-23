@@ -10,10 +10,10 @@ import java.util.List;
 
 public interface ChargeCoinRepository extends JpaRepository<ChargeCoin, Long> {
 
-    @Query("SELECT cc.historyNo, cc.amount, cc.regDate, cc.updDate, m.userNo "
+    @Query("SELECT cc.historyNo, cc.amount, cc.regDate "
             + "FROM Member m "
             + "INNER JOIN ChargeCoin cc ON cc.userNo = m.userNo "
-            + "WHERE m.userNo = cc.userNo AND cc.userNo=:userNo ORDER BY cc.historyNo DESC")
+            + "WHERE m.userNo = cc.userNo AND cc.userNo=:userNo ORDER BY cc.historyNo asc")
     public List<Object[]> personalList(@Param("userNo") Long userNo);
 
 
