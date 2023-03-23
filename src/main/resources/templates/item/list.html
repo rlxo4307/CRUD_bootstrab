@@ -6,7 +6,7 @@
 <head>
 	<title>Item</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<link rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}"/>	
+	<link rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}"/>
 </head>
 <body>
 <div layout:fragment="content">
@@ -15,7 +15,16 @@
 	<th:block sec:authorize="hasRole('ADMIN')">
 		<a href="register.html" th:href="@{/item/register}" th:text="#{action.new}">새로만들기</a>
 	</th:block>
-	
+
+	<table border="1">
+		<tr>
+			<th align="center" width="80" th:text="#{coin.hold}">보유 코인</th>
+		</tr>
+		<tr>
+			<td align="right" th:text="|${coins} 개|">${coins} 개</td>
+		</tr>
+	</table>
+
 	<table border="1">
 		<tr>
 			<th align="center" width="80" th:text="#{item.itemId}">상품아이디</th>
@@ -43,11 +52,12 @@
 				</td>
 			</th:block>
 		</tr>
+		<br>
 		
 		<tr th:each="item : ${itemList}">
 			<td align="center" th:text="${item.itemId}">${item.itemId}</td>
-			<td align="left" th:text="${item.itemName}">${item.itemName}</td>
-			<td align="right" th:text="|${item.price} 원|">${item.price} 원</td>
+			<td align="center" th:text="${item.itemName}">${item.itemName}</td>
+			<td align="center" th:text="|${item.price} 원|">${item.price} 원</td>
 				
 			<th:block sec:authorize="hasRole('ADMIN')">
 				<td align="center"><a href="modify.html" th:href="|modify?itemId=${item.itemId}|" th:text="#{item.edit}">편집</a></td>

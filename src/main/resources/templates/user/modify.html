@@ -5,7 +5,7 @@
 <head>
 	<title>User</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<link rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}"/>	
+	<link rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}"/>
 </head>
 <body>
 <div layout:fragment="content">
@@ -47,30 +47,30 @@
 				</td>
 				<td><span class="error_message" th:if="${#fields.hasErrors('authList[0].auth')}" th:errors="*{authList[0].auth}">authList[0].auth의 에러 메시지</span></td>
 			</tr>
-			<tr>
-				<td th:text="#{user.auth} + ' - 2'">권한 - 2</td>
-				<td>
-					<select th:field="*{authList[1].auth}">
-						<option th:value="''">=== 선택해 주세요 ===</option>
-						<option th:value="'ROLE_USER'">사용자</option>
-						<option th:value="'ROLE_MEMBER'">회원</option>
-						<option th:value="'ROLE_ADMIN'">관리자</option>
-					</select>
-				</td>
-				<td><span class="error_message" th:if="${#fields.hasErrors('authList[1].auth')}" th:errors="*{authList[1].auth}">authList[1].auth의 에러 메시지</span></td>
-			</tr>
-			<tr>
-				<td th:text="#{user.auth} + ' - 3'">권한 - 3</td>
-				<td>
-					<select th:field="*{authList[2].auth}">
-						<option th:value="''">=== 선택해 주세요 ===</option>
-						<option th:value="'ROLE_USER'">사용자</option>
-						<option th:value="'ROLE_MEMBER'">회원</option>
-						<option th:value="'ROLE_ADMIN'">관리자</option>
-					</select>
-				</td>
-				<td><span class="error_message" th:if="${#fields.hasErrors('authList[2].auth')}" th:errors="*{authList[2].auth}">authList[2].auth의 에러 메시지</span></td>
-			</tr>					
+<!--			<tr>-->
+<!--				<td th:text="#{user.auth} + ' - 2'">권한 - 2</td>-->
+<!--				<td>-->
+<!--					<select th:field="*{authList[1].auth}">-->
+<!--						<option th:value="''">=== 선택해 주세요 ===</option>-->
+<!--						<option th:value="'ROLE_USER'">사용자</option>-->
+<!--						<option th:value="'ROLE_MEMBER'">회원</option>-->
+<!--						<option th:value="'ROLE_ADMIN'">관리자</option>-->
+<!--					</select>-->
+<!--				</td>-->
+<!--				<td><span class="error_message" th:if="${#fields.hasErrors('authList[1].auth')}" th:errors="*{authList[1].auth}">authList[1].auth의 에러 메시지</span></td>-->
+<!--			</tr>-->
+<!--			<tr>-->
+<!--				<td th:text="#{user.auth} + ' - 3'">권한 - 3</td>-->
+<!--				<td>-->
+<!--					<select th:field="*{authList[2].auth}">-->
+<!--						<option th:value="''">=== 선택해 주세요 ===</option>-->
+<!--						<option th:value="'ROLE_USER'">사용자</option>-->
+<!--						<option th:value="'ROLE_MEMBER'">회원</option>-->
+<!--						<option th:value="'ROLE_ADMIN'">관리자</option>-->
+<!--					</select>-->
+<!--				</td>-->
+<!--				<td><span class="error_message" th:if="${#fields.hasErrors('authList[2].auth')}" th:errors="*{authList[2].auth}">authList[2].auth의 에러 메시지</span></td>-->
+<!--			</tr>					-->
 		</table>
 	</form>
 	

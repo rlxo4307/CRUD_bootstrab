@@ -2,7 +2,7 @@
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <body>
-	<div align="right" th:fragment="header">
+	<div align="right" th:fragment="header" class="sb-topnav navbar navbar-expand navbar-dark bg-danger">
 		<table>
 			<tr sec:authorize="!isAuthenticated()">
 				<td width="80"><a href="../user/register.html" th:href="@{/user/register}" th:text="#{header.joinMember}">회원가입</a></td>
