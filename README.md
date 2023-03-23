@@ -21,3 +21,32 @@ b. Production sources directory: java
 4. 3.을 실행했다면, intellij 창 우측 상단 세로로 눕혀있는 Maven 클릭한 후
 Lifecycle -> clean 더블클릭 -> install 더블클릭
 을 수행하여 잘 동작하는지 확인한다.
+
+
+
+# Annotation 정리
+### Controller
+@Controller
+클래스에 @Controller를 선언함으로써 클라이언트의 요청을 직접적으로 받는 컴포넌트가 된다.
+클라이언트가 url을 통해 요청을 보낸 경로가 @GetMapping에 설정된 경로와 일치한다면 return 값에 명시된 html로 페이지를 이동시킨다.
+
+@RequestMapping
+특정 uri로 요청을 보내면 특정 메서드와 매핑하기 위해 사용하는 어노테이션.
+인자값으로 value뒤에 method를 명시해줘야 하는 불편함을 줄이기 위해, 공통 url은 class에 @RestMapping으로 설정한 후 메서드에 @GetMapping, @PostMapping 등을 이용한다.
+@ReusetMapping은 class와 method 모두에 붙일 수 있지만, @GetMapping과 @PostMapping은 method에만 붙일 수 있다.
+
+@GetMapping
+어떤 정보를 가져와서 조회하기 위해 사용되는 방식이다.
+@RequestMapping을 상속하며 URL에 변수를 포함시켜 요청하므로 보안에 취약하며 캐싱이 가능하다.
+괄호 안에 명시된 경로로 사용자가 url을 입력하면 해당 함수가 실행된 후 최종으로 (return에 기재된 단어).html을 클라이언트에게 VIEW로 반환한다
+
+@PostMapping
+데이터를 서버로 제출하여 무언가를 추가하거나 수정하기 위한 전송 방식이다.
+URL에 변수를 노출하지 않으므로 기본 보안이 있고 캐싱이 불가능하다.
+
+@RequiredArgsConstructor
+의존성 주입을 위한 생성자 주입 방식의 단점인 코드 생성의 귀찮음을 해결하는 역할을 한다.
+final이나 @NotNull이 붙은 필드의 생성자를 자동으로 생성해주는 롬복 어노테이션
+
+@PreAuthorize
+요청이 들어와 함수를 실행하기 전에 권한을 검사하는 어노테이션
