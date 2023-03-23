@@ -50,3 +50,18 @@ final이나 @NotNull이 붙은 필드의 생성자를 자동으로 생성해주�
 
 @PreAuthorize
 요청이 들어와 함수를 실행하기 전에 권한을 검사하는 어노테이션
+
+### Service의 @
+@RequiredArgsConstructor
+
+@Service
+@Component과 기능적 차이가 거의 없지만, 개발자간 소통, 레이어 별 구분을 하기 위해 서비스 Class에 명시해 사용한다.
+
+@Transactional
+DB 등의 트랜잭션 처리를 위해 사용하는 어노테이션.
+class나 method에 붙여 사용하며 class에 붙이면 class 내 모든 method에 적용된다.
+class에 붙이지 않고 method에 붙이면 해당 method에만 적용된다.
+
+@Override
+각 Service의 interface에 선언된 함수를 구현하기 위해 Override 한다.
+
