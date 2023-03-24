@@ -41,9 +41,6 @@ public class CodeServiceImpl implements CodeService {
 		
 		List<CodeLabelValue> codeList = new ArrayList<CodeLabelValue>();
 
-//		codeList.add(new CodeLabelValue("developer", "개발자"));
-//		codeList.add(new CodeLabelValue("programmer", "프로그래머"));
-
 		for(CodeDetail codeDetail : codeDetails) {
 			codeList.add(new CodeLabelValue(codeDetail.getCodeValue(), codeDetail.getCodeName()));
 		}
