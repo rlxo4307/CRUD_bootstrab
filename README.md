@@ -125,6 +125,15 @@ Large Object를 지정하는 데 사용한다. 대부분의 DB에서 Text, BLOB,
 17. @Transient
 DB에 저장되지 않은 엔티티 속성을 나타내며, 일시적으로 사용되는 속성을 나타낼 수 있다.
 
+### prop(프로퍼티)의 @
+1. @Getter
+
+2. @Setter
+
+3. @Component
+
+4. @ConfigurationProperties
+Spring Boot에서 *.properties나 *.yml 파일에 있는 property를 자바 클래스에 바인딩하여 사용할 수 있게 해준다.
 
 # 코어 기능 정리
 
