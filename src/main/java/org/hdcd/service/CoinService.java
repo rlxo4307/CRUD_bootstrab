@@ -13,5 +13,5 @@ public interface CoinService {
 	
 	public List<PayCoin> listPayHistory(Long userNo) throws Exception;
 
-	public List<ChargeCoin> personallist(Long userNo) throws Exception;
+	public List<ChargeCoin> personalList(Long userNo) throws Exception;
 }
