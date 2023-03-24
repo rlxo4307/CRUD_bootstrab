@@ -135,6 +135,17 @@ Large Object를 지정하는 데 사용한다. 대부분의 DB에서 Text, BLOB,
 17. @Transient
 DB에 저장되지 않은 엔티티 속성을 나타내며, 일시적으로 사용되는 속성을 나타낼 수 있다.
 
+18. @Column
+객체필드를 테이블의 컬럼에 매핑시켜준다.
+name, length, nullable 등 속성을 지정할 수 있다.
+
+19. @NoArgsConstructor
+파라미터가 없는 기본 생성자를 생성해준다.
+
+20. @AllArgsConstructor
+모든 필드 값을 파라미터로 받는 생성자를 만들어준다.
+
+
 ### prop(프로퍼티)의 @
 1. @Getter
 
