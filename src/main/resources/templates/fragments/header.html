@@ -1,22 +1,54 @@
 <html xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <body>
-	<div align="right" th:fragment="header" class="sb-topnav navbar navbar-expand navbar-dark bg-danger">
-		<table th:align="center">
-			<tr sec:authorize="!isAuthenticated()">
-				<td width="80"><a href="../user/register.html" th:href="@{/user/register}" th:text="#{header.joinMember}">회원가입</a></td>
-				<td width="80"><a href="../auth/loginForm.html" th:href="@{/auth/login}" th:text="#{header.login}">로그인</a></td>
-			</tr>
-			
-			<tr sec:authorize="isAuthenticated()">
-				<td width="180">
-					<form action="../auth/logout.html" th:action="@{/auth/logout}" method="POST">
-						<span sec:authentication="principal.username">홍길동</span>님 <button th:text="#{header.logout}">로그아웃</button>
-					</form>
-				</td>
-			</tr>
-		</table>
-	</div>
+<nav th:fragment="header" class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid" >
+        <a class="navbar-brand" href="/">Diquest</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarColor02">
+            <ul class="navbar-nav me-auto" sec:authorize="!isAuthenticated()">
+                <li class="nav-item">
+                    <a href="../user/register.html" th:href="@{/user/register}" th:text="#{header.joinMember}">회원가입<span class="visually-hidden">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a href="../auth/loginForm.html" th:href="@{/auth/login}" th:text="#{header.login}">로그인</a>
+                </li>
+            </ul>
+        </div>
+        <div class="collapse navbar-collapse" id="navbarColor03">
+            <ul class="navbar-nav me-auto" sec:authorize="isAuthenticated()">
+                <form action="../auth/logout.html" th:action="@{/auth/logout}" method="POST">
+                    <span sec:authentication="principal.username">홍길동</span>님
+                    <button th:text="#{header.logout}">로그아웃</button>
+                </form>
+            </ul>
+        </div>
+    </div>
+</nav>
 </body>
 </html>
+
+<!--
+<div align="right" th:fragment="header" class="sb-topnav navbar navbar-expand navbar-dark bg-danger">
+    <table th:align="center">
+        <tr sec:authorize="!isAuthenticated()">
+            <td width="80"><a href="../user/register.html" th:href="@{/user/register}" th:text="#{header.joinMember}">회원가입</a>
+            </td>
+            <td width="80"><a href="../auth/loginForm.html" th:href="@{/auth/login}" th:text="#{header.login}">로그인</a>
+            </td>
+        </tr>
+
+        <tr sec:authorize="isAuthenticated()">
+            <td width="180">
+                <form action="../auth/logout.html" th:action="@{/auth/logout}" method="POST">
+                    <span sec:authentication="principal.username">홍길동</span>님
+                    <button th:text="#{header.logout}">로그아웃</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>-->
