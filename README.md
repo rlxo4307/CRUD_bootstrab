@@ -21,3 +21,4 @@ b. Production sources directory: java
 4. 3.을 실행했다면, intellij 창 우측 상단 세로로 눕혀있는 Maven 클릭한 후
 Lifecycle -> clean 더블클릭 -> install 더블클릭
 을 수행하여 잘 동작하는지 확인한다.
+
