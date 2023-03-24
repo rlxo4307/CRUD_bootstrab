@@ -48,7 +48,7 @@ public class CoinServiceImpl implements CoinService {
 	}
 
 	@Override
-	public List<ChargeCoin> personalList(Long userNo) throws Exception {
+	public List<ChargeCoin> personallist(Long userNo) throws Exception {
 
 		List<Object[]> coinArrays = chargeCoinRepository.personalList(userNo);
 
