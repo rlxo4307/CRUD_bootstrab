@@ -135,6 +135,36 @@ DB에 저장되지 않은 엔티티 속성을 나타내며, 일시적으로 사�
 4. @ConfigurationProperties
 Spring Boot에서 *.properties나 *.yml 파일에 있는 property를 자바 클래스에 바인딩하여 사용할 수 있게 해준다.
 
+### common > aop의 @
+1. @Slf4j
+로그를 남기기 위한 방법으로 사용하며, 로깅에 대한 추상 레이어를 제공하는 인터페이스 모음이다.
+
+2. @Component
+개발자가 직접 작성한 Class를 Bean으로 등록하기 위해 사용한다.
+
+3. @Aspect
+@Aspect를 사용하면 aop를 구현한 것이라 인지를 하고, aop  구현을 위한 proxy 생성 등을 자동으로 해준다.
+
+4. @Autowired
+field, setter, method, constructor에서 사용하며, Type에 따라 자동으로 bean을 주입한다.
+Type을 먼저 확인하여 못 찾는 경우에는 name에 따라 bean을 주입하는데,
+이때 해당 타입의 bean 객체가 존재하지 않거나, 2개 이상 존재할 경우 스프링은 예외가 발생한다.
+
+5. @Around
+지정된 패턴에 해당하는 메소드가 실행되기 전, 후 모두에서 동작한다.
+@Around가 붙은 메소드의 반환 값은
+지정된 패턴에 해당하는 메소드의 실행 결과를 반환해야 하므로 Object이어야 한다.
+
+### common > exception의 @
+1. @Slfj4
+
+2. @ControllerAdvice
+@Controller에 대해 예외를 잡아 처리해주는 어노테이션이다.
+클래스 안에는 @ExceptionHandler를 통해 본인이 핸들링하고 싶은 예외를 잡아 처리하면 된다.
+
+3. @ExceptionHandler
+Bean에서 발생하는 예외를 잡아 하나의 메서드에서 처리해주는 어노테이션이다.
+
 # 코어 기능 정리
 
 ## Memeber > 권한, 계정, 검증, 보안
