@@ -11093,6 +11093,10 @@ table {
   font-size: 0.875rem;
 }
 
+.table-image {
+  width: 350px;
+}
+
 label,
 .control-label,
 .help-block,
