@@ -18,7 +18,7 @@
 		</select>
 		
 		<input class="form-insert" type="text" name="keyword" th:field="*{keyword}" />
-		<button class="btn btn-primary" id="searchBtn" th:text="#{action.search}">검색</button>
+		<button class="btn btn-secondary" id="searchBtn" th:text="#{action.search}">검색</button>
 	</form>
 	
 	<th:block sec:authorize="hasRole('MEMBER')">
