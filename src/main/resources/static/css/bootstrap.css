@@ -11262,3 +11262,17 @@ label,
   --bs-btn-disabled-bg: #eee;
   --bs-btn-disabled-border-color: #eee;
 }
+
+.table-info2 {
+  --bs-table-color: #fff;
+  --bs-table-bg: #40b0c5;
+  --bs-table-border-color: #6bc6e1;
+  --bs-table-striped-bg: #63c3e0;
+  --bs-table-striped-color: #fff;
+  --bs-table-active-bg: #6bc6e1;
+  --bs-table-active-color: #fff;
+  --bs-table-hover-bg: #67c5e0;
+  --bs-table-hover-color: #fff;
+  color: var(--bs-table-color);
+  border-color: var(--bs-table-border-color);
+}
