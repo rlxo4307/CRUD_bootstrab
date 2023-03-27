@@ -11204,3 +11204,8 @@ label,
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+
+.uploadedList {
+  color: #4da3bd;
+  font-size: 16px;
+}
