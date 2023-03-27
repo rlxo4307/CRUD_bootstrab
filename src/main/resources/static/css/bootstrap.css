@@ -2245,6 +2245,10 @@ textarea.form-control-lg {
   appearance: none;
 }
 
+.form-display-inline {
+  display: inline;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .form-select {
     transition: none;

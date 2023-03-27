@@ -14,7 +14,16 @@
 	<form class="form-group" id="chargeCoin" action="list.html" th:action="@{/coin/charge}" th:object="${chargeCoin}" method="POST">
 		<table>
 			<tr>
-				<td><input class="form-control" type="text" name="amount" /></td>
+				<td>
+					<div class="form-display-inline">
+						<input class="form-control" type="text" name="amount" />
+					</div>
+				</td>
+				<td>
+					<div class="form-display-inline">
+						원
+					</div>
+				</td>
 				<td><span class="error_message" th:if="${#fields.hasErrors('amount')}" th:errors="*{amount}">amount의 에러 메시지</span></td>
 			</tr>
 <!--				<tr>-->
