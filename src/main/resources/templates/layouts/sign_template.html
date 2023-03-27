@@ -1,0 +1,18 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <title>Common</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <script src="/js/jQuery-2.1.4.min.js"></script>
+    <link rel="stylesheet" href="../../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}"/>
+</head>
+
+<body>
+    <div th:replace="fragments/header::header"></div>
+    <hr>
+
+    <div align="center" layout:fragment="content">
+    </div>
+</body>
+</html>
