@@ -22,7 +22,7 @@
 	</form>
 	
 	<th:block sec:authorize="hasRole('MEMBER')">
-		<a class="btn btn-outline-primary" href="register.html" th:href="@{/board/register}" th:text="#{action.new}">새로만들기</a>
+		<a class="btn btn-outline-primary btn-margin-bottom" href="register.html" th:href="@{/board/register}" th:text="#{action.new}">새로만들기</a>
 	</th:block>
 	
 	<table class="table table-hover" border="1" th:with="boardList=${pgntn.page.content}">

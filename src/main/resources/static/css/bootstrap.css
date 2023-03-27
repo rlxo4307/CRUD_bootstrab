@@ -3063,6 +3063,11 @@ textarea.form-control-lg {
   --bs-btn-disabled-border-color: #222;
 }
 
+.btn-margin-bottom {
+  --bs-breadcrumb-margin-bottom: 0.35rem;
+  margin-bottom: var(--bs-breadcrumb-margin-bottom);
+}
+
 .btn-outline-primary {
   --bs-btn-color: #008cba;
   --bs-btn-border-color: #008cba;
