@@ -41,7 +41,7 @@
 
 		<tr th:if="${#lists.isEmpty(itemList)}">
 			<th:block sec:authorize="!hasRole('ADMIN')">
-				<td colspan="4" th:text="#{common.listEmpty}">
+				<td td scope="row" align="center" colspan="4" th:text="#{common.listEmpty}">
 					List is empty.
 				</td>
 			</th:block>
