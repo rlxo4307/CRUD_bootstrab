@@ -16,14 +16,16 @@
 		<a class="btn btn-outline-primary btn-margin-bottom" href="register.html" th:href="@{/item/register}" th:text="#{action.new}">새로만들기</a>
 	</th:block>
 
-	<table  border="1" th:width="240">
-		<tr>
-			<td align="center" width="80" th:text="#{coin.hold}">보유 코인</td>
-		</tr>
-		<tr>
-			<td align="center" th:text="|${coins} 개|">${coins} 개</td>
-		</tr>
-	</table>
+	<th:block sec:authorize="hasRole('MEMBER')">
+		<table  border="1" th:width="240">
+			<tr>
+				<td align="center" width="80" th:text="#{coin.hold}">보유 코인</td>
+			</tr>
+			<tr>
+				<td align="center" th:text="|${coins} 개|">${coins} 개</td>
+			</tr>
+		</table>
+	</th:block>
 
 	<table class="table table-hover" border="1">
 		<tr class="table-primary">
