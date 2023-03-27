@@ -3064,8 +3064,8 @@ textarea.form-control-lg {
 }
 
 .btn-margin-bottom {
-  --bs-breadcrumb-margin-bottom: 0.35rem;
-  margin-bottom: var(--bs-breadcrumb-margin-bottom);
+  --btn-margin-bottom: 0.35rem;
+  margin-bottom: var(--btn-margin-bottom);
 }
 
 .btn-outline-primary {
