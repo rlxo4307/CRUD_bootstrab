@@ -12,7 +12,7 @@
 	<h2 th:text="#{codedetail.header.register}">코드 등록</h2>
 	
 	<form id="codeDetail" action="list.html" th:action="@{/codedetail/register}" th:object="${codeDetail}" method="POST">
-		<table>
+		<table th:class="table-image">
 			<tr>
 				<td th:text="#{codedetail.groupCode}"></td>
 				<td>
@@ -24,18 +24,22 @@
 			</tr>
 			<tr>
 				<td th:text="#{codedetail.codeValue}"></td>
-				<td><input type="text" name="codeValue" th:field="*{codeValue}" /></td>
+				<div class="form-group">
+					<td><input type="text" class="form-control" name="codeValue" th:field="*{codeValue}" /></td>
+				</div>
 				<td><span class="error_message" th:if="${#fields.hasErrors('codeValue')}" th:errors="*{codeValue}">codeValue의 에러 메시지</span></td>
 			</tr>
 			<tr>
 				<td th:text="#{codedetail.codeName}"></td>
-				<td><input type="text" name="codeName" th:field="*{codeName}" /></td>
+				<div class="form-group">
+					<td><input type="text" class="form-control" name="codeName" th:field="*{codeName}" /></td>
+				</div>
 				<td><span class="error_message" th:if="${#fields.hasErrors('codeName')}" th:errors="*{codeName}">codeName의 에러 메시지</span></td>
 			</tr>
 		</table>
 	</form>
 	
-	<div>
+	<div class="btn-margin-bottom">
 		<button type="submit" class="btn btn-primary" id="btnRegister" th:text="#{action.register}">등록</button>
 		<button type="submit" class="btn btn-secondary" id="btnList" th:text="#{action.list}">목록</button>
 	</div>

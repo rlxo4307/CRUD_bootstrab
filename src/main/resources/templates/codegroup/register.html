@@ -12,21 +12,25 @@
 	<h2 th:text="#{codegroup.header.register}">코드그룹 등록</h2>
 	
 	<form id="codeGroup" action="list.html" th:action="@{/codegroup/register}" th:object="${codeGroup}" method="POST">
-		<table>
+		<table th:class="table-image">
 			<tr>
-				<td th:text="#{codegroup.groupCode}">코드그룹코드</td>
-				<td><input type="text" name="groupCode" th:field="*{groupCode}" /></td>
+				<td class="form-label mt-4" th:text="#{codegroup.groupCode}">코드그룹코드</td>
+				<div class="form-group">
+					<td><input type="text" input class="form-control" name="groupCode" th:field="*{groupCode}" /></td>
+				</div>
 				<td><span class="error_message" th:if="${#fields.hasErrors('groupCode')}" th:errors="*{groupCode}">groupCode의 에러 메시지</span></td>
 			</tr>
 			<tr>
-				<td th:text="#{codegroup.groupName}">코드그룹명</td>
-				<td><input type="text" name="groupName" th:field="*{groupName}" /></td>
+				<td class="form-label mt-4" th:text="#{codegroup.groupName}">코드그룹명</td>
+				<div class="form-group">
+					<td><input type="text" input class="form-control" name="groupName" th:field="*{groupName}" /></td>
+				</div>
 				<td><span class="error_message" th:if="${#fields.hasErrors('groupName')}" th:errors="*{groupName}">groupName의 에러 메시지</span></td>
 			</tr>
 		</table>
 	</form>
 	
-	<div>
+	<div class="btn-margin-bottom">
 		<button type="submit" class="btn btn-primary" id="btnRegister" th:text="#{action.register}">등록</button>
 		<button type="submit" class="btn btn-secondary" id="btnList" th:text="#{action.list}">목록</button>
 	</div>
