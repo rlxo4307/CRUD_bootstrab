@@ -16,40 +16,40 @@
 		<a href="register.html" th:href="@{/pds/register}" th:text="#{action.new}">새로만들기</a>
 	</th:block>
 	
-	<table border="1">
-		<tr>
-			<th align="center" width="80" th:text="#{pds.itemId}">자료번호</th>
-			<th align="center" width="320" th:text="#{pds.itemName}">자료명</th>
-			<th align="center" width="100" th:text="#{pds.viewCnt}">조회수</th>
+	<table class="table table-hover" border="1">
+		<tr class="table-primary">
+			<td scope="row" align="center" width="80" th:text="#{pds.itemId}">자료번호</td>
+			<td scope="row" align="center" width="320" th:text="#{pds.itemName}">자료명</td>
+			<td scope="row" align="center" width="100" th:text="#{pds.viewCnt}">조회수</td>
 			
 			<th:block sec:authorize="hasRole('ADMIN')">
-				<th align="center" width="80" th:text="#{pds.edit}">편집</th>
-				<th align="center" width="80" th:text="#{pds.remove}">제거</th>
+				<td scope="row" align="center" width="80" th:text="#{pds.edit}">편집</td>
+				<td scope="row" align="center" width="80" th:text="#{pds.remove}">제거</td>
 			</th:block>
 		</tr>
 		
 		<tr th:if="${#lists.isEmpty(itemList)}">
 			<th:block sec:authorize="!hasRole('ADMIN')">
-				<td colspan="3" th:text="#{common.listEmpty}">
+				<td scope="row" align="center" colspan="3" th:text="#{common.listEmpty}">
 					List is empty.
 				</td>
 			</th:block>
 			
 			<th:block sec:authorize="hasRole('ADMIN')">
-				<td colspan="5" th:text="#{common.listEmpty}">
+				<td scope="row" align="center" colspan="5" th:text="#{common.listEmpty}">
 					List is empty.
 				</td>
 			</th:block>
 		</tr>
 		
 		<tr th:each="item : ${itemList}">
-			<td align="center" th:text="${item.itemId}">${item.itemId}</td>
-			<td align="left"><a href="read.html" th:href="@{|/pds/read?itemId=${item.itemId}|}" th:text="${item.itemName}">${item.itemName}</a></td>
-			<td align="right" th:text="${item.viewCnt}">${item.viewCnt}</td>
+			<td scope="row" align="center" th:text="${item.itemId}">${item.itemId}</td>
+			<td scope="row" align="center"><a href="read.html" th:href="@{|/pds/read?itemId=${item.itemId}|}" th:text="${item.itemName}">${item.itemName}</a></td>
+			<td scope="row" align="center" th:text="${item.viewCnt}">${item.viewCnt}</td>
 			
 		<th:block sec:authorize="hasRole('ADMIN')">
-			<td align="center"><a href="modify.html" th:href="@{|/pds/modify?itemId=${item.itemId}|}" th:text="#{pds.edit}">편집</a></td>
-			<td align="center"><a href="remove.html" th:href="@{|/pds/remove?itemId=${item.itemId}|}" th:text="#{pds.remove}">제거</a></td>
+			<td scope="row" align="center"><a href="modify.html" th:href="@{|/pds/modify?itemId=${item.itemId}|}" th:text="#{pds.edit}">편집</a></td>
+			<td scope="row" align="center"><a href="remove.html" th:href="@{|/pds/remove?itemId=${item.itemId}|}" th:text="#{pds.remove}">제거</a></td>
 		</th:block>
 		</tr>	
 	</table>
