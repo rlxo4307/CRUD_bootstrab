@@ -2245,10 +2245,6 @@ textarea.form-control-lg {
   appearance: none;
 }
 
-.form-display-inline {
-  display: inline;
-}
-
 @media (prefers-reduced-motion: reduce) {
   .form-select {
     transition: none;
@@ -11211,6 +11207,16 @@ label,
   font-size: 16px;
 }
 
-/*.header-margin-top {*/
-/*  margin-top: 10px;*/
-/*}*/
+.div-display-middle {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.div-inline-block {
+  display: inline-block;
+}
+
+.white {
+  color: #f0f0f0;
+}
