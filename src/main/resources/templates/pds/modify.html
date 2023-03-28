@@ -14,14 +14,16 @@
 	<form id="pds" action="list.html" th:action="@{/pds/modify}" th:object="${pds}" method="POST" enctype="multipart/form-data">
 		<input type="hidden" name="itemId" th:field="*{itemId}" />		
 		
-		<table>
+		<table th:class="table-image">
 			<tr>
-				<td th:text="#{pds.itemName}">자료명</td>
-				<td><input type="text" name="itemName" th:field="*{itemName}" /></td>
+				<td class="form-label mt-4" th:text="#{pds.itemName}">자료명</td>
+				<div class="form-group">
+					<td><input type="text" class="form-control" name="itemName" th:field="*{itemName}" /></td>
+				</div>
 				<td><span class="error_message" th:if="${#fields.hasErrors('itemName')}" th:errors="*{itemName}">itemName의 에러 메시지</span></td>
 			</tr>
 			<tr>
-				<td th:text="#{pds.itemFile}">파일</td>
+				<td class="form-label mt-4" th:text="#{pds.itemFile}">파일</td>
 				<td>
 					<input type="file" id="inputFile">
 	
@@ -30,16 +32,18 @@
 				<td></td>
 			</tr>
 			<tr>
-				<td th:text="#{pds.itemDescription}">자료설명</td>
-				<td><textarea name="description" th:field="*{description}"></textarea></td>
+				<td class="form-label mt-4" th:text="#{pds.itemDescription}">자료설명</td>
+				<div class="form-group">
+					<td><textarea class="form-control" name="description" th:field="*{description}"></textarea></td>
+				</div>
 				<td><span class="error_message" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">description의 에러 메시지</span></td>
 			</tr>
 		</table>
 	</form>
 	
-	<div>
-		<button type="submit" id="btnModify" th:text="#{action.modify}">수정</button>
-		<button type="submit" id="btnList" th:text="#{action.list}">목록</button>
+	<div class="btn-margin-bottom">
+		<button type="submit" class="btn btn-primary" id="btnModify" th:text="#{action.modify}">수정</button>
+		<button type="submit" class="btn btn-secondary" id="btnList" th:text="#{action.list}">목록</button>
 	</div>
 	
 	<script th:inline="text">
