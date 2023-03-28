@@ -17,17 +17,9 @@
         </div>
         <div class="navbar-nav me-auto" sec:authorize="isAuthenticated()">
             <form class="div-display-middle" action="../auth/logout.html" th:action="@{/auth/logout}" method="POST">
-                <div>
-                    <div class="div-inline-block">
-                    <span class="white" sec:authentication="principal.username">홍길동</span>
-                    </div>
-                    <div class="div-inline-block">
-                        <span class="white">님</span>
-                    </div>
-                    <div class="div-inline-block">
-                        <button class="btn btn-secondary btn-sm" th:text="#{header.logout}">로그아웃</button>
-                    </div>
-                </div>
+                <span class="white" sec:authentication="principal.username">홍길동</span>
+                <span class="white">님</span>
+                <button class="btn btn-secondary btn-sm" th:text="#{header.logout}">로그아웃</button>
             </form>
         </div>
     </div>
