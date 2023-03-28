@@ -14,25 +14,23 @@
 	<form id="codeDetail" action="list.html" th:action="@{/codedetail/register}" th:object="${codeDetail}" method="POST">
 		<table th:class="table-image">
 			<tr>
-				<td class="form-label mt-4" th:text="#{codedetail.groupCode}">그룹코드</td>
+				<td th:text="#{codedetail.groupCode}"></td>
 				<td>
-					<div class="form-group">
-						<select class="form-select" th:field="*{groupCode}">
-							<option th:each="groupCode : ${groupCodeList}" th:value="${groupCode.value}" th:text="${groupCode.label}">hobby</option>
-						</select>
-					</div>
+					<select th:field="*{groupCode}">
+						<option th:each="groupCode : ${groupCodeList}" th:value="${groupCode.value}" th:text="${groupCode.label}">hobby</option>
+					</select>
 				</td>
 				<td><span class="error_message" th:if="${#fields.hasErrors('groupCode')}" th:errors="*{groupCode}">groupCode의 에러 메시지</span></td>
 			</tr>
 			<tr>
-				<td class="form-label mt-4" th:text="#{codedetail.codeValue}">코드값</td>
+				<td th:text="#{codedetail.codeValue}"></td>
 				<div class="form-group">
 					<td><input type="text" class="form-control" name="codeValue" th:field="*{codeValue}" /></td>
 				</div>
 				<td><span class="error_message" th:if="${#fields.hasErrors('codeValue')}" th:errors="*{codeValue}">codeValue의 에러 메시지</span></td>
 			</tr>
 			<tr>
-				<td class="form-label mt-4" th:text="#{codedetail.codeName}">코드명</td>
+				<td th:text="#{codedetail.codeName}"></td>
 				<div class="form-group">
 					<td><input type="text" class="form-control" name="codeName" th:field="*{codeName}" /></td>
 				</div>

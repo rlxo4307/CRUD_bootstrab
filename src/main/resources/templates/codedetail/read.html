@@ -16,11 +16,9 @@
 			<tr>
 				<td class="form-label mt-4" th:text="#{codedetail.groupCode}">그룹코드</td>
 				<td>
-					<div class="form-group">
-						<select class="form-select" th:field="*{groupCode}">
-							<option th:each="groupCode : ${groupCodeList}" th:value="${groupCode.value}" th:text="${groupCode.label}"></option>
-						</select>
-					</div>
+					<select th:field="*{groupCode}">
+						<option th:each="groupCode : ${groupCodeList}" th:value="${groupCode.value}" th:text="${groupCode.label}"></option>
+					</select>
 				</td>
 			</tr>
 			<tr>
