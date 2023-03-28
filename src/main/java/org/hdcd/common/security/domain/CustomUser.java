@@ -8,6 +8,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
+// 참고 . 인증 및 권한
+// https://bloodfinger.tistory.com/29
+// https://bit.ly/3JT5vMQ
 public class CustomUser extends User {
 
 	private static final long serialVersionUID = 1L;
