@@ -32,7 +32,7 @@
 				<td class="form-label mt-4" th:text="#{user.job}">직업</td>
 				<td>
 					<div class="form-group">
-						<select class="form-select mb-3" th:field="*{job}" disabled="disabled">
+						<select class="form-select" th:field="*{job}" disabled="disabled">
 							<option th:each="item : ${jobList}" th:value="${item.value}" th:text="${item.label}"></option>
 						</select>
 					</div>
@@ -42,7 +42,7 @@
 				<td class="form-label mt-4" th:text="#{user.auth} + ' - 1'">권한 - 1</td>
 				<td>
 					<div class="form-group">
-						<select class="form-select mb-3" th:field="*{authList[0].auth}" disabled="disabled">
+						<select class="form-select" th:field="*{authList[0].auth}" disabled="disabled">
 							<option th:value="''" th:text="'=== 선택해 주세요 ==='" />
 							<option th:value="'ROLE_USER'" th:text="'사용자'" />
 							<option th:value="'ROLE_MEMBER'" th:text="'회원'" />
@@ -55,7 +55,7 @@
 				<td class="form-label mt-4" th:text="#{user.auth} + ' - 2'">권한 - 2</td>
 				<td>
 					<div class="form-group">
-						<select class="form-select mb-3" th:field="*{authList[1].auth}" disabled="disabled">
+						<select class="form-select" th:field="*{authList[1].auth}" disabled="disabled">
 							<option th:value="''">=== 선택해 주세요 ===</option>
 							<option th:value="'ROLE_USER'">사용자</option>
 							<option th:value="'ROLE_MEMBER'">회원</option>
@@ -68,7 +68,7 @@
 				<td class="form-label mt-4" th:text="#{user.auth} + ' - 3'">권한 - 3</td>
 				<td>
 					<div class="form-group">
-						<select class="form-select mb-3" th:field="*{authList[2].auth}" disabled="disabled">
+						<select class="form-select" th:field="*{authList[2].auth}" disabled="disabled">
 							<option th:value="''">=== 선택해 주세요 ===</option>
 							<option th:value="'ROLE_USER'">사용자</option>
 							<option th:value="'ROLE_MEMBER'">회원</option>
