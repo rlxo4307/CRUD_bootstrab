@@ -11208,9 +11208,7 @@ label,
 }
 
 .div-display-middle {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+  margin: auto 0;
 }
 
 .div-inline-block {
