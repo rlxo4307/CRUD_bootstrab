@@ -13,7 +13,7 @@ public interface ChargeCoinRepository extends JpaRepository<ChargeCoin, Long> {
     @Query("SELECT cc.historyNo, cc.amount, cc.regDate "
             + "FROM Member m "
             + "INNER JOIN ChargeCoin cc ON cc.userNo = m.userNo "
-            + "WHERE m.userNo = cc.userNo AND cc.userNo=?1 ORDER BY cc.historyNo asc")
+            + "WHERE m.userNo = cc.userNo AND cc.userNo=?1 ORDER BY cc.historyNo DESC")
     public List<Object[]> personalList(Long userNo);
 
 
