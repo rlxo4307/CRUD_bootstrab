@@ -12,24 +12,28 @@
 	<h2 th:text="#{codegroup.header.read}">코드그룹 상세보기</h2>
 	
 	<form id="codeGroup" action="list.html" th:action="@{/codegroup/remove}" th:object="${codeGroup}" method="POST">
-		<table>
+		<table th:class="table-image">
 			<tr>
-				<td th:text="#{codegroup.groupCode}">코드그룹코드</td>
-				<td><input type="text" name="groupCode" th:field="*{groupCode}" readonly="readonly" /></td>
+				<td class="form-label mt-4" th:text="#{codegroup.groupCode}">코드그룹코드</td>
+				<div class="form-group">
+					<td><input type="text" class="form-control" name="groupCode" th:field="*{groupCode}" readonly="readonly" /></td>
+				</div>
 				<td></td>
 			</tr>
 			<tr>
-				<td th:text="#{codegroup.groupName}">코드그룹명</td>
-				<td><input type="text" name="groupName" th:field="*{groupName}" readonly="readonly" /></td>
+				<td class="form-label mt-4" th:text="#{codegroup.groupName}">코드그룹명</td>
+				<div class="form-group">
+					<td><input type="text" class="form-control" name="groupName" th:field="*{groupName}" readonly="readonly" /></td>
+				</div>
 				<td></td>
 			</tr>
 		</table>
 	</form>
 	
-	<div>
-		<button type="submit" id="btnEdit" th:text="#{action.edit}">편집</button>
-	    <button type="submit" id="btnRemove" th:text="#{action.remove}">삭제</button>
-		<button type="submit" id="btnList" th:text="#{action.list}">목록</button>
+	<div class="btn-margin-bottom">
+		<button type="submit" class="btn btn-primary" id="btnEdit" th:text="#{action.edit}">편집</button>
+	    <button type="submit" class="btn btn-info" id="btnRemove" th:text="#{action.remove}">삭제</button>
+		<button type="submit" class="btn btn-secondary" id="btnList" th:text="#{action.list}">목록</button>
 	</div>
 	
 	<script>
