@@ -16,19 +16,19 @@
 		
 		<table class="table-image">
 			<tr>
-				<td class="form-label mt-4" th:text="#{pds.itemName}">자료명</td>
+				<td class="form-label mt-4" th:text="#{pds.itemName}" th:width="70">자료명</td>
 				<div class="form-group">
 					<td><input class="form-control" type="text" name="itemName" th:field="*{itemName}" readonly="readonly" /></td>
 				</div>
 			</tr>
 			<tr>
-				<td class="form-label mt-4" th:text="#{pds.itemFile}">파일</td>
+				<td class="form-label mt-4" th:text="#{pds.itemFile}" th:width="70">파일</td>
 				<td>
 					<div class="uploadedList"></div>
 				</td>
 			</tr>
 			<tr>
-				<td class="form-label mt-4" th:text="#{pds.itemDescription}">자료설명</td>
+				<td class="form-label mt-4" th:text="#{pds.itemDescription}" th:width="70">자료설명</td>
 				<div class="form-group">
 					<td><textarea class="form-control" name="description" th:field="*{description}" readonly="readonly"></textarea></td>
 				</div>

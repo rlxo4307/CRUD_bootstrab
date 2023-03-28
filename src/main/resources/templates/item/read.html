@@ -20,25 +20,25 @@
 
 		<table th:class="table-image">
 			<tr>
-				<td class="form-label mt-4" th:text="#{item.itemName}">상품명</td>
+				<td class="form-label mt-4" th:text="#{item.itemName}" th:width="70">상품명</td>
 				<div class="form-group">
 					<td><input class="form-control" type="text" readonly="" name="itemName" th:field="*{itemName}" /></td>
 				</div>
 			</tr>
 			<tr>
-				<td class="form-label mt-4" th:text="#{item.itemPrice}">상품가격</td>
+				<td class="form-label mt-4" th:text="#{item.itemPrice}" th:width="70">상품가격</td>
 				<div>
 					<td><input class="form-control" type="text" readonly="" name="price" th:field="*{price}" /></td>
 				</div>
 			</tr>
 			<tr>
-				<td class="form-label mt-4" th:text="#{item.preview}">미리보기</td>
+				<td class="form-label mt-4" th:text="#{item.preview}" th:width="70">미리보기</td>
 				<div>
 					<td><img src="display?itemId=${item.itemId}" th:src="|display?itemId=${item.itemId}|" width="100%" height="100%"></td>
 				</div>
 			</tr>
 			<tr>
-				<td class="form-label mt-4" th:text="#{item.itemDescription}">상품설명</td>
+				<td class="form-label mt-4" th:text="#{item.itemDescription}" th:width="70">상품설명</td>
 				<div class="form-group">
 					<td><textarea class="form-control" name="description" th:field="*{description}"></textarea></td>
 				</div>
