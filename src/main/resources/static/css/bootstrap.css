@@ -11095,6 +11095,7 @@ textarea.form-control-lg {
 
 table {
   font-size: 0.875rem;
+
 }
 
 .table-image {
@@ -11209,3 +11210,7 @@ label,
   color: #4da3bd;
   font-size: 16px;
 }
+
+/*.header-margin-top {*/
+/*  margin-top: 10px;*/
+/*}*/

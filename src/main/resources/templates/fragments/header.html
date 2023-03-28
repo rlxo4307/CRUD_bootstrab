@@ -16,7 +16,7 @@
             </ul>
         </div>
         <div class="navbar-nav me-auto" sec:authorize="isAuthenticated()">
-            <form action="../auth/logout.html" th:action="@{/auth/logout}" method="POST">
+            <form class="header-margin-top" action="../auth/logout.html" th:action="@{/auth/logout}" method="POST">
                 <span sec:authentication="principal.username">홍길동</span>님
                 <button class="btn btn-secondary btn-sm" th:text="#{header.logout}">로그아웃</button>
             </form>
