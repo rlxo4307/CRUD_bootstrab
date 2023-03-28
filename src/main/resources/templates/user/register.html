@@ -44,11 +44,11 @@
 
 	</form>
 
-	<div colspan="2" align="center">
-		<button type="submit" id="btnRegister" class="btn btn-secondary btn-sm" th:text="#{action.register}">등록</button>
+	<div class="btn-margin-bottom">
+		<button type="submit" id="btnRegister" class="btn btn-primary" th:text="#{action.register}">등록</button>
 
 		<th:block sec:authorize="hasRole('ADMIN')">
-			<button type="submit" id="btnList" class="btn btn-secondary btn-sm" th:text="#{action.list}">목록</button>
+			<button type="submit" id="btnList" class="btn btn-secondary" th:text="#{action.list}">목록</button>
 		</th:block>
 	</div>
 
