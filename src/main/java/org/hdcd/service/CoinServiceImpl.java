@@ -53,10 +53,13 @@ public class CoinServiceImpl implements CoinService {
 		List<Object[]> coinArrays = chargeCoinRepository.personalList(userNo);
 
 		List<ChargeCoin>  coinList = new ArrayList<ChargeCoin>();
+		long rowNum = coinArrays.stream().count();
+
 		for(Object[] valueArray : coinArrays) {
 			ChargeCoin chargeCoin = new ChargeCoin();
 
-			chargeCoin.setHistoryNo((Long)valueArray[0]);
+//			chargeCoin.setHistoryNo((Long)valueArray[0]);
+			chargeCoin.setHistoryNo(rowNum--);
 			chargeCoin.setAmount((int)valueArray[1]);
 			chargeCoin.setRegDate((LocalDateTime)valueArray[2]);
 
@@ -71,10 +74,13 @@ public class CoinServiceImpl implements CoinService {
 		List<Object[]> valueArrays = payCoinRepository.listPayHistory(userNo);
 		
 		List<PayCoin> payCoinList = new ArrayList<PayCoin>();
+		long rowNum = valueArrays.stream().count();
+
 		for(Object[] valueArray : valueArrays) {
 			PayCoin payCoin = new PayCoin();
 			
-			payCoin.setHistoryNo((Long)valueArray[0]);
+//			payCoin.setHistoryNo((Long)valueArray[0]);
+			payCoin.setHistoryNo(rowNum--);
 			payCoin.setUserNo((Long)valueArray[1]);
 			payCoin.setItemId((Long)valueArray[2]);
 			payCoin.setItemName((String)valueArray[3]);

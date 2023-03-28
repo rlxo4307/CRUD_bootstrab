@@ -14,27 +14,31 @@
 	<form id="pds" action="./list.html" th:action="@{/pds/remove}" th:object="${pds}" method="POST">
 		<input type="hidden" name="itemId" th:field="*{itemId}" />		
 		
-		<table>
+		<table th:class="table-image">
 			<tr>
-				<td th:text="#{pds.itemName}">자료명</td>
-				<td><input type="text" name="itemName" th:field="*{itemName}" disabled="disabled" /></td>
+				<td class="form-label mt-4" th:text="#{pds.itemName}">자료명</td>
+				<div class="form-group">
+					<td><input class="form-control" type="text" name="itemName" th:field="*{itemName}" disabled="disabled" /></td>
+				</div>
 			</tr>
 			<tr>
-				<td th:text="#{pds.itemFile}">파일</td>
+				<td class="form-label mt-4" th:text="#{pds.itemFile}">파일</td>
 				<td>
 					<div class="uploadedList"></div>
 				</td>
 			</tr>
 			<tr>
-				<td th:text="#{pds.itemDescription}">자료설명</td>
-				<td><textarea name="description" th:field="*{description}" disabled="disabled"></textarea></td>
+				<td class="form-label mt-4" th:text="#{pds.itemDescription}">자료설명</td>
+				<div class="form-group">
+					<td><textarea class="form-control" name="description" th:field="*{description}" disabled="disabled"></textarea></td>
+				</div>
 			</tr>
 		</table>
 	</form>
 	
-	<div>
-		<button type="submit" id="btnRemove" th:text="#{action.remove}">삭제</button>
-		<button type="submit" id="btnList" th:text="#{action.list}">목록</button>
+	<div class="btn-margin-bottom">
+		<button type="submit" class="btn btn-primary" id="btnRemove" th:text="#{action.remove}">삭제</button>
+		<button type="submit" class="btn btn-secondary" id="btnList" th:text="#{action.list}">목록</button>
 	</div>
 	
 	<script>

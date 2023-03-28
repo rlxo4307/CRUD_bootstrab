@@ -15,29 +15,37 @@
 	<form id="item" action="list.html" th:action="@{/item/remove}" th:object="${item}" method="POST">
 		<input type="hidden" name="itemId" th:field="*{itemId}" />
 		
-		<table>
+		<table th:class="table-image">
 			<tr>
-				<td th:text="#{item.itemName}">상품명</td>
-				<td><input type="text" name="itemName" th:field="*{itemName}" disabled="disabled" /></td>
+				<td class="form-label mt-4" th:text="#{item.itemName}">상품명</td>
+				<div class="form-group">
+					<td><input class="form-control" type="text" name="itemName" th:field="*{itemName}" disabled="disabled" /></td>
+				</div>
 			</tr>
 			<tr>
-				<td th:text="#{item.itemPrice}">상품가격</td>
-				<td><input type="text" name="price" th:field="*{price}" disabled="disabled" />&nbsp;원</td>
+				<td class="form-label mt-4" th:text="#{item.itemPrice}">상품가격</td>
+				<div>
+					<td><input class="form-control" type="text" name="price" th:field="*{price}" disabled="disabled" /></td>
+				</div>
 			</tr>
 			<tr>
-				<td th:text="#{item.preview}">미리보기</td>
-				<td><img src="display?itemId=${item.itemId}" th:src="|display?itemId=${item.itemId}|" width="210"></td>
+				<td class="form-label mt-4" th:text="#{item.preview}">미리보기</td>
+				<div>
+					<td><img src="display?itemId=${item.itemId}" th:src="|display?itemId=${item.itemId}|" width="210"></td>
+				</div>
 			</tr>
 			<tr>
-				<td th:text="#{item.itemDescription}">상품설명</td>
-				<td><textarea name="description" th:field="*{description}" disabled="disabled"></textarea></td>
+				<td class="form-label mt-4" th:text="#{item.itemDescription}">상품설명</td>
+				<div class="form-group">
+					<td><textarea class="form-control" name="description" th:field="*{description}" disabled="disabled"></textarea></td>
+				</div>
 			</tr>
 		</table>
 	</form>
 	
-	<div>
-		<button type="submit" id="btnRemove" th:text="#{action.remove}">삭제</button>
-		<button type="submit" id="btnList" th:text="#{action.list}">목록</button>
+	<div class="btn-margin-bottom">
+		<button type="submit" class="btn btn-primary" id="btnRemove" th:text="#{action.remove}">삭제</button>
+		<button type="submit" class="btn btn-secondary" id="btnList" th:text="#{action.list}">목록</button>
 	</div>
 	
 	<script>
