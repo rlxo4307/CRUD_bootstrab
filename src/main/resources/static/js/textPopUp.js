@@ -5,7 +5,6 @@ $( function() {
 } );
 
 var popup;
-var getText;
 
 function selectText() {
     var selectionText = ""; //마우스로 드래그한 글
