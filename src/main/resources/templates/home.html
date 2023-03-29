@@ -1,22 +1,18 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="layouts/main_template">
-
 <head>
 	<title>Home</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<link rel="stylesheet" href="../../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}"/>
-
 	<script>
 		window.selectText();
 	</script>
-
 	<script>
 		$( function() {
 			$( "#draggable" ).draggable();
 		} );
 	</script>
-
 	<script type="text/javascript">
 		function selectText() {
 			var selectionText = ""; //마우스로 드래그한 글
@@ -34,7 +30,6 @@
 			popup.document.write(getText);
 		}
 	</script>
-
 </head>
 <body>
 <div layout:fragment="content" id="draggable">
