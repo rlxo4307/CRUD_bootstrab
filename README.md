@@ -46,19 +46,23 @@ Lifecycle -> clean 더블클릭 -> install 더블클릭
 데이터를 서버로 제출하여 무언가를 추가하거나 수정하기 위한 전송 방식이다.
 URL에 변수를 노출하지 않으므로 기본 보안이 있고 캐싱이 불가능하다.
 
-5. @RequiredArgsConstructor
+5. @ModelAttribute
+HTTP Body 내용과 HTTP 파라미터의 값들을 Getter, Setter, 생성자를 통해 주입하기 위해 사용한다.
+(일반 변수의 경우 전달이 불가능하기 때문에 model 객체를 통해서 전달해야 한다)
+
+6. @RequiredArgsConstructor
 의존성 주입을 위한 생성자 주입 방식의 단점인 코드 생성의 귀찮음을 해결하는 역할을 한다.
 final이나 @NotNull이 붙은 필드의 생성자를 자동으로 생성해주는 롬복 어노테이션
 
-6. @PreAuthorize
+7. @PreAuthorize
 요청이 들어와 함수를 실행하기 전에 권한을 검사하는 어노테이션
 
-7. @RequestBody
+8. @RequestBody
 @RequestBody 가 붙은 파라미터에는 http요청의 본문(body)이 그대로 전달된다.
 일반적인 GET/POST의 요청 파라미터라면 @RequestBody를 사용할 일이 없을 것이다.
 반면에 xml이나 json기반의 메시지를 사용하는 요청의 경우에 HTTP 요청의 바디내용을 통째로 자바객체로 변환해서 매핑된 메소드 파라미터로 전달해준다.
 
-8. @ResponseBody
+9. @ResponseBody
 자바객체를 HTTP요청의 바디내용으로 매핑하여 클라이언트로 전송한다.
 @ResponseBody 가 붙은 파라미터가 있으면 HTTP요청의 미디어타입과 파라미터의 타입을 먼저 확인한다.
 
