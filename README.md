@@ -52,17 +52,20 @@ HTTP Body 내용과 HTTP 파라미터의 값들을 Getter, Setter, 생성자를 
 
 6. @RequiredArgsConstructor
 의존성 주입을 위한 생성자 주입 방식의 단점인 코드 생성의 귀찮음을 해결하는 역할을 한다.
-final이나 @NotNull이 붙은 필드의 생성자를 자동으로 생성해주는 롬복 어노테이션
+final이나 @NotNull이 붙은 필드의 생성자를 자동으로 생성해주는 롬복 어노테이션.
 
 7. @PreAuthorize
 요청이 들어와 함수를 실행하기 전에 권한을 검사하는 어노테이션
 
-8. @RequestBody
+8. @Validated
+AOP(Aspect Oriented Programming)을 기반으로 메서드의 요청을 가로채서 유효성 검증을 진행한다.
+
+9. @RequestBody
 @RequestBody 가 붙은 파라미터에는 http요청의 본문(body)이 그대로 전달된다.
 일반적인 GET/POST의 요청 파라미터라면 @RequestBody를 사용할 일이 없을 것이다.
 반면에 xml이나 json기반의 메시지를 사용하는 요청의 경우에 HTTP 요청의 바디내용을 통째로 자바객체로 변환해서 매핑된 메소드 파라미터로 전달해준다.
 
-9. @ResponseBody
+10. @ResponseBody
 자바객체를 HTTP요청의 바디내용으로 매핑하여 클라이언트로 전송한다.
 @ResponseBody 가 붙은 파라미터가 있으면 HTTP요청의 미디어타입과 파라미터의 타입을 먼저 확인한다.
 
