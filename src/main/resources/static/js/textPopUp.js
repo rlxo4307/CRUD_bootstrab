@@ -5,6 +5,7 @@ $( function() {
 } );
 
 var popup;
+var getText;
 
 function selectText() {
     var selectionText = ""; //마우스로 드래그한 글
@@ -19,7 +20,7 @@ function selectText() {
 
 function dragPopUp(){
     if(popup != null) popup.close();
-    popup = window.open("", '지식작업', 'width=400px,height=300px,scrollbars=yes');
+    popup = window.open("", "", 'width=400px,height=300px,scrollbars=yes');
     var getText = selectText();
-    popup.document.write(getText);
+    popup.document.write("<html><head><title>지식작업</title></head><body></body></html>", getText);
 }
