@@ -4,6 +4,8 @@ $( function() {
     $( "#draggable" ).draggable();
 } );
 
+var popup;
+
 function selectText() {
     var selectionText = ""; //마우스로 드래그한 글
 
@@ -16,7 +18,8 @@ function selectText() {
 }
 
 function dragPopUp(){
-    var popup = window.open("", '지식작업', 'width=400px,height=300px,scrollbars=yes');
+    if(popup != null) popup.close();
+    popup = window.open("", '지식작업', 'width=400px,height=300px,scrollbars=yes');
     var getText = selectText();
     popup.document.write(getText);
 }
