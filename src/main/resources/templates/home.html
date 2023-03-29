@@ -28,7 +28,7 @@
 			}
 			return selectionText;
 		}
-		function openPop(){
+		function dragPopUp(){
 			var popup = window.open("", '지식작업', 'width=400px,height=300px,scrollbars=yes');
 			getText = selectText();
 			popup.document.write(getText);
@@ -38,7 +38,7 @@
 </head>
 <body>
 <div layout:fragment="content" id="draggable">
-	<h1 href="#none" target="_blank" onclick="openPop()" th:text="#{common.homeWelcome}" class="itemm">
+	<h1 href="#none" target="_blank" onclick="dragPopUp()" th:text="#{common.homeWelcome}" class="itemm">
 		Image Shop에 오신 것을 환영합니다.
 	</h1>
 	
