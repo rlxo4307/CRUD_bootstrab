@@ -6,10 +6,41 @@
 	<title>Home</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<link rel="stylesheet" href="../../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}"/>
+
+	<script>
+		window.selectText();
+	</script>
+
+	<script>
+		$( function() {
+			$( "#draggable" ).draggable();
+		} );
+	</script>
+
+	<script type="text/javascript">
+		function selectText() {
+			var selectionText = ""; //마우스로 드래그한 글
+
+			if (document.getSelection) {
+				selectionText = document.getSelection();
+			} else if (document.selection) {
+				selectionText = document.selection.createRange().text;
+			}
+			return selectionText;
+		}
+		function openPop(){
+			var popup = window.open("", '지식작업', 'width=400px,height=300px,scrollbars=yes');
+			getText = selectText();
+			popup.document.write(getText);
+		}
+	</script>
+
 </head>
 <body>
-<div layout:fragment="content">
-	<h1 th:text="#{common.homeWelcome}">Image Shop에 오신 것을 환영합니다.</h1>
+<div layout:fragment="content" id="draggable">
+	<h1 href="#none" target="_blank" onclick="openPop()" th:text="#{common.homeWelcome}" class="itemm">
+		Image Shop에 오신 것을 환영합니다.
+	</h1>
 	
 	<p th:text="${serverTime}">시간 표시</p>
 </div>
