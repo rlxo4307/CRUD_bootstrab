@@ -20,23 +20,23 @@ import java.util.Locale;
 
 @RequiredArgsConstructor
 @Controller
-@RequestMapping("/dic")
+@RequestMapping("/siteUdic")
 public class DictionaryController {
     private final DictionaryService service;
     private final MessageSource messageSource;
 
 
-    @GetMapping("/siteUdic")
+    @GetMapping("/renew")
     @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
     public void renewForm(Model model) throws Exception {
         SiteUdic siteUdic = new SiteUdic();
-        siteUdic.set_word("입력");
+        siteUdic.set_word("입력단어");
 
         model.addAttribute(siteUdic);
     }
 
 
-    @PostMapping("/siteUdic")
+    @PostMapping("/renew")
     @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
     public String insert(String word, String memo, RedirectAttributes rttr, Authentication authentication) throws Exception {
 
@@ -44,14 +44,43 @@ public class DictionaryController {
         String message = "";
 
         if(success == 1) {
-            message = messageSource.getMessage("dic.chargingComplete", null, Locale.KOREAN);
+            message = messageSource.getMessage("dic.renewComplete", null, Locale.KOREAN);
         }
         if(success == 0) {
-            message = messageSource.getMessage("dic.chargingFail", null, Locale.KOREAN);
+            message = messageSource.getMessage("dic.renewFail", null, Locale.KOREAN);
         }
         rttr.addFlashAttribute("msg", message);
 
-        return "redirect:/dic/insertResult";
+        return "redirect:/siteUdic/insertResult";
+    }
+
+
+    @GetMapping("/remove")
+    @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
+    public void removeForm(Model model) throws Exception {
+        SiteUdic siteUdic = new SiteUdic();
+        siteUdic.set_word("삭제단어");
+
+        model.addAttribute(siteUdic);
+    }
+
+
+    @PostMapping("/remove")
+    @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
+    public String remove(String word, RedirectAttributes rttr, Authentication authentication) throws Exception {
+
+        int success = service.remove(word, authentication);
+        String message = "";
+
+        if(success == 1) {
+            message = messageSource.getMessage("dic.removeComplete", null, Locale.KOREAN);
+        }
+        if(success == 0) {
+            message = messageSource.getMessage("dic.removeFail", null, Locale.KOREAN);
+        }
+        rttr.addFlashAttribute("msg", message);
+
+        return "redirect:/siteUdic/insertResult";
     }
 
 
@@ -70,7 +99,7 @@ public class DictionaryController {
     @GetMapping("/insertResult")
     @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
     public String success() throws Exception {
-        return "dic/insertResult";
+        return "siteUdic/insertResult";
     }
 
 }
