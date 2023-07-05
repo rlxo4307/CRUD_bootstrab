@@ -28,33 +28,46 @@ public class DictionaryServiceImpl implements DictionaryService {
         String userId = member.getUserId();
 
         List<SiteUdic> udicList = list(userId);
-        int hasWord = 0;
 
         for(int i=0; i<udicList.size(); i++){
             if(word.equals(udicList.get(i).get_word())) {
-                hasWord = 1;
-                break;
+                return 0;
             }
         }
-        if(hasWord == 0){
-            SiteUdic siteUdic = new SiteUdic();
-            LocalDateTime now = LocalDateTime.now();
 
-            siteUdic.set_word(word);
-            siteUdic.set_memo(memo);
-            siteUdic.set_user_id(userId);
-            siteUdic.set_upDated(now);
+        SiteUdic siteUdic = new SiteUdic();
+        LocalDateTime now = LocalDateTime.now();
 
-            udicList.add(siteUdic);
-            dictionaryRepository.save(siteUdic);
-            return 1;
+        siteUdic.set_word(word);
+        siteUdic.set_memo(memo);
+        siteUdic.set_user_id(userId);
+        siteUdic.set_upDated(now);
+
+        dictionaryRepository.save(siteUdic);
+        return 1;
+    }
+
+    @Override
+    public int remove(String word, Authentication authentication) throws Exception {
+        CustomUser customUser = (CustomUser) authentication.getPrincipal();
+        Member member = customUser.getMember();
+
+        String userId = member.getUserId();
+
+        List<SiteUdic> udicList = list(userId);
+
+        for(int i=0; i<udicList.size(); i++){
+            if(word.equals(udicList.get(i).get_word())) {
+                dictionaryRepository.personalDicRemove(word);
+                return 1;
+            }
         }
         return 0;
     }
 
     @Override // 사용자 사전 리스트
     public List<SiteUdic> list(String userId) throws Exception {
-        List<Object[]> dicArrays = dictionaryRepository.personalDiclist(userId);
+        List<Object[]> dicArrays = dictionaryRepository.personalDicList(userId);
 
         List<SiteUdic> udicList = new ArrayList<>();
 
