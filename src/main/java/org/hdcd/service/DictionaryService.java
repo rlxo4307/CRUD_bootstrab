@@ -9,8 +9,11 @@ import java.util.List;
 public interface DictionaryService {
 
     int insert(String word, String memo, Authentication authentication) throws Exception;
+//    int insert(SiteUdic siteUdic) throws Exception;
 
     int remove(String word, Authentication authentication) throws Exception;
+
+    int update (String word, String memo, Authentication authentication) throws Exception;
 
     List<SiteUdic> list(String userId) throws Exception;
 }
