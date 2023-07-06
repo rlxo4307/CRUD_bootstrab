@@ -24,6 +24,7 @@
                     <td align="center"><a href="../notice/list.html" th:href="@{/notice/list}" th:text="#{menu.notice.admin}">공지사항관리</a></td>
                     <td align="center"><a href="../item/list.html" th:href="@{/item/list}" th:text="#{menu.item.admin}">상품관리</a></td>
                     <td align="center"><a href="../pds/list.html" th:href="@{/pds/list}" th:text="#{menu.pds.admin}">공개자료실관리</a></td>
+                    <td align="center"><a href="../siteUdic/manage.html" th:href="@{/siteUdic/list}" th:text="#{menu.dic.member}">사용자사전관리</a></td>
                 </th:block>
 
                 <th:block sec:authorize="hasRole('MEMBER')">
@@ -35,6 +36,7 @@
                     <td align="center"><a href="../useritem/list.html" th:href="@{/useritem/list}" th:text="#{menu.useritem.list}">구매상품</a></td>
                     <td align="center"><a href="../coin/listPay.html" th:href="@{/coin/listPay}" th:text="#{menu.coin.listPay}">구매내역</a></td>
                     <td align="center"><a href="../pds/list.html" th:href="@{/pds/list}" th:text="#{menu.pds.member}">공개자료실</a></td>
+                    <td align="center"><a href="../siteUdic/manage.html" th:href="@{/siteUdic/list}" th:text="#{menu.dic.member}">사용자사전관리</a></td>
                 </th:block>
 
             </th:block>
