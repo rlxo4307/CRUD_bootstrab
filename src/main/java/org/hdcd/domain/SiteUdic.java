@@ -39,6 +39,6 @@ public class SiteUdic {
 
     @NotBlank
     @UpdateTimestamp
-    private LocalDateTime _upDated;
+    private LocalDateTime _up_dated;
 
 }
