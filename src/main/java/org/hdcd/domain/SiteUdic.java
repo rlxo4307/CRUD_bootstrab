@@ -1,6 +1,7 @@
 package org.hdcd.domain;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -38,6 +39,6 @@ public class SiteUdic {
 
     @NotBlank
     @UpdateTimestamp
-    private LocalDate _upDated;
+    private LocalDateTime _upDated;
 
 }
