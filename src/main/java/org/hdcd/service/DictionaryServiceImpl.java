@@ -58,7 +58,7 @@ public class DictionaryServiceImpl implements DictionaryService {
 
         for(int i=0; i<udicList.size(); i++){
             if(word.equals(udicList.get(i).get_word())) {
-                dictionaryRepository.personalDicRemove(word);
+                dictionaryRepository.deleteById(word);
                 return 1;
             }
         }
