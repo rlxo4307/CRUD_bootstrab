@@ -1,6 +1,5 @@
 package org.hdcd.domain;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -11,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import lombok.Getter;
@@ -26,19 +26,19 @@ public class SiteUdic {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(length = 300, nullable = false)
+    @Column(length = 128, nullable = false)
     private String _word;
 
     @NotBlank
-    @Column(length = 300, nullable = false)
+    @Column(length = 128, nullable = false)
     private String _memo;
 
     @NotBlank
-    @Column(length = 100, nullable = false)
+    @Column(length = 32, nullable = false)
     private String _user_id;
 
     @NotBlank
-    @UpdateTimestamp
+    @CreationTimestamp
     private LocalDateTime _up_dated;
 
 }
