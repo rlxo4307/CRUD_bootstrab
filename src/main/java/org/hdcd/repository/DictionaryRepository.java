@@ -16,8 +16,4 @@ public interface DictionaryRepository extends JpaRepository<SiteUdic, String> {
             + "WHERE _user_id LIKE ?1 ")
     public List<Object[]> personalDicList(String userId);
 
-    @Query("DELETE FROM SiteUdic "
-            + "WHERE _user_id LIKE ?1 ")
-    public void personalDicRemove(String userId);
-
 }
