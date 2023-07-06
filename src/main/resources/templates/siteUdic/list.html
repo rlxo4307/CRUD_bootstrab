@@ -3,7 +3,7 @@
 	layout:decorate="layouts/main_template">
 
 <head>
-	<title>SiteUdic</title>
+	<title>siteUdic</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<link rel="stylesheet" href="../../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}"/>
 </head>
@@ -27,7 +27,7 @@
 		<tr th:each="siteUdic : ${list}">
 			<td scope="row" align="center" th:text="${siteUdic._word}">${siteUdic.word}</td>
 			<td scope="row" align="center" th:text="${siteUdic._memo}">${siteUdic.memo}</td>
-			<td scope="row" align="center" th:text="${#temporals.format(siteUdic._upDated, 'yyyy-MM-dd HH:mm')}">${siteUdic.regDate}</td>
+			<td scope="row" align="center" th:text="${#temporals.format(siteUdic._up_dated, 'yyyy-MM-dd HH:mm')}">${siteUdic.regDate}</td>
 		</tr>
 	</table>
 </div>
