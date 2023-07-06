@@ -55,6 +55,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		.antMatchers("/pds/list", "/pds/read", "/pds/getAttach/**", "/pds/downloadFile").permitAll()
 		.antMatchers("/pds/**").hasRole("ADMIN")
 		.antMatchers("/error/**").permitAll()
+		.antMatchers("/siteUdic/**").hasAnyRole("MEMBER", "ADMIN") // 사용자 사전 수정 페이지 접근을 위한, 권한 부여
 		.anyRequest().authenticated();		
 		
 		http.formLogin()
