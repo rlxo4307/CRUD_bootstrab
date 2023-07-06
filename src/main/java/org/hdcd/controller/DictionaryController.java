@@ -1,6 +1,7 @@
 package org.hdcd.controller;
 
 import org.hdcd.common.security.domain.CustomUser;
+import org.hdcd.domain.ChargeCoin;
 import org.hdcd.domain.Member;
 import org.hdcd.domain.SiteUdic;
 import org.hdcd.service.DictionaryService;
@@ -30,11 +31,10 @@ public class DictionaryController {
     @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
     public void renewForm(Model model) throws Exception {
         SiteUdic siteUdic = new SiteUdic();
-        siteUdic.set_word("입력단어");
+        siteUdic.set_word("단어 입력");
 
         model.addAttribute(siteUdic);
     }
-
 
     @PostMapping("/renew")
     @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
@@ -54,16 +54,44 @@ public class DictionaryController {
         return "redirect:/siteUdic/insertResult";
     }
 
+//    @PostMapping("/renew")
+//    @PreAuthorize("hasRole('MEMBER')")
+//    public String insert(String word, String memo, RedirectAttributes rttr, Authentication authentication) throws Exception {
+//        CustomUser customUser = (CustomUser) authentication.getPrincipal();
+//        Member member = customUser.getMember();
+//
+//        String userId = member.getUserId();
+//
+//        SiteUdic siteUdic = new SiteUdic();
+//
+//        siteUdic.set_word(word);
+//        siteUdic.set_memo(memo);
+//        siteUdic.set_user_id(userId);
+//
+//        int success = service.insert(siteUdic);
+//        String message = "";
+//
+//        if(success == 1) {
+//            message = messageSource.getMessage("dic.renewComplete", null, Locale.KOREAN);
+//        }
+//        if(success == 0) {
+//            message = messageSource.getMessage("dic.renewFail", null, Locale.KOREAN);
+//        }
+//        rttr.addFlashAttribute("msg", message);
+//
+//        return "redirect:/siteUdic/insertResult";
+//    }
+
+
 
     @GetMapping("/remove")
     @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
     public void removeForm(Model model) throws Exception {
         SiteUdic siteUdic = new SiteUdic();
-        siteUdic.set_word("삭제단어");
+        siteUdic.set_word("단어 삭제");
 
         model.addAttribute(siteUdic);
     }
-
 
     @PostMapping("/remove")
     @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
@@ -82,6 +110,36 @@ public class DictionaryController {
 
         return "redirect:/siteUdic/insertResult";
     }
+
+
+
+    @GetMapping("/modify")
+    @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
+    public void updateForm(Model model) throws Exception {
+        SiteUdic siteUdic = new SiteUdic();
+        siteUdic.set_word("단어 수정");
+
+        model.addAttribute(siteUdic);
+    }
+
+    @PostMapping("/modify")
+    @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
+    public String update(String word, String memo, RedirectAttributes rttr, Authentication authentication) throws Exception {
+
+        int success = service.update(word, memo, authentication);
+        String message = "";
+
+        if(success == 1) {
+            message = messageSource.getMessage("dic.modifyComplete", null, Locale.KOREAN);
+        }
+        if(success == 0) {
+            message = messageSource.getMessage("dic.modifyFail", null, Locale.KOREAN);
+        }
+        rttr.addFlashAttribute("msg", message);
+
+        return "redirect:/siteUdic/insertResult";
+    }
+
 
 
     @GetMapping("/list")
