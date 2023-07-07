@@ -20,13 +20,13 @@ public interface DictionaryRepository extends JpaRepository<SiteUdic, String> {
 
     @Transactional
     @Modifying
-    @Query(value = "INSERT INTO $Site_Udic (_word, _memo, _user_id, _up_dated) VALUES (:word, :memo, :userId, :currentTime)", nativeQuery = true)
+    @Query(value = "INSERT INTO $Site_Udic (_word, _memo, _user_id, _up_dated) VALUES (?1, ?2, ?3, ?4)", nativeQuery = true)
     void renew(@Param("word") String word, @Param("memo") String memo, @Param("userId") String userId, @Param("currentTime") LocalDateTime currentTime);
 
 
     @Transactional
     @Modifying
-    @Query(value = "UPDATE $Site_Udic SET _memo=:#{#SiteUdic.memo} WHERE _user_id LIKE :#{#siteUdic.userId}", nativeQuery = true)
-    void personalDicUpdate(@Param("SiteUdic") SiteUdic siteUdic);
+    @Query(value = "UPDATE $Site_Udic SET _word=:word, _memo=:memo, _user_id=:userId, _up_dated=:currentTime WHERE _word LIKE :word", nativeQuery = true)
+    void personalDicUpdate(@Param("word") String word, @Param("memo") String memo, @Param("userId") String userId, @Param("currentTime") LocalDateTime currentTime);
 
 }
