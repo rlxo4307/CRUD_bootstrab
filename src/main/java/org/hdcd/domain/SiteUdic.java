@@ -8,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -28,15 +27,12 @@ public class SiteUdic {
     @Column(length = 128, nullable = false)
     private String _word;
 
-    @NotBlank
     @Column(length = 128, nullable = false)
     private String _memo;
 
-    @NotBlank
     @Column(length = 32, nullable = false)
     private String _user_id;
 
-    @NotBlank
     @CreationTimestamp
     private LocalDateTime _up_dated;
 
