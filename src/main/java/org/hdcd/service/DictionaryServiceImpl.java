@@ -10,6 +10,7 @@ import org.hdcd.domain.SiteUdic;
 import org.hdcd.repository.DictionaryRepository;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 
@@ -20,6 +21,7 @@ public class DictionaryServiceImpl implements DictionaryService {
     private final DictionaryRepository dictionaryRepository;
 
 
+    @Transactional
     @Override // 사용자 사전에 단어 추가
     public int insert(String word, String memo, Authentication authentication) throws Exception {
         CustomUser customUser = (CustomUser) authentication.getPrincipal();
@@ -35,46 +37,30 @@ public class DictionaryServiceImpl implements DictionaryService {
             }
         }
 
-        SiteUdic siteUdic = new SiteUdic();
+//        SiteUdic siteUdic = new SiteUdic();
         LocalDateTime currentTime = LocalDateTime.now();
 
-        siteUdic.set_word(word);
-        siteUdic.set_memo(memo);
-        siteUdic.set_user_id(userId);
-        siteUdic.set_up_dated(currentTime);
+//        siteUdic.set_word(word);
+//        siteUdic.set_memo(memo);
+//        siteUdic.set_user_id(userId);
+//        siteUdic.set_up_dated(currentTime);
 
-//        dictionaryRepository.save(siteUdic);
-        dictionaryRepository.renew(word, memo, userId, currentTime);
+        try {
+            dictionaryRepository.renew(word, memo, userId, currentTime);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
+//        try {
+//            dictionaryRepository.save(siteUdic);
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
         return 1;
     }
 
-//    @Override // 사용자 사전에 단어 추가
-//    public int insert(SiteUdic siteUdic) throws Exception {
-//        SiteUdic siteEntity = dictionaryRepository.getOne(siteUdic.get_user_id());
-//
-//        String userId = siteUdic.get_user_id();
-//        String word = siteUdic.get_word();
-//        String memo = siteUdic.get_memo();
-//
-//        List<SiteUdic> udicList = list(userId);
-//
-//        for(int i=0; i<udicList.size(); i++){
-//            if(word.equals(udicList.get(i).get_word())) {
-//                return 0;
-//            }
-//        }
-//
-//        LocalDateTime currentTime = LocalDateTime.now();
-//        siteUdic.set_up_dated(currentTime);
-//
-//        dictionaryRepository.save(siteUdic);
-////        dictionaryRepository.renew(word, memo, userId, currentTime);
-//
-//        return 1;
-//    }
 
-    @Override
+    @Override // 사용자 사전의 단어 제거
     public int remove(String word, Authentication authentication) throws Exception {
         CustomUser customUser = (CustomUser) authentication.getPrincipal();
         Member member = customUser.getMember();
@@ -92,7 +78,7 @@ public class DictionaryServiceImpl implements DictionaryService {
         return 0;
     }
 
-    @Override
+    @Override // 사용자 사전 단어 업데이트
     public int update (String word, String memo, Authentication authentication) throws Exception {
         CustomUser customUser = (CustomUser) authentication.getPrincipal();
         Member member = customUser.getMember();
@@ -111,7 +97,11 @@ public class DictionaryServiceImpl implements DictionaryService {
 
         for(int i=0; i<udicList.size(); i++){
             if(word.equals(udicList.get(i).get_word())) {
-                dictionaryRepository.personalDicUpdate(siteUdic);
+                try {
+                    dictionaryRepository.personalDicUpdate(siteUdic);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
                 return 1;
             }
         }
