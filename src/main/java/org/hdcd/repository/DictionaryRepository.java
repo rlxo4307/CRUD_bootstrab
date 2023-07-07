@@ -18,9 +18,15 @@ public interface DictionaryRepository extends JpaRepository<SiteUdic, String> {
     public List<Object[]> personalDicList(String userId);
 
 
+//    @Transactional
+//    @Modifying
+//    @Query(value = "INSERT INTO SiteUdic (_word, _memo, _user_id, _up_dated) VALUES (:word, :memo, :userId, :currentTime)", nativeQuery = true)
+//    SiteUdic renew(@Param("word") String word, @Param("memo") String memo, @Param("userId") String userId, @Param("currentTime") LocalDateTime currentTime);
+
+
     @Transactional
     @Modifying
-    @Query(value = "INSERT INTO SiteUdic (_word, _memo, _user_id, _up_dated) VALUES (:word, :memo, :userId, :currentTime)", nativeQuery = true)
+    @Query(value = "INSERT INTO SiteUdic VALUES (_word = :word, _memo = :memo, _user_id = :userId, _up_dated = :currentTime)", nativeQuery = true)
     SiteUdic renew(@Param("word") String word, @Param("memo") String memo, @Param("userId") String userId, @Param("currentTime") LocalDateTime currentTime);
 
 
