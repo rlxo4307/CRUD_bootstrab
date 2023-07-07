@@ -1,5 +1,6 @@
 package org.hdcd.service;
 
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.time.LocalDateTime;
@@ -19,7 +20,7 @@ import lombok.RequiredArgsConstructor;
 public class DictionaryServiceImpl implements DictionaryService {
 
     private final DictionaryRepository dictionaryRepository;
-
+    LocalDateTime currentTime = LocalDateTime.now(ZoneId.of("Asia/Seoul"));
 
     @Transactional
     @Override // 사용자 사전에 단어 추가
@@ -37,25 +38,25 @@ public class DictionaryServiceImpl implements DictionaryService {
             }
         }
 
-//        SiteUdic siteUdic = new SiteUdic();
-        LocalDateTime currentTime = LocalDateTime.now();
-
-//        siteUdic.set_word(word);
-//        siteUdic.set_memo(memo);
-//        siteUdic.set_user_id(userId);
-//        siteUdic.set_up_dated(currentTime);
-
         try {
             dictionaryRepository.renew(word, memo, userId, currentTime);
         }catch (Exception e){
             e.printStackTrace();
         }
 
+//        SiteUdic siteUdic = new SiteUdic();
+
+//        siteUdic.set_word(word);
+//        siteUdic.set_memo(memo);
+//        siteUdic.set_user_id(userId);
+//        siteUdic.set_up_dated(currentTime);
+
 //        try {
 //            dictionaryRepository.save(siteUdic);
 //        }catch (Exception e){
 //            e.printStackTrace();
 //        }
+
         return 1;
     }
 
@@ -78,6 +79,7 @@ public class DictionaryServiceImpl implements DictionaryService {
         return 0;
     }
 
+
     @Override // 사용자 사전 단어 업데이트
     public int update (String word, String memo, Authentication authentication) throws Exception {
         CustomUser customUser = (CustomUser) authentication.getPrincipal();
@@ -87,18 +89,10 @@ public class DictionaryServiceImpl implements DictionaryService {
 
         List<SiteUdic> udicList = list(userId);
 
-        SiteUdic siteUdic = new SiteUdic();
-        LocalDateTime currentTime = LocalDateTime.now();
-
-        siteUdic.set_word(word);
-        siteUdic.set_memo(memo);
-        siteUdic.set_user_id(userId);
-        siteUdic.set_up_dated(currentTime);
-
         for(int i=0; i<udicList.size(); i++){
             if(word.equals(udicList.get(i).get_word())) {
                 try {
-                    dictionaryRepository.personalDicUpdate(siteUdic);
+                    dictionaryRepository.personalDicUpdate(word, memo, userId, currentTime);
                 }catch (Exception e){
                     e.printStackTrace();
                 }
@@ -107,6 +101,7 @@ public class DictionaryServiceImpl implements DictionaryService {
         }
         return 0;
     }
+
 
     @Override // 사용자 사전 리스트
     public List<SiteUdic> list(String userId) throws Exception {
