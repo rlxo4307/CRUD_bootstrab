@@ -30,6 +30,18 @@
 			<td scope="row" align="center" th:text="${#temporals.format(siteUdic._up_dated, 'yyyy-MM-dd HH:mm')}">${siteUdic.regDate}</td>
 		</tr>
 	</table>
+
+	<div>
+		<button type="submit" class="btn btn-primary" id="btnManage" th:text="#{action.manage}">관리</button>
+	</div>
+
+	<script>
+		$(document).ready(function() {
+			$("#btnManage").on("click", function() {
+				self.location = "manage";
+			});
+		});
+	</script>
 </div>
 </body>
 </html>
