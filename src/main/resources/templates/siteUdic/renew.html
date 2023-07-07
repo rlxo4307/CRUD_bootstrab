@@ -3,7 +3,7 @@
       layout:decorate="layouts/main_template">
 
 <head>
-    <title>SiteUdic</title>
+    <title>siteUdic</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" href="../../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}"/>
 </head>
@@ -28,7 +28,8 @@
 
     <div>
         <button type="submit" class="btn btn-primary" id="btnRenew" th:text="#{action.renew}">갱신</button>
-        <button type="submit" class="btn btn-primary" id="btnList" th:text="#{dic.header.list}">목록</button>
+        <button type="submit" class="btn btn-primary" id="btnList" th:text="#{action.list}">목록</button>
+        <button type="submit" class="btn btn-primary" id="btnManage" th:text="#{action.manage}">관리</button>
     </div>
     <br>
 
@@ -43,10 +44,12 @@
             $("#btnList").on("click", function() {
                 self.location = "list";
             });
+
+            $("#btnManage").on("click", function() {
+                self.location = "manage";
+            });
         });
     </script>
 </div>
 </body>
 </html>
-
-
