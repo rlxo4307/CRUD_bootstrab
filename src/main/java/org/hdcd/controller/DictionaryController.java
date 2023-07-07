@@ -1,7 +1,6 @@
 package org.hdcd.controller;
 
 import org.hdcd.common.security.domain.CustomUser;
-import org.hdcd.domain.ChargeCoin;
 import org.hdcd.domain.Member;
 import org.hdcd.domain.SiteUdic;
 import org.hdcd.service.DictionaryService;
@@ -26,6 +25,18 @@ public class DictionaryController {
     private final DictionaryService service;
     private final MessageSource messageSource;
 
+    @GetMapping("/manage") // 사용자 사전 관리
+    @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
+    public void manage(Model model, Authentication authentication) throws Exception {
+        CustomUser customUser = (CustomUser) authentication.getPrincipal();
+        Member member = customUser.getMember();
+
+        String userId = member.getUserId();
+
+        model.addAttribute("list", service.list(userId));
+    }
+
+
 
     @GetMapping("/renew")
     @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
@@ -36,7 +47,7 @@ public class DictionaryController {
         model.addAttribute(siteUdic);
     }
 
-    @PostMapping("/renew")
+    @PostMapping("/renew") // 사용자 사전 갱신
     @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
     public String insert(String word, String memo, RedirectAttributes rttr, Authentication authentication) throws Exception {
 
@@ -54,35 +65,6 @@ public class DictionaryController {
         return "redirect:/siteUdic/insertResult";
     }
 
-//    @PostMapping("/renew")
-//    @PreAuthorize("hasRole('MEMBER')")
-//    public String insert(String word, String memo, RedirectAttributes rttr, Authentication authentication) throws Exception {
-//        CustomUser customUser = (CustomUser) authentication.getPrincipal();
-//        Member member = customUser.getMember();
-//
-//        String userId = member.getUserId();
-//
-//        SiteUdic siteUdic = new SiteUdic();
-//
-//        siteUdic.set_word(word);
-//        siteUdic.set_memo(memo);
-//        siteUdic.set_user_id(userId);
-//
-//        int success = service.insert(siteUdic);
-//        String message = "";
-//
-//        if(success == 1) {
-//            message = messageSource.getMessage("dic.renewComplete", null, Locale.KOREAN);
-//        }
-//        if(success == 0) {
-//            message = messageSource.getMessage("dic.renewFail", null, Locale.KOREAN);
-//        }
-//        rttr.addFlashAttribute("msg", message);
-//
-//        return "redirect:/siteUdic/insertResult";
-//    }
-
-
 
     @GetMapping("/remove")
     @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
@@ -93,7 +75,7 @@ public class DictionaryController {
         model.addAttribute(siteUdic);
     }
 
-    @PostMapping("/remove")
+    @PostMapping("/remove") // 사용자 사전 단어 제거
     @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
     public String remove(String word, RedirectAttributes rttr, Authentication authentication) throws Exception {
 
@@ -122,7 +104,7 @@ public class DictionaryController {
         model.addAttribute(siteUdic);
     }
 
-    @PostMapping("/modify")
+    @PostMapping("/modify") // 사용자 사전 업데이트
     @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
     public String update(String word, String memo, RedirectAttributes rttr, Authentication authentication) throws Exception {
 
@@ -142,7 +124,7 @@ public class DictionaryController {
 
 
 
-    @GetMapping("/list")
+    @GetMapping("/list") // 사용자 사전 목록
     @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
     public void list(Model model, Authentication authentication) throws Exception {
         CustomUser customUser = (CustomUser) authentication.getPrincipal();
@@ -154,7 +136,7 @@ public class DictionaryController {
     }
 
 
-    @GetMapping("/insertResult")
+    @GetMapping("/insertResult") // 사용자 사전 CRUD 결과
     @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
     public String success() throws Exception {
         return "siteUdic/insertResult";
