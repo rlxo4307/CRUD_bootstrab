@@ -41,7 +41,7 @@ public class DictionaryServiceImpl implements DictionaryService {
 
         String space = " ";
         try {
-            if(word.contains(space)){
+            if(word.isBlank() || word.contains(space)){
                 return 0;
             }
             dictionaryRepository.renew(word, memo, userId, currentTime);
@@ -82,6 +82,10 @@ public class DictionaryServiceImpl implements DictionaryService {
 
         for(int i=0; i<udicList.size(); i++){
             if(originWord.equals(udicList.get(i).get_word())) {
+                String space = " ";
+                if(word.isBlank() || word.contains(space)){
+                    return 0;
+                }
                 try {
                     dictionaryRepository.personalDicUpdate(word, originWord, memo, userId, currentTime);
                 }catch (Exception e){
