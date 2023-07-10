@@ -12,10 +12,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.RequiredArgsConstructor;
 
+import java.util.List;
 import java.util.Locale;
 
 @RequiredArgsConstructor
@@ -35,7 +37,6 @@ public class DictionaryController {
 
         model.addAttribute("list", service.list(userId));
     }
-
 
 
     @GetMapping("/renew")
@@ -94,21 +95,21 @@ public class DictionaryController {
     }
 
 
-
     @GetMapping("/modify")
     @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
-    public void updateForm(Model model) throws Exception {
+    public void updateForm(@RequestParam("originWord") String originWord,  Model model) throws Exception {
         SiteUdic siteUdic = new SiteUdic();
-        siteUdic.set_word("단어 수정");
+        siteUdic.set_word(originWord);
 
         model.addAttribute(siteUdic);
     }
 
     @PostMapping("/modify") // 사용자 사전 업데이트
     @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
-    public String update(String word, String memo, RedirectAttributes rttr, Authentication authentication) throws Exception {
+    public String update(String word, @RequestParam("originWord") String originWord, String memo, RedirectAttributes rttr, Authentication authentication) throws Exception {
 
-        int success = service.update(word, memo, authentication);
+        System.out.println(originWord);
+        int success = service.update(word, originWord, memo, authentication);
         String message = "";
 
         if(success == 1) {
@@ -121,7 +122,6 @@ public class DictionaryController {
 
         return "redirect:/siteUdic/insertResult";
     }
-
 
 
     @GetMapping("/list") // 사용자 사전 목록
