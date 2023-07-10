@@ -80,7 +80,6 @@ public class DictionaryServiceImpl implements DictionaryService {
         return 0;
     }
 
-
     @Override // 사용자 사전 단어 업데이트
     public int update (String word, @RequestParam("originWord") String originWord, String memo, Authentication authentication) throws Exception {
         CustomUser customUser = (CustomUser) authentication.getPrincipal();
@@ -89,8 +88,6 @@ public class DictionaryServiceImpl implements DictionaryService {
         String userId = member.getUserId();
 
         List<SiteUdic> udicList = list(userId);
-
-        System.out.println(originWord);
 
         for(int i=0; i<udicList.size(); i++){
             if(originWord.equals(udicList.get(i).get_word())) {
