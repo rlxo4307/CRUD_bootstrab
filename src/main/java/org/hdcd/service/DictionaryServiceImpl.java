@@ -39,24 +39,13 @@ public class DictionaryServiceImpl implements DictionaryService {
             }
         }
 
+        String space = " ";
         try {
+            if(word.contains(space)){ return 0; }
             dictionaryRepository.renew(word, memo, userId, currentTime);
         }catch (Exception e){
             e.printStackTrace();
         }
-
-//        SiteUdic siteUdic = new SiteUdic();
-
-//        siteUdic.set_word(word);
-//        siteUdic.set_memo(memo);
-//        siteUdic.set_user_id(userId);
-//        siteUdic.set_up_dated(currentTime);
-
-//        try {
-//            dictionaryRepository.save(siteUdic);
-//        }catch (Exception e){
-//            e.printStackTrace();
-//        }
 
         return 1;
     }
