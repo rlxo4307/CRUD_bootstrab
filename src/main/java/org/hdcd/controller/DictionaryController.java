@@ -17,7 +17,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.RequiredArgsConstructor;
 
-import java.util.List;
 import java.util.Locale;
 
 @RequiredArgsConstructor
