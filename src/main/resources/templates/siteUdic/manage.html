@@ -32,7 +32,7 @@
 
   <div>
     <button type="submit" class="btn btn-primary" id="btnRenew" th:text="#{action.renew}">갱신</button>
-    <button type="submit" class="btn btn-primary" id="btnModify" th:text="#{action.modify}">수정</button>
+<!--    <button type="submit" class="btn btn-primary" id="btnModify" th:text="#{action.modify}">수정</button>-->
     <button type="submit" class="btn btn-primary" id="btnRemove" th:text="#{action.remove}">삭제</button>
     <button type="submit" class="btn btn-primary" id="btnList" th:text="#{action.list}">목록</button>
   </div>
@@ -44,9 +44,9 @@
         self.location = "renew";
       });
 
-      $("#btnModify").on("click", function() {
-        self.location = "modify";
-      });
+      // $("#btnModify").on("click", function() {
+      //   self.location = "modify";
+      // });
 
       $("#btnRemove").on("click", function() {
         self.location = "remove";
