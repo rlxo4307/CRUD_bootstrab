@@ -108,7 +108,6 @@ public class DictionaryController {
     @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
     public String update(String word, @RequestParam("originWord") String originWord, String memo, RedirectAttributes rttr, Authentication authentication) throws Exception {
 
-        System.out.println(originWord);
         int success = service.update(word, originWord, memo, authentication);
         String message = "";
 
