@@ -11,17 +11,26 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface DictionaryRepository extends JpaRepository<SiteUdic, String> {
-
     @Query("SELECT _word, _memo, _user_id, _up_dated "
             + "FROM SiteUdic "
             + "WHERE _user_id LIKE ?1 ")
-    public List<Object[]> personalDicList(String userId);
+    List<Object[]> personalDicList(String userId);
 
 
     @Transactional
     @Modifying
     @Query(value = "INSERT INTO $Site_Udic (_word, _memo, _user_id, _up_dated) VALUES (?1, ?2, ?3, ?4)", nativeQuery = true)
     void renew(@Param("word") String word, @Param("memo") String memo, @Param("userId") String userId, @Param("currentTime") LocalDateTime currentTime);
+
+//    @Transactional
+//    @Modifying
+//    @Query(value = "INSERT INTO $Site_Udic (_word, _memo, _user_id, _up_dated) VALUES (?1, ?2, ?3, ?4)", nativeQuery = true)
+//    void renew(String word, String memo, String userId, LocalDateTime currentTime);
+
+//    @Transactional
+//    @Modifying
+//    @Query(value = "INSERT INTO $Site_Udic VALUES (?1, ?2, ?3, ?4)", nativeQuery = true)
+//    void renew(String word, String memo, String userId, LocalDateTime currentTime);
 
 
     @Transactional
