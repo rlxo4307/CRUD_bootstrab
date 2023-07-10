@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RequiredArgsConstructor
 @Service
@@ -81,7 +82,7 @@ public class DictionaryServiceImpl implements DictionaryService {
 
 
     @Override // 사용자 사전 단어 업데이트
-    public int update (String word, String memo, Authentication authentication) throws Exception {
+    public int update (String word, @RequestParam("originWord") String originWord, String memo, Authentication authentication) throws Exception {
         CustomUser customUser = (CustomUser) authentication.getPrincipal();
         Member member = customUser.getMember();
 
@@ -89,10 +90,12 @@ public class DictionaryServiceImpl implements DictionaryService {
 
         List<SiteUdic> udicList = list(userId);
 
+        System.out.println(originWord);
+
         for(int i=0; i<udicList.size(); i++){
-            if(word.equals(udicList.get(i).get_word())) {
+            if(originWord.equals(udicList.get(i).get_word())) {
                 try {
-                    dictionaryRepository.personalDicUpdate(word, memo, userId, currentTime);
+                    dictionaryRepository.personalDicUpdate(word, originWord, memo, userId, currentTime);
                 }catch (Exception e){
                     e.printStackTrace();
                 }
@@ -104,23 +107,23 @@ public class DictionaryServiceImpl implements DictionaryService {
 
 
     @Override // 사용자 사전 리스트
-    public List<SiteUdic> list(String userId) throws Exception {
-        List<Object[]> dicArrays = dictionaryRepository.personalDicList(userId);
+        public List<SiteUdic> list(String userId) throws Exception {
+            List<Object[]> dicArrays = dictionaryRepository.personalDicList(userId);
 
-        List<SiteUdic> udicList = new ArrayList<>();
+            List<SiteUdic> udicList = new ArrayList<>();
 
-        for(Object[] valueArray : dicArrays) {
-            SiteUdic siteUdic = new SiteUdic();
+            for(Object[] valueArray : dicArrays) {
+                SiteUdic siteUdic = new SiteUdic();
 
-            siteUdic.set_word((String)valueArray[0]);
-            siteUdic.set_memo((String)valueArray[1]);
-            siteUdic.set_user_id((String)valueArray[2]);
-            siteUdic.set_up_dated((LocalDateTime) valueArray[3]);
+                siteUdic.set_word((String)valueArray[0]);
+                siteUdic.set_memo((String)valueArray[1]);
+                siteUdic.set_user_id((String)valueArray[2]);
+                siteUdic.set_up_dated((LocalDateTime) valueArray[3]);
 
-            udicList.add(siteUdic);
-        }
+                udicList.add(siteUdic);
+            }
 
-        return udicList;
+            return udicList;
     }
 
 }
