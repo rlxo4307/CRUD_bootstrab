@@ -12,6 +12,7 @@
     <h2 th:text="#{dic.header.modify}">사용자 사전 수정</h2>
 
     <form class="form-group" id="modify" action="list.html" th:action="@{/siteUdic/modify}" th:object="${siteUdic}" method="POST">
+        <input type="hidden" th:name="originWord" th:value="${siteUdic._word}"/>
         <table>
             <tr>
                 <td><div class="form-display-inline"><input class="form-control" type="text" name="word" /></div></td>
@@ -27,7 +28,7 @@
     </form>
 
     <div>
-        <button type="submit" class="btn btn-primary" id="btnRenew" th:text="#{action.modify}">수정</button>
+        <button type="submit" class="btn btn-primary" id="btnModify" th:text="#{action.modify}">수정</button>
         <button type="submit" class="btn btn-primary" id="btnList" th:text="#{action.list}">목록</button>
         <button type="submit" class="btn btn-primary" id="btnManage" th:text="#{action.manage}">관리</button>
     </div>
@@ -37,7 +38,7 @@
         $(document).ready(function() {
             var formObj = $("#modify");
 
-            $("#btnRenew").on("click", function() {
+            $("#btnModify").on("click", function() {
                 formObj.submit();
             });
 
