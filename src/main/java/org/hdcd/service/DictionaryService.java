@@ -8,7 +8,6 @@ import java.util.List;
 public interface DictionaryService {
 
     public int insert(String word, String memo, Authentication authentication) throws Exception;
-//    int insert(SiteUdic siteUdic) throws Exception;
 
     public int remove(String word, Authentication authentication) throws Exception;
 
