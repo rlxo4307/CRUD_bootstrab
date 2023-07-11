@@ -35,7 +35,10 @@
         </td>
       </tr>
       <tr th:each="siteUdic : ${list}">
-        <td scope="row" align="center"><input type='checkbox' name='wordList' th:field="*{_word}" th:value="${siteUdic._word}" class="form-check-input"></td>
+        <td scope="row" align="center">
+          <input type="checkbox" name='wordList' th:field="*{_word}" th:value="${siteUdic._word}" class="form-check-input">
+<!--          <label th:for="${#ids.prev('_word')}" th:text="${siteUdic._word}" class="form-check-label"></label>-->
+        </td>
         <td scope="row" align="center"><a href="modfiy.html" th:href="'/siteUdic/modify?originWord=' + ${siteUdic._word}" th:text="${siteUdic._word}">${siteUdic._word}</a></td>
         <!--      <td scope="row" align="center" th:text="${siteUdic._word}">${siteUdic.word}</td>-->
         <td scope="row" align="center" th:text="${siteUdic._memo}">${siteUdic.memo}</td>
@@ -48,35 +51,13 @@
     <button type="submit" class="btn btn-primary" id="btnRenew" th:text="#{action.renew}">갱신</button>
     <!--    <button type="submit" class="btn btn-primary" id="btnModify" th:text="#{action.modify}">수정</button>-->
     <button type="submit" class="btn btn-primary" id="btnRemove" th:text="#{action.remove}">삭제</button>
-    <button type="submit" class="btn btn-primary" id="btnRemoveAll" th:text="#{action.remove.checked}">선택삭제</button>
+    <button type="submit" class="btn btn-primary" id="btnRemoveChecked" th:text="#{action.remove.checked}">선택삭제</button>
     <button type="submit" class="btn btn-primary" id="btnList" th:text="#{action.list}">목록</button>
   </div>
 
   <br>
 
   <script>
-    $(document).ready(function() {
-      $("#btnRenew").on("click", function() {
-        self.location = "renew";
-      });
-
-      // $("#btnModify").on("click", function() {
-      //   self.location = "modify";
-      // });
-
-      $("#btnRemove").on("click", function() {
-        self.location = "remove";
-      });
-
-      $("#btnRemoveAll").on("click", function() {
-        self.location = "manage_removeChecked";
-      });
-
-      $("#btnList").on("click", function() {
-        self.location = "list";
-      });
-    });
-
     function selectAll(selectAll)  {
       const checkboxes
               = document.querySelectorAll('input[type="checkbox"]');
@@ -93,7 +74,31 @@
     document.getElementById("modal_close_btn").onclick = function() {
       document.getElementById("modal").style.display="none";
     }
+
+
+    $(document).ready(function() {
+      $("#btnRenew").on("click", function() {
+        self.location = "renew";
+      });
+
+      // $("#btnModify").on("click", function() {
+      //   self.location = "modify";
+      // });
+
+      $("#btnRemove").on("click", function() {
+        self.location = "remove";
+      });
+
+      $("#btnRemoveChecked").on("click", function() {
+        self.location = "manaage";
+      });
+
+      $("#btnList").on("click", function() {
+        self.location = "list";
+      });
+    });
   </script>
+
 </div>
 </body>
 </html>
