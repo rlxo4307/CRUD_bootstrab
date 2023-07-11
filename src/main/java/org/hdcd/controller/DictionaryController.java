@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.RequiredArgsConstructor;
 
+import java.util.List;
 import java.util.Locale;
 
 @RequiredArgsConstructor
@@ -38,7 +39,9 @@ public class DictionaryController {
 
     @GetMapping("/manage") // 사용자 사전 관리
     @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
-    public void manage(String[] wordList, SiteUdic siteUdic, Model model, Authentication authentication) throws Exception {
+    public void manage(@RequestParam(value ="wordList", required = false) List<String> wordList, SiteUdic siteUdic,
+                       Model model, Authentication authentication) throws Exception {
+
         CustomUser customUser = (CustomUser) authentication.getPrincipal();
         Member member = customUser.getMember();
 
@@ -49,7 +52,7 @@ public class DictionaryController {
 
     @RequestMapping("/manaage") // 사용자 사전 단어 제거
     @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
-    public String manageRemoveChecked(@RequestParam(value ="wordList", required = false) String[] wordList,
+    public String manageRemoveChecked(@RequestParam(value ="wordList", required = false) List<String> wordList,
                                        RedirectAttributes rttr, Authentication authentication) throws Exception {
 
         int success = service.removeChecked(wordList, authentication);
