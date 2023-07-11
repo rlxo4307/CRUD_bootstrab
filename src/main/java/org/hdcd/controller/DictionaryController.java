@@ -47,9 +47,9 @@ public class DictionaryController {
         model.addAttribute("list", service.list(userId));
     }
 
-    @PostMapping("/manage_removeChecked") // 사용자 사전 단어 제거
+    @RequestMapping("/manaage") // 사용자 사전 단어 제거
     @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
-    public String manage_removeChecked(@RequestParam(value ="wordList", required = false) String[] wordList,
+    public String manageRemoveChecked(@RequestParam(value ="wordList", required = false) String[] wordList,
                                        RedirectAttributes rttr, Authentication authentication) throws Exception {
 
         int success = service.removeChecked(wordList, authentication);
