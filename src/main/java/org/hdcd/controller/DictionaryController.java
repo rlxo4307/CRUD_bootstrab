@@ -38,13 +38,32 @@ public class DictionaryController {
 
     @GetMapping("/manage") // 사용자 사전 관리
     @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
-    public void manage(Model model, Authentication authentication) throws Exception {
+    public void manage(String[] wordList, SiteUdic siteUdic, Model model, Authentication authentication) throws Exception {
         CustomUser customUser = (CustomUser) authentication.getPrincipal();
         Member member = customUser.getMember();
 
         String userId = member.getUserId();
 
         model.addAttribute("list", service.list(userId));
+    }
+
+    @PostMapping("/manage_removeChecked") // 사용자 사전 단어 제거
+    @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
+    public String manage_removeChecked(@RequestParam(value ="wordList", required = false) String[] wordList,
+                                       RedirectAttributes rttr, Authentication authentication) throws Exception {
+
+        int success = service.removeChecked(wordList, authentication);
+        String message = "";
+
+        if(success == 1) {
+            message = messageSource.getMessage("dic.removeComplete", null, Locale.KOREAN);
+        }
+        if(success == 0) {
+            message = messageSource.getMessage("dic.removeFail", null, Locale.KOREAN);
+        }
+        rttr.addFlashAttribute("msg", message);
+
+        return "redirect:/siteUdic/insertResult";
     }
 
 
