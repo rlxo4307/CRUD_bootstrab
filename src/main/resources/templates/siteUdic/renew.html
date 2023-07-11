@@ -11,17 +11,18 @@
 <div layout:fragment="content">
     <h2 th:text="#{dic.header.insertWord}">사용자 사전 등록</h2>
 
-    <form class="form-group" id="renew" action="list.html" th:action="@{/siteUdic/renew}" th:object="${siteUdic}" method="POST">
+<!--    <form class="form-group" id="renew" action="list.html" th:action="@{/siteUdic/renew}" th:object="${siteUdic}" method="POST">-->
+    <form class="form-group" id="renew" action="list.html" th:action="@{/siteUdic/renew}" method="POST">
         <table>
             <tr>
                 <td><div class="form-display-inline"><input class="form-control" type="text" name="word" /></div></td>
                 <td><div class="form-display-inline">단어</div></td>
-                <td><span class="error_message" th:if="${#fields.hasErrors('_word')}" th:errors="*{_word}">_word 에러 메시지</span></td>
+<!--                <td><span class="error_message" th:if="${#fields.hasErrors('_word')}" th:errors="*{_word}">_word 에러 메시지</span></td>-->
             </tr>
             <tr>
                 <td><div class="form-display-inline"><input class="form-control" type="text" name="memo" /></div></td>
                 <td><div class="form-display-inline">메모</div></td>
-                <td><span class="error_message" th:if="${#fields.hasErrors('_memo')}" th:errors="*{_memo}">_memo 에러 메시지</span></td>
+<!--                <td><span class="error_message" th:if="${#fields.hasErrors('_memo')}" th:errors="*{_memo}">_memo 에러 메시지</span></td>-->
             </tr>
         </table>
     </form>
