@@ -72,7 +72,7 @@ public class DictionaryServiceImpl implements DictionaryService {
     }
 
     @Override // 사용자 사전의 단어 제거
-    public int removeChecked(@RequestParam(value ="wordList", required = false) String[] wordList, Authentication authentication) throws Exception {
+    public int removeChecked(@RequestParam(value ="wordList", required = false) List<String> wordList, Authentication authentication) throws Exception {
         CustomUser customUser = (CustomUser) authentication.getPrincipal();
         Member member = customUser.getMember();
 
@@ -81,12 +81,12 @@ public class DictionaryServiceImpl implements DictionaryService {
         List<SiteUdic> udicList = list(userId);
 
         int count = 0;
-        for(int i=0; i<wordList.length; i++){
-            if(udicList.contains(wordList[i])) {
-                dictionaryRepository.deleteById(wordList[i]);
+        for(int i=0; i<wordList.size(); i++){
+            if(udicList.contains(wordList.get(i))) {
+                dictionaryRepository.deleteById(wordList.get(i));
                 count++;
             }
-            if(count == wordList.length)
+            if(count == wordList.size())
                 return 1;
         }
         return 0;
