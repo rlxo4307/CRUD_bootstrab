@@ -48,15 +48,6 @@ public class DictionaryController {
     }
 
 
-//    @GetMapping("/renew")
-//    @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
-//    public void renewForm(Model model) throws Exception {
-//        SiteUdic siteUdic = new SiteUdic();
-//        siteUdic.set_word("단어 입력");
-//
-//        model.addAttribute(siteUdic);
-//    }
-
     @GetMapping("/renew")
     @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
     public void renewForm(SiteUdic siteUdic, Model model) throws Exception {
