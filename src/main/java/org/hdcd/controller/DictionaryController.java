@@ -29,13 +29,12 @@ public class DictionaryController {
 
 //    @GetMapping("/manage")
 //    @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
-//    public void manageForm(Model model) throws Exception {
+//    public void manageForm(SiteUdic siteUdic, Model model) throws Exception {
 //        SiteUdic siteUdic = new SiteUdic();
 //        siteUdic.set_word("단어 관리");
 //
 //        model.addAttribute(siteUdic);
 //    }
-
 
     @GetMapping("/manage") // 사용자 사전 관리
     @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
@@ -60,7 +59,8 @@ public class DictionaryController {
 
     @GetMapping("/renew")
     @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
-    public void renewForm(SiteUdic siteUdic, Model model) throws Exception { }
+    public void renewForm(SiteUdic siteUdic, Model model) throws Exception {
+    }
 
     @PostMapping("/renew") // 사용자 사전 갱신
     @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
