@@ -2,6 +2,7 @@ package org.hdcd.controller;
 
 import org.hdcd.common.security.domain.CustomUser;
 import org.hdcd.domain.Member;
+import org.hdcd.domain.SiteThesaurus;
 import org.hdcd.domain.SiteUdic;
 import org.hdcd.service.DictionaryService;
 import org.springframework.context.MessageSource;
@@ -40,22 +41,23 @@ public class DictionaryController {
     @GetMapping("/manage") // 사용자 사전 관리
     @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
     public void manage(@RequestParam(value ="wordList", required = false) List<String> wordList, SiteUdic siteUdic,
-                       Model model, Authentication authentication) throws Exception {
+                       SiteThesaurus siteThesaurus, Model model, Authentication authentication) throws Exception {
 
         CustomUser customUser = (CustomUser) authentication.getPrincipal();
         Member member = customUser.getMember();
 
         String userId = member.getUserId();
 
-        model.addAttribute("list", service.list(userId));
+        model.addAttribute("list_uDic", service.list(userId));
+        model.addAttribute("list_thesaurus", service.list(userId));
     }
 
     @RequestMapping("/manaage") // 사용자 사전 단어 제거
     @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
     public String manageRemoveChecked(@RequestParam(value ="wordList", required = false) List<String> wordList,
-                                       RedirectAttributes rttr, Authentication authentication) throws Exception {
+                                      SiteThesaurus siteThesaurus, RedirectAttributes rttr, Authentication authentication) throws Exception {
 
-        int success = service.removeChecked(wordList, authentication);
+        int success = service.checkedRemove(wordList, authentication);
         String message = "";
 
         if(success == 1) {
@@ -72,7 +74,7 @@ public class DictionaryController {
 
     @GetMapping("/renew")
     @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
-    public void renewForm(SiteUdic siteUdic, Model model) throws Exception {
+    public void renewForm(SiteUdic siteUdic) throws Exception {
     }
 
     @PostMapping("/renew") // 사용자 사전 갱신
