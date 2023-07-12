@@ -150,10 +150,10 @@ public class DictionaryServiceImpl implements DictionaryService {
             SiteThesaurus siteThesaurus = new SiteThesaurus();
 
             siteThesaurus.set_head_word((String)valueArray[0]);
-            siteThesaurus.set_tail_word((String)valueArray[0]);
-            siteThesaurus.set_memo((String)valueArray[1]);
-            siteThesaurus.set_user_id((String)valueArray[2]);
-            siteThesaurus.set_up_dated((LocalDateTime) valueArray[3]);
+            siteThesaurus.set_tail_word((String)valueArray[1]);
+            siteThesaurus.set_memo((String)valueArray[2]);
+            siteThesaurus.set_user_id((String)valueArray[3]);
+            siteThesaurus.set_up_dated((LocalDateTime) valueArray[4]);
 
             thesaurusList.add(siteThesaurus);
         }
