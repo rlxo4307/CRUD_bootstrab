@@ -16,8 +16,8 @@ public interface DictionaryRepository extends JpaRepository<SiteUdic, String> {
             + "WHERE _user_id LIKE ?1 ")
     List<Object[]> personalDicList_uDic(String userId);
 
-    @Query("SELECT _word, _memo, _user_id, _up_dated "
-            + "FROM SiteUdic "
+    @Query("SELECT _head_word, _tail_word, _memo, _user_id, _up_dated "
+            + "FROM SiteThesaurus "
             + "WHERE _user_id LIKE ?1 ")
     List<Object[]> personalDicList_thesaurus(String userId);
 
