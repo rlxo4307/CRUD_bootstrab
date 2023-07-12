@@ -36,7 +36,7 @@
               List is empty.
             </td>
           </tr>
-          <tr th:each="siteUdic : ${list}">
+          <tr th:each="siteUdic : ${list_uDic}">
             <td scope="row" align="center">
               <input type="checkbox" name="wordList" th:field="*{_word}" th:value="${siteUdic._word}" class="form-check-input">
               <!--          <label th:for="${#ids.prev('_word')}" th:text="${siteUdic._word}" class="form-check-label"></label>-->
@@ -66,7 +66,7 @@
               List is empty.
             </td>
           </tr>
-          <tr th:each="siteThesaurus : ${list}">
+          <tr th:each="siteThesaurus : ${list_thesaurus}">
             <td scope="row" align="center">
               <input type="checkbox" name="wordList" th:field="*{_head_word}" th:value="${siteThesaurus._head_word}" class="form-check-input">
     <!--          <label th:for="${#ids.prev('_word')}" th:text="${siteUdic._word}" class="form-check-label"></label>-->
