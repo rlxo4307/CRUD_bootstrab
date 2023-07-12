@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 
 import org.hdcd.common.security.domain.CustomUser;
 import org.hdcd.domain.Member;
+import org.hdcd.domain.SiteThesaurus;
 import org.hdcd.domain.SiteUdic;
 import org.hdcd.repository.DictionaryRepository;
 import org.springframework.security.core.Authentication;
@@ -31,7 +32,7 @@ public class DictionaryServiceImpl implements DictionaryService {
 
         String userId = member.getUserId();
 
-        List<SiteUdic> udicList = list(userId);
+        List<SiteUdic> udicList = list_uDic(userId);
 
         for(int i=0; i<udicList.size(); i++){
             if(word.equals(udicList.get(i).get_word())) {
@@ -60,7 +61,7 @@ public class DictionaryServiceImpl implements DictionaryService {
 
         String userId = member.getUserId();
 
-        List<SiteUdic> udicList = list(userId);
+        List<SiteUdic> udicList = list_uDic(userId);
 
         for(int i=0; i<udicList.size(); i++){
             if(word.equals(udicList.get(i).get_word())) {
@@ -78,7 +79,7 @@ public class DictionaryServiceImpl implements DictionaryService {
 
         String userId = member.getUserId();
 
-        List<SiteUdic> udicList = list(userId);
+        List<SiteUdic> udicList = list_uDic(userId);
 
         int count = 0;
         for(int i=0; i<wordList.size(); i++){
@@ -99,7 +100,7 @@ public class DictionaryServiceImpl implements DictionaryService {
 
         String userId = member.getUserId();
 
-        List<SiteUdic> udicList = list(userId);
+        List<SiteUdic> udicList = list_uDic(userId);
 
         for(int i=0; i<udicList.size(); i++){
             if(originWord.equals(udicList.get(i).get_word())) {
@@ -120,8 +121,8 @@ public class DictionaryServiceImpl implements DictionaryService {
 
 
     @Override // 사용자 사전 리스트
-        public List<SiteUdic> list(String userId) throws Exception {
-            List<Object[]> dicArrays = dictionaryRepository.personalDicList(userId);
+        public List<SiteUdic> list_uDic(String userId) throws Exception {
+            List<Object[]> dicArrays = dictionaryRepository.personalDicList_uDic(userId);
 
             List<SiteUdic> udicList = new ArrayList<>();
 
@@ -137,6 +138,27 @@ public class DictionaryServiceImpl implements DictionaryService {
             }
 
             return udicList;
+    }
+
+    @Override // 사용자 사전 리스트
+    public List<SiteThesaurus> list_thesaurus(String userId) throws Exception {
+        List<Object[]> dicArrays = dictionaryRepository.personalDicList_thesaurus(userId);
+
+        List<SiteThesaurus> thesaurusList = new ArrayList<>();
+
+        for(Object[] valueArray : dicArrays) {
+            SiteThesaurus siteThesaurus = new SiteThesaurus();
+
+            siteThesaurus.set_head_word((String)valueArray[0]);
+            siteThesaurus.set_tail_word((String)valueArray[0]);
+            siteThesaurus.set_memo((String)valueArray[1]);
+            siteThesaurus.set_user_id((String)valueArray[2]);
+            siteThesaurus.set_up_dated((LocalDateTime) valueArray[3]);
+
+            thesaurusList.add(siteThesaurus);
+        }
+
+        return thesaurusList;
     }
 
 }
