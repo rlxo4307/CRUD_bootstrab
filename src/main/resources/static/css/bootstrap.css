@@ -11257,3 +11257,18 @@ label,
   background:rgba(0, 0, 0, 0.5);
   z-index:-1;
 }
+
+.manage {
+  width:100%;
+  height:50%;
+}
+
+.manage_left {
+  width:50%;
+  float:left;
+}
+
+.manage_right {
+  width:50%;
+  float:left;
+}
