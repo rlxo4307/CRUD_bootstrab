@@ -48,8 +48,8 @@ public class DictionaryController {
 
         String userId = member.getUserId();
 
-        model.addAttribute("list_uDic", service.list(userId));
-        model.addAttribute("list_thesaurus", service.list(userId));
+        model.addAttribute("list_uDic", service.list_uDic(userId));
+        model.addAttribute("list_thesaurus", service.list_thesaurus(userId));
     }
 
     @RequestMapping("/manaage") // 사용자 사전 단어 제거
@@ -160,7 +160,7 @@ public class DictionaryController {
 
         String userId = member.getUserId();
 
-        model.addAttribute("list", service.list(userId));
+        model.addAttribute("list", service.list_uDic(userId));
     }
 
 
