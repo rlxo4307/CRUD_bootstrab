@@ -94,7 +94,7 @@ public class DictionaryServiceImpl implements DictionaryService {
     }
 
     @Override // 사용자 사전 단어 업데이트
-    public int update (String word, @RequestParam("originWord") String originWord, String memo, Authentication authentication) throws Exception {
+    public int update (String word, String memo, Authentication authentication) throws Exception {
         CustomUser customUser = (CustomUser) authentication.getPrincipal();
         Member member = customUser.getMember();
 
@@ -103,13 +103,13 @@ public class DictionaryServiceImpl implements DictionaryService {
         List<SiteUdic> udicList = list_uDic(userId);
 
         for(int i=0; i<udicList.size(); i++){
-            if(originWord.equals(udicList.get(i).get_word())) {
+            if(word.equals(udicList.get(i).get_word())) {
                 String space = " ";
                 if(word.isBlank() || word.contains(space)){
                     return 0;
                 }
                 try {
-                    dictionaryRepository.personalDicUpdate(word, originWord, memo, userId, currentTime);
+                    dictionaryRepository.personalDicUpdate(word, memo, currentTime);
                 }catch (Exception e){
                     e.printStackTrace();
                 }
