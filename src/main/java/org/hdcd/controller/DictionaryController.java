@@ -52,41 +52,27 @@ public class DictionaryController {
         model.addAttribute("list_uDic", service.list_uDic(userId));
         model.addAttribute("list_thesaurus", service.list_thesaurus(userId));
 
-        if(!(wordList2==null)){
-            int success = service.checkedRemove(wordList2, authentication);
-            String message = "";
-
-            if(success == 1) {
-                message = messageSource.getMessage("dic.removeComplete", null, Locale.KOREAN);
-            }
-            if(success == 0) {
-                message = messageSource.getMessage("dic.removeFail", null, Locale.KOREAN);
-            }
-            rttr.addFlashAttribute("msg", message);
-
-            return "redirect:/siteUdic/insertResult";
-        }
         return "siteUdic/manage";
     }
 
-//    @PostMapping("/manage2") // 사용자 사전 단어 제거
-//    @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
-//    public String manageCheckedRemove(@RequestParam(value ="wordList22[]", required = false) List<String> wordList2,
-//                                      SiteUdic siteUdic, SiteThesaurus siteThesaurus, RedirectAttributes rttr, Authentication authentication) throws Exception {
-//
-//        int success = service.checkedRemove(wordList2, authentication);
-//        String message = "";
-//
-//        if(success == 1) {
-//            message = messageSource.getMessage("dic.removeComplete", null, Locale.KOREAN);
-//        }
-//        if(success == 0) {
-//            message = messageSource.getMessage("dic.removeFail", null, Locale.KOREAN);
-//        }
-//        rttr.addFlashAttribute("msg", message);
-//
-//        return "redirect:/siteUdic/insertResult";
-//    }
+    @PostMapping("/manage") // 사용자 사전 단어 제거
+    @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
+    public String manageCheckedRemove(@RequestParam(value ="wordList22[]", required = false) List<String> wordList22,
+                                      SiteUdic siteUdic, SiteThesaurus siteThesaurus, RedirectAttributes rttr, Authentication authentication) throws Exception {
+
+        int success = service.checkedRemove(wordList22, authentication);
+        String message = "";
+
+        if(success == 1) {
+            message = messageSource.getMessage("dic.removeComplete", null, Locale.KOREAN);
+        }
+        if(success == 0) {
+            message = messageSource.getMessage("dic.removeFail", null, Locale.KOREAN);
+        }
+        rttr.addFlashAttribute("msg", message);
+
+        return "redirect:/siteUdic/insertResult";
+    }
 
 
     @GetMapping("/renew")
