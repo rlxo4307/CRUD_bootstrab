@@ -77,7 +77,7 @@ public class DictionaryController {
 
     @GetMapping("/renew")
     @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
-    public void renewForm(SiteUdic siteUdic, Model model) throws Exception {
+    public void renewForm(SiteUdicDTO siteUdicDTO, Model model) throws Exception {
     }
 
     @PostMapping("/renew") // 사용자 사전 갱신
@@ -108,7 +108,7 @@ public class DictionaryController {
 
     @GetMapping("/remove")
     @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
-    public void removeForm(SiteUdic siteUdic) throws Exception {
+    public void removeForm(SiteUdicDTO siteUdicDTO) throws Exception {
     }
 
     @PostMapping("/remove") // 사용자 사전 단어 제거
@@ -134,11 +134,11 @@ public class DictionaryController {
 
     @GetMapping("/modify")
     @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
-    public void updateForm(SiteUdic siteUdic, @RequestParam(value = "_word") String _word, Model model, Authentication authentication) throws Exception {
+    public void updateForm(SiteUdicDTO siteUdicDTO, @RequestParam(value = "_word") String _word, Model model, Authentication authentication) throws Exception {
 
-        siteUdic.set_word(_word);
+        siteUdicDTO.set_word(_word);
 
-        model.addAttribute("siteUdic", siteUdic);
+        model.addAttribute("siteUdicDTO", siteUdicDTO);
     }
 
     @PostMapping("/modify") // 사용자 사전 업데이트
