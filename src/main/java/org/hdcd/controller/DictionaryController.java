@@ -77,17 +77,17 @@ public class DictionaryController {
 
     @GetMapping("/renew")
     @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
-    public void renewForm(SiteUdic siteUdic) throws Exception {
+    public void renewForm(SiteUdic siteUdic, Model model) throws Exception {
     }
 
     @PostMapping("/renew") // 사용자 사전 갱신
     @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
     public String insert(SiteUdicDTO siteUdicDTO, RedirectAttributes rttr, Authentication authentication) throws Exception {
 
-        String word = siteUdicDTO.get_word();
-        String memo = siteUdicDTO.get_memo();
+//        String word = siteUdicDTO.get_word();
+//        String memo = siteUdicDTO.get_memo();
 
-        int success = service.insert(word, memo, authentication);
+        int success = service.insert(siteUdicDTO, authentication);
         String message = "";
 
         if(success == 1) {
