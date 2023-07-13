@@ -144,18 +144,21 @@ public class DictionaryController {
 
     @GetMapping("/modify")
     @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
-    public void updateForm(@RequestParam("originWord") String originWord,  Model model) throws Exception {
-        SiteUdic siteUdic = new SiteUdic();
-        siteUdic.set_word(originWord);
+    public void updateForm(SiteUdic siteUdic, @RequestParam(value = "_word") String _word, Model model, Authentication authentication) throws Exception {
 
-        model.addAttribute(siteUdic);
+        siteUdic.set_word(_word);
+
+        model.addAttribute("siteUdic", siteUdic);
     }
 
     @PostMapping("/modify") // 사용자 사전 업데이트
     @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
-    public String update(String word, @RequestParam("originWord") String originWord, String memo, RedirectAttributes rttr, Authentication authentication) throws Exception {
+    public String update(SiteUdicDTO siteUdicDTO, RedirectAttributes rttr, Authentication authentication) throws Exception {
 
-        int success = service.update(word, originWord, memo, authentication);
+        String word = siteUdicDTO.get_word();
+        String memo = siteUdicDTO.get_memo();
+
+        int success = service.update(word, memo, authentication);
         String message = "";
 
         if(success == 1) {
