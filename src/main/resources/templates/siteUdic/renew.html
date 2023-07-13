@@ -14,7 +14,7 @@
     <form class="form-group" id="renew" action="list.html" th:action="@{/siteUdic/renew}" th:object="${siteUdic}" method="POST">
         <table>
             <tr>
-                <td><div class="form-display-inline"><input class="form-control" type="text" name="_word" /></div></td>
+                <td><div class="form-display-inline"><input class="form-control" type="text" id="word" name="_word" /></div></td>
                 <td><div class="form-display-inline">단어</div></td>
                 <td><span class="error_message" th:if="${#fields.hasErrors('_word')}" th:errors="*{_word}">_word 에러 메시지</span></td>
             </tr>
@@ -38,7 +38,16 @@
             var formObj = $("#renew");
 
             $("#btnRenew").on("click", function() {
-                formObj.submit();
+                const space = /[\s]/g;
+                let insertedWord = document.getElementById('word').value;
+
+                if(insertedWord == ""){
+                    alert('단어를 입력해주세요.');
+                } else if(space.test(insertedWord) == true){
+                    alert('공백을 제거해주세요');
+                } else {
+                    formObj.submit();
+                }
             });
 
             $("#btnList").on("click", function() {
