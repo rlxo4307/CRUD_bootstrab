@@ -4,6 +4,7 @@ import org.hdcd.common.security.domain.CustomUser;
 import org.hdcd.domain.Member;
 import org.hdcd.domain.SiteThesaurus;
 import org.hdcd.domain.SiteUdic;
+import org.hdcd.dto.SiteUdicDTO;
 import org.hdcd.service.DictionaryService;
 import org.springframework.context.MessageSource;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -95,7 +96,10 @@ public class DictionaryController {
 
     @PostMapping("/renew") // 사용자 사전 갱신
     @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
-    public String insert(String word, String memo, RedirectAttributes rttr, Authentication authentication) throws Exception {
+    public String insert(SiteUdicDTO siteUdic, RedirectAttributes rttr, Authentication authentication) throws Exception {
+
+        String word = siteUdic.get_word();
+        String memo = siteUdic.get_memo();
 
         int success = service.insert(word, memo, authentication);
         String message = "";
