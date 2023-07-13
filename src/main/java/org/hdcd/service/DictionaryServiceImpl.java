@@ -31,16 +31,10 @@ public class DictionaryServiceImpl implements DictionaryService {
         CustomUser customUser = (CustomUser) authentication.getPrincipal();
         Member member = customUser.getMember();
 
-        String userId = member.getUserId();
-//        String word = siteUdicDTO.get_word();
-//        String memo = siteUdicDTO.get_memo();
-        String word = siteUdic.get_word();
 
-//        SiteUdic siteUdic = new SiteUdic();
-//        siteUdic.set_word(word);
-//        siteUdic.set_memo(memo);
-//        siteUdic.set_user_id(userId);
-//        siteUdic.set_up_dated(currentTime);
+        String word = siteUdic.get_word();
+        String memo = siteUdic.get_memo();
+        String userId = member.getUserId();
 
         List<SiteUdic> udicList = list_uDic(userId);
 
@@ -51,9 +45,7 @@ public class DictionaryServiceImpl implements DictionaryService {
         }
 
         try {
-//            dictionaryRepository.save(siteUdic);
-            dictionaryRepository.save(siteUdic);
-//            dictionaryRepository.renew(word, memo, userId, currentTime);
+            dictionaryRepository.renew(word, memo, userId, currentTime);
         }catch (Exception e){
             e.printStackTrace();
         }
