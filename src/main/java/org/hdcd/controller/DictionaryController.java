@@ -96,10 +96,10 @@ public class DictionaryController {
 
     @PostMapping("/renew") // 사용자 사전 갱신
     @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
-    public String insert(SiteUdicDTO siteUdic, RedirectAttributes rttr, Authentication authentication) throws Exception {
+    public String insert(SiteUdicDTO siteUdicDTO, RedirectAttributes rttr, Authentication authentication) throws Exception {
 
-        String word = siteUdic.get_word();
-        String memo = siteUdic.get_memo();
+        String word = siteUdicDTO.get_word();
+        String memo = siteUdicDTO.get_memo();
 
         int success = service.insert(word, memo, authentication);
         String message = "";
@@ -118,16 +118,14 @@ public class DictionaryController {
 
     @GetMapping("/remove")
     @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
-    public void removeForm(Model model) throws Exception {
-        SiteUdic siteUdic = new SiteUdic();
-        siteUdic.set_word("단어 삭제");
-
-        model.addAttribute(siteUdic);
+    public void removeForm(SiteUdic siteUdic) throws Exception {
     }
 
     @PostMapping("/remove") // 사용자 사전 단어 제거
     @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
-    public String remove(String word, RedirectAttributes rttr, Authentication authentication) throws Exception {
+    public String remove(SiteUdicDTO siteUdicDTO, RedirectAttributes rttr, Authentication authentication) throws Exception {
+
+        String word = siteUdicDTO.get_word();
 
         int success = service.remove(word, authentication);
         String message = "";
