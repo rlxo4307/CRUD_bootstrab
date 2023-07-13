@@ -40,11 +40,7 @@ public class DictionaryServiceImpl implements DictionaryService {
             }
         }
 
-        String space = " ";
         try {
-            if(word.isBlank() || word.contains(space)){
-                return 0;
-            }
             dictionaryRepository.renew(word, memo, userId, currentTime);
         }catch (Exception e){
             e.printStackTrace();
