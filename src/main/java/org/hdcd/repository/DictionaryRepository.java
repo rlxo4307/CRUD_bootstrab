@@ -39,7 +39,7 @@ public interface DictionaryRepository extends JpaRepository<SiteUdic, String> {
 
     @Transactional
     @Modifying
-    @Query(value = "UPDATE $Site_Udic SET _word=:word, _memo=:memo, _user_id=:userId, _up_dated=:currentTime WHERE _word LIKE :originWord", nativeQuery = true)
-    void personalDicUpdate(@Param("word") String word, @Param("originWord") String orginWord, @Param("memo") String memo, @Param("userId") String userId, @Param("currentTime") LocalDateTime currentTime);
+    @Query(value = "UPDATE $Site_Udic SET _memo=:memo, _up_dated=:currentTime WHERE _word LIKE :word", nativeQuery = true)
+    void personalDicUpdate(@Param("word") String word, @Param("memo") String memo, @Param("currentTime") LocalDateTime currentTime);
 
 }
