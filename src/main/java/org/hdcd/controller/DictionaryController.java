@@ -84,10 +84,14 @@ public class DictionaryController {
     @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
     public String insert(SiteUdicDTO siteUdicDTO, RedirectAttributes rttr, Authentication authentication) throws Exception {
 
-//        String word = siteUdicDTO.get_word();
-//        String memo = siteUdicDTO.get_memo();
+        String word = siteUdicDTO.get_word();
+        String memo = siteUdicDTO.get_memo();
 
-        int success = service.insert(siteUdicDTO, authentication);
+        SiteUdic siteUdic = new SiteUdic();
+        siteUdic.set_word(word);
+        siteUdic.set_memo(memo);
+
+        int success = service.insert(siteUdic, authentication);
         String message = "";
 
         if(success == 1) {
