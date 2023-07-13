@@ -60,7 +60,7 @@
           <tr th:if="${#lists.isEmpty(list_uDic)}"><td td scope="row" align="center" colspan="3" th:text="#{common.listEmpty}">List is empty.</td></tr>
           <tr th:each="siteUdic : ${list_uDic}">
             <td scope="row" align="center">
-              <input type="checkbox" name="wordList22" th:field="*{_word}" th:value="${siteUdic._word}" class="form-check-input">
+              <input type="checkbox" id="wordList22" name="wordList22" th:field="*{_word}" th:value="${siteUdic._word}" class="form-check-input">
               <!--          <label th:for="${#ids.prev('_word')}" th:text="${siteUdic._word}" class="form-check-label"></label>-->
             </td>
             <td scope="row" align="center"><a href="modfiy.html" th:href="'/siteUdic/modify?originWord=' + ${siteUdic._word}" th:text="${siteUdic._word}">${siteUdic._word}</a></td>
@@ -77,7 +77,7 @@
     <button type="submit" class="btn btn-primary" id="btnRenew" th:text="#{action.renew}">갱신</button>
     <!--    <button type="submit" class="btn btn-primary" id="btnModify" th:text="#{action.modify}">수정</button>-->
     <button type="submit" class="btn btn-primary" id="btnRemove" th:text="#{action.remove}">삭제</button>
-    <button type="submit" class="btn btn-primary" id="btnRemoveChecked" th:text="#{action.remove.checked}">선택삭제</button>
+    <button type="submit" class="btn btn-primary" id="btncheckedRemove" th:text="#{action.remove.checked}">선택삭제</button>
     <button type="submit" class="btn btn-primary" id="btnList" th:text="#{action.list}">목록</button>
   </div>
 
@@ -87,16 +87,13 @@
     function selectAll(selectAll)  {
       const checkboxes
               = document.querySelectorAll('input[type="checkbox"]');
-
       checkboxes.forEach((checkbox) => {
         checkbox.checked = selectAll.checked
       })
     }
-
     function selectAll2(selectAll2)  {
       const checkboxes2
               = document.querySelectorAll('input[type="checkbox"]');
-
       checkboxes2.forEach((checkbox2) => {
         checkbox2.checked = selectAll2.checked
       })
@@ -105,54 +102,72 @@
     document.getElementById("modal_opne_btn").onclick = function() {
       document.getElementById("modal").style.display="block";
     }
-
     document.getElementById("modal_close_btn").onclick = function() {
       document.getElementById("modal").style.display="none";
     }
 
-    // $("#btnRemoveChecked").on("click", function() {
-    //   const form = document.createElement('form');
-    //   form.setAttribute('method', 'post');        //Post 메소드 적용
-    //   form.setAttribute('action', '/manaage');
-    //
-    //   var input1 = document.createElement('input');
-    //   input1.setAttribute("type", "hidden");
-    //   input1.setAttribute("name", "wordList2");
-    //   input1.setAttribute("value", "wordList2");
-    //
-    //   form.appendChild(input1);
-    //   console.log(form);
-    //   document.body.appendChild(form);
-    //   form.submit();
-    //   // self.location = "manaage";
-    // });
 
-    function checkBox(){
+
+    const throwCheckBox = new Array();
+    $('input:checkbox[name=wordList22]:checked').each(function() {
+      throwCheckBox.push(this.value);
+    });
+
+    $("#btncheckedRemove").on("click", function() {
+      const form = document.createElement('form');
+      form.setAttribute('method', 'get');        //Post 메소드 적용
+      form.setAttribute('action', 'manage');
+
+      var input1 = document.createElement('input');
+      input1.setAttribute("type", "hidden");
+      input1.setAttribute("name", "wordList22");
+      input1.setAttribute("value", throwCheckBox);
+
+      form.appendChild(input1);
+      alert(JSON.stringify(throwCheckBox));
+      console.log(form);
+      document.body.appendChild(form);
+      form.submit();
+      // self.location = "manaage";
+    });
+
+
+
+    // function checkBox(){
 
       // name이 같은 체크박스의 값들을 배열에 담는다.
-      var checkboxValues = [];
-      $("input[name='wordList22']:checked").each(function(i) {
-        checkboxValues.push($(this).val());
-      });
+      // var checkboxValues = [];
+      // $("input[name='wordList22']:checked").each(function(i) {
+      //   checkboxValues.push($(this).val());
+      // });
+      //
+      // // 사용자 ID(문자열)와 체크박스 값들(배열)을 name/value 형태로 담는다.
+      // // var allData = {"wordList22": checkboxValues };
+      // var allData = checkboxValues;
 
-      // 사용자 ID(문자열)와 체크박스 값들(배열)을 name/value 형태로 담는다.
-      var allData = {"wordList22": checkboxValues };
+      // var throwCheckBox = new Array();
+      //
+      // $('input:checkbox[name=wordList22]:checked').each(function() {
+      //   throwCheckBox.push(this.value);
+      // });
 
-      $.ajax({
-        url:"http://localhost:8080/siteUdic/manage", // url:"http://localhost:8080/siteUdic/manage2",
-        type:'GET',
-        data: allData,
-        success:function(data){
-          alert("완료!");
-          window.opener.location.reload();
-          self.close();
-        },
-        error:function(jqXHR, textStatus, errorThrown){
-          alert("에러 발생~~ \n" + textStatus + " : " + errorThrown);
-          self.close();
-        }
-      });
-    }
+    //
+    //   $.ajax({
+    //     url:"http://localhost:8080/siteUdic/manage", // url:"http://localhost:8080/siteUdic/manage2",
+    //     type:'POST',
+    //     data: throwCheckBox,
+    //     success:function(data){
+    //       alert("완료!");
+    //       alert(JSON.stringify(data));
+    //       // window.opener.location.reload();
+    //       // self.close();
+    //     },
+    //     error:function(jqXHR, textStatus, errorThrown){
+    //       alert("에러 발생~~ \n" + textStatus + " : " + errorThrown);
+    //       self.close();
+    //     }
+    //   });
+    // }
 
 
     $(document).ready(function() {
@@ -164,16 +179,16 @@
         self.location = "remove";
       });
 
-      // var formObj = $("#manage");
-      // $("#btnRemoveChecked").on("click", function() {
-      //   // checkBox();
-      //   formObj.submit();
-      // });
-
-      $("#btnRemoveChecked").on("click", function() {
-        checkBox();
-        self.location = "manage";
+      var formObj = $("#manage");
+      $("#btncheckedRemove").on("click", function() {
+        // checkBox();
+        formObj.submit();
       });
+
+      // $("#btncheckedRemove").on("click", function() {
+      //   checkBox();
+      //   self.location = "manage";
+      // });
 
       $("#btnList").on("click", function() {
         self.location = "list";
