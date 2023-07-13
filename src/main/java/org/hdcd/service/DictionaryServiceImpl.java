@@ -27,13 +27,14 @@ public class DictionaryServiceImpl implements DictionaryService {
 
     @Transactional
     @Override // 사용자 사전에 단어 추가
-    public int insert(SiteUdicDTO siteUdicDTO, Authentication authentication) throws Exception {
+    public int insert(SiteUdic siteUdic, Authentication authentication) throws Exception {
         CustomUser customUser = (CustomUser) authentication.getPrincipal();
         Member member = customUser.getMember();
 
         String userId = member.getUserId();
-        String word = siteUdicDTO.get_word();
-        String memo = siteUdicDTO.get_memo();
+//        String word = siteUdicDTO.get_word();
+//        String memo = siteUdicDTO.get_memo();
+        String word = siteUdic.get_word();
 
 //        SiteUdic siteUdic = new SiteUdic();
 //        siteUdic.set_word(word);
@@ -51,7 +52,8 @@ public class DictionaryServiceImpl implements DictionaryService {
 
         try {
 //            dictionaryRepository.save(siteUdic);
-            dictionaryRepository.renew(word, memo, userId, currentTime);
+            dictionaryRepository.save(siteUdic);
+//            dictionaryRepository.renew(word, memo, userId, currentTime);
         }catch (Exception e){
             e.printStackTrace();
         }
