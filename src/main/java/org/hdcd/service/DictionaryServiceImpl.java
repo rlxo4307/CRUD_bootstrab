@@ -9,6 +9,7 @@ import org.hdcd.common.security.domain.CustomUser;
 import org.hdcd.domain.Member;
 import org.hdcd.domain.SiteThesaurus;
 import org.hdcd.domain.SiteUdic;
+import org.hdcd.dto.SiteUdicDTO;
 import org.hdcd.repository.DictionaryRepository;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
@@ -26,11 +27,19 @@ public class DictionaryServiceImpl implements DictionaryService {
 
     @Transactional
     @Override // 사용자 사전에 단어 추가
-    public int insert(String word, String memo, Authentication authentication) throws Exception {
+    public int insert(SiteUdicDTO siteUdicDTO, Authentication authentication) throws Exception {
         CustomUser customUser = (CustomUser) authentication.getPrincipal();
         Member member = customUser.getMember();
 
         String userId = member.getUserId();
+        String word = siteUdicDTO.get_word();
+        String memo = siteUdicDTO.get_memo();
+
+//        SiteUdic siteUdic = new SiteUdic();
+//        siteUdic.set_word(word);
+//        siteUdic.set_memo(memo);
+//        siteUdic.set_user_id(userId);
+//        siteUdic.set_up_dated(currentTime);
 
         List<SiteUdic> udicList = list_uDic(userId);
 
@@ -41,6 +50,7 @@ public class DictionaryServiceImpl implements DictionaryService {
         }
 
         try {
+//            dictionaryRepository.save(siteUdic);
             dictionaryRepository.renew(word, memo, userId, currentTime);
         }catch (Exception e){
             e.printStackTrace();
