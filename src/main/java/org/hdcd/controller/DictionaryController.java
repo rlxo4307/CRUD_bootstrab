@@ -67,14 +67,36 @@ public class DictionaryController {
         return "redirect:/siteUdic/manage";
     }
 
+//    @PostMapping("/manageUdic") // 사용자 사전 단어 제거
+//    @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
+//    public String manageCheckedRemove2(@RequestParam(value="wordList22", required=false) List<String> wordList22,
+//                                       SiteUdicDTO siteUdicDTO, RedirectAttributes rttr, Authentication authentication) throws Exception {
+//
+////        List<String> list = wordList22;
+//
+//        int success = service.checkedRemoveUdic(wordList, authentication);
+//        String message = "";
+//
+//        if(success == 1) {
+//            message = messageSource.getMessage("dic.removeComplete", null, Locale.KOREAN);
+//        }
+//        if(success == 0) {
+//            message = messageSource.getMessage("dic.removeFail", null, Locale.KOREAN);
+//        }
+//        rttr.addFlashAttribute("msg", message);
+//
+//        return "redirect:/siteUdic/manage";
+//    }
+
+
     @PostMapping("/manageUdic") // 사용자 사전 단어 제거
     @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
-    public String manageCheckedRemove2(@RequestParam(value="wordList22", required=false) List<String> wordList22,
+    public String manageCheckedRemove2(@RequestParam(value="wordList[]", required=false) List<String> wordList,
                                        SiteUdicDTO siteUdicDTO, RedirectAttributes rttr, Authentication authentication) throws Exception {
 
 //        List<String> list = wordList22;
 
-        int success = service.checkedRemoveUdic(siteUdicDTO, authentication);
+        int success = service.checkedRemoveUdic(wordList, authentication);
         String message = "";
 
         if(success == 1) {
