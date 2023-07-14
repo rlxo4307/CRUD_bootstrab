@@ -73,22 +73,31 @@ public class DictionaryServiceImpl implements DictionaryService {
     }
 
     @Override // 사용자 사전의 단어 제거
-    public int checkedRemove(@RequestParam(value ="wordList22", required = false) List<String> wordList, Authentication authentication) throws Exception {
+    public int checkedRemove(SiteUdicDTO siteUdicDTO, Authentication authentication) throws Exception {
+
         CustomUser customUser = (CustomUser) authentication.getPrincipal();
         Member member = customUser.getMember();
-
         String userId = member.getUserId();
 
-        List<SiteUdic> udicList = list_uDic(userId);
+        List<String> dicWordList = dictionaryRepository.personalWordList_uDic(userId);
+
+        String word = siteUdicDTO.get_word();
+        List<String> dtoWordList = new ArrayList<>();
+
+        String[] splitWord = word.split(",");
+        for(int i=0; i<splitWord.length; i++){
+            dtoWordList.add(splitWord[i]);
+        }
 
         int count = 0;
-        for(int i=0; i<wordList.size(); i++){
-            if(udicList.contains(wordList.get(i))) {
-                dictionaryRepository.personalDicDelete(wordList.get(i));
+        for(int i=0; i<dtoWordList.size(); i++){
+            if(dicWordList.contains(dtoWordList.get(i))) {
+                dictionaryRepository.personalDicDelete(dtoWordList.get(i));
                 count++;
             }
-            if(count == wordList.size())
-                return 1;
+        }
+        if(count == dtoWordList.size()) {
+            return 1;
         }
         return 0;
     }
@@ -135,6 +144,7 @@ public class DictionaryServiceImpl implements DictionaryService {
 
             return udicList;
     }
+
 
     @Override // 사용자 사전 리스트
     public List<SiteThesaurus> list_thesaurus(String userId) throws Exception {
