@@ -72,63 +72,74 @@ public class DictionaryServiceImpl implements DictionaryService {
         }
         return 0;
     }
-
+    @Transactional
     @Override // 사용자 사전의 단어 제거
-    public int checkedRemove(SiteUdicDTO siteUdicDTO, SiteThesaurusDTO siteThesaurusDTO, Authentication authentication) throws Exception {
-
-        //@RequestParam(value="siteUdicDTO", required=false) SiteUdicDTO siteUdicDTO
+    public int checkedRemoveThesaurus(SiteThesaurusDTO siteThesaurusDTO, Authentication authentication) throws Exception {
 
         CustomUser customUser = (CustomUser) authentication.getPrincipal();
         Member member = customUser.getMember();
+
         String userId = member.getUserId();
+        List<String> dicList = dictionaryRepository.personalWordList_thesaurus(userId);
 
-        List<String> udicWordList = dictionaryRepository.personalWordList_uDic(userId);
-        List<String> thesaurusWordList = dictionaryRepository.personalWordList_thesaurus(userId);
+        String Str = siteThesaurusDTO.get_head_word();
+        List<String> wordlist = new ArrayList<>();
 
-        int wordSize = 0;
+        String[] splitWord = Str.split(",");
+
+        for (int i=0; i < splitWord.length; i++) {
+            wordlist.add(splitWord[i]);
+        }
+
+        int wordSize = wordlist.size();
         int count = 0;
 
-        String uDicStr = siteUdicDTO.get_word();
-        List<String> uDicWord = new ArrayList<>();
-
-        String[] splitWord = uDicStr.split(",");
-        for (int i=0; i < splitWord.length; i++) {
-            uDicWord.add(splitWord[i]);
-        }
-
-        String thesaurusStr = siteThesaurusDTO.get_head_word();
-        List<String> thesaurusWord = new ArrayList<>();
-
-        String[] splitWord2 = thesaurusStr.split(",");
-
-        for (int i=0; i < splitWord2.length; i++) {
-            thesaurusWord.add(splitWord2[i]);
-        }
-        wordSize += uDicWord.size() + thesaurusWord.size();
-
-        if(siteUdicDTO.get_word() != null) {
-            for (int i = 0; i < uDicWord.size(); i++) {
-                String word = uDicWord.get(i);
-                if (udicWordList.contains(word)) {
-                    dictionaryRepository.personaluDicDelete(word);
-                    count++;
-                }
+        for (int i = 0; i < wordlist.size(); i++) {
+            String word = wordlist.get(i);
+            if (dicList.contains(word)) {
+                dictionaryRepository.personalThesaurusDelete(word);
+                count++;
             }
         }
-        if(siteThesaurusDTO.get_head_word() != null) {
-            for(int i=0; i < thesaurusWord.size(); i++){
-                String word = thesaurusWord.get(i);
-                if(thesaurusWordList.contains(word)) {
-                    dictionaryRepository.personaluDicDelete(word);
-                    count++;
-                }
-            }
-        }
-
         if(count == wordSize) return 1;
 
         return 0;
     }
+
+    @Transactional
+    @Override // 사용자 사전의 단어 제거
+    public int checkedRemoveUdic(SiteUdicDTO siteUdicDTO, Authentication authentication) throws Exception {
+
+        CustomUser customUser = (CustomUser) authentication.getPrincipal();
+        Member member = customUser.getMember();
+
+        String userId = member.getUserId();
+        List<String> dicList = dictionaryRepository.personalWordList_uDic(userId);
+
+        String Str = siteUdicDTO.get_word();
+        List<String> wordlist = new ArrayList<>();
+
+        String[] splitWord = Str.split(",");
+
+        for (int i=0; i < splitWord.length; i++) {
+            wordlist.add(splitWord[i]);
+        }
+
+        int wordSize = wordlist.size();
+        int count = 0;
+
+        for (int i = 0; i < wordlist.size(); i++) {
+            String word = wordlist.get(i);
+            if (dicList.contains(word)) {
+                dictionaryRepository.personaluDicDelete(word);
+                count++;
+            }
+        }
+        if(count == wordSize) return 1;
+
+        return 0;
+    }
+
 
     @Override // 사용자 사전 단어 업데이트
     public int update (String word, String memo, Authentication authentication) throws Exception {
