@@ -48,7 +48,7 @@ public interface DictionaryRepository extends JpaRepository<SiteUdic, String> {
 
     @Transactional
     @Modifying
-    @Query(value = "DELETE FROM $Site_Udic WHERE _word LIKE :word", nativeQuery = true)
+    @Query(value = "DELETE FROM $Site_Thesaurus WHERE _head_word LIKE :word", nativeQuery = true)
     void personalThesaurusDelete(@Param("word") String word);
 
 //    @Transactional
