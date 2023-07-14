@@ -22,5 +22,7 @@ public interface DictionaryService {
 
     public int checkedRemoveThesaurus(SiteThesaurusDTO siteThesaurusDTO, Authentication authentication) throws Exception;
 
-    public int checkedRemoveUdic(SiteUdicDTO siteUdicDTO, Authentication authentication) throws Exception;
+//    public int checkedRemoveUdic(SiteUdicDTO siteUdicDTO, Authentication authentication) throws Exception;
+
+    public int checkedRemoveUdic(List<String> wordList, Authentication authentication) throws Exception;
 }
