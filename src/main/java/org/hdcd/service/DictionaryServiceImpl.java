@@ -106,9 +106,44 @@ public class DictionaryServiceImpl implements DictionaryService {
         return 0;
     }
 
+//    @Transactional
+//    @Override // 사용자 사전의 단어 제거
+//    public int checkedRemoveUdic(SiteUdicDTO siteUdicDTO, Authentication authentication) throws Exception {
+//
+//        CustomUser customUser = (CustomUser) authentication.getPrincipal();
+//        Member member = customUser.getMember();
+//
+//        String userId = member.getUserId();
+//        List<String> dicList = dictionaryRepository.personalWordList_uDic(userId);
+//
+//        String Str = siteUdicDTO.get_word();
+//        List<String> wordlist = new ArrayList<>();
+//
+//        String[] splitWord = Str.split(",");
+//
+//        for (int i=0; i < splitWord.length; i++) {
+//            wordlist.add(splitWord[i]);
+//        }
+//
+//        int wordSize = wordlist.size();
+//        int count = 0;
+//
+//        for (int i = 0; i < wordlist.size(); i++) {
+//            String word = wordlist.get(i);
+//            if (dicList.contains(word)) {
+//                dictionaryRepository.personaluDicDelete(word);
+//                count++;
+//            }
+//        }
+//        if(count == wordSize) return 1;
+//
+//        return 0;
+//    }
+
+
     @Transactional
     @Override // 사용자 사전의 단어 제거
-    public int checkedRemoveUdic(SiteUdicDTO siteUdicDTO, Authentication authentication) throws Exception {
+    public int checkedRemoveUdic(@RequestParam(value="wordList[]") List<String> wordList, Authentication authentication) throws Exception {
 
         CustomUser customUser = (CustomUser) authentication.getPrincipal();
         Member member = customUser.getMember();
@@ -116,20 +151,11 @@ public class DictionaryServiceImpl implements DictionaryService {
         String userId = member.getUserId();
         List<String> dicList = dictionaryRepository.personalWordList_uDic(userId);
 
-        String Str = siteUdicDTO.get_word();
-        List<String> wordlist = new ArrayList<>();
-
-        String[] splitWord = Str.split(",");
-
-        for (int i=0; i < splitWord.length; i++) {
-            wordlist.add(splitWord[i]);
-        }
-
-        int wordSize = wordlist.size();
+        int wordSize = wordList.size();
         int count = 0;
 
-        for (int i = 0; i < wordlist.size(); i++) {
-            String word = wordlist.get(i);
+        for (int i = 0; i < wordList.size(); i++) {
+            String word = wordList.get(i);
             if (dicList.contains(word)) {
                 dictionaryRepository.personaluDicDelete(word);
                 count++;
