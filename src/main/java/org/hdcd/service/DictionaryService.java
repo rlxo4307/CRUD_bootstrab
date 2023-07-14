@@ -1,8 +1,8 @@
 package org.hdcd.service;
 
-import org.hdcd.domain.QSiteUdic;
 import org.hdcd.domain.SiteThesaurus;
 import org.hdcd.domain.SiteUdic;
+import org.hdcd.dto.SiteThesaurusDTO;
 import org.hdcd.dto.SiteUdicDTO;
 import org.springframework.security.core.Authentication;
 
@@ -14,7 +14,7 @@ public interface DictionaryService {
 
     public int remove(String word, Authentication authentication) throws Exception;
 
-    public int checkedRemove(SiteUdicDTO siteUdicDTO, Authentication authentication) throws Exception;
+    public int checkedRemove(SiteUdicDTO siteUdicDTO, SiteThesaurusDTO siteThesaurusDTO, Authentication authentication) throws Exception;
 
     public int update (String word, String memo, Authentication authentication) throws Exception;
 
