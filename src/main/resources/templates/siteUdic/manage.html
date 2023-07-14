@@ -21,34 +21,34 @@
     <div class="modal_layer"></div>
   </div>
 
-<!--  <div class="manage">-->
-<!--    <div class="manage_right">-->
-<!--      <form action method="post" th:object="${siteThesaurus}">-->
-<!--        <table class="table table-hover" border="1">-->
-<!--          <tr>-->
-<!--            <td scope="row" align="center" width="100"><input type='checkbox' name='wordList1' value='selectall' onclick='selectAll(this)'>-->
-<!--            <td scope="row" align="center" width="200" th:text="#{dic.head}">HEAD</td>-->
-<!--            <td scope="row" align="center" width="200" th:text="#{dic.tail}">TAIL</td>-->
-<!--            <td scope="row" align="center" width="200" th:text="#{dic.memo}">메모</td>-->
-<!--            <td scope="row" align="center" width="200" th:text="#{dic.regdate}">등록일시</td>-->
-<!--          </tr>-->
-<!--          <tr th:if="${#lists.isEmpty(list_thesaurus)}"><td td scope="row" align="center" colspan="3" th:text="#{common.listEmpty}">List is empty.</td></tr>-->
-<!--          <tr th:each="siteThesaurus : ${list_thesaurus}">-->
-<!--            <td scope="row" align="center">-->
-<!--              <input type="checkbox" name="wordList11" th:field="*{_head_word}" th:value="${siteThesaurus._head_word}" class="form-check-input">-->
-<!--    &lt;!&ndash;          <label th:for="${#ids.prev('_word')}" th:text="${siteUdic._word}" class="form-check-label"></label>&ndash;&gt;-->
-<!--            </td>-->
-<!--&lt;!&ndash;            <td scope="row" align="center"><a href="modfiy.html" th:href="'/siteUdic/modify?originWord=' + ${siteThesaurus._head_word}" th:text="${siteThesaurus._head_word}">${siteThesaurus._head_word}</a></td>&ndash;&gt;-->
-<!--            <td scope="row" align="center" th:text="${siteThesaurus._head_word}">${siteThesaurus.headWord}</td>-->
-<!--            <td scope="row" align="center" th:text="${siteThesaurus._tail_word}">${siteThesaurus.tailWord}</td>-->
-<!--            <td scope="row" align="center" th:text="${siteThesaurus._memo}">${siteThesaurus.memo}</td>-->
-<!--            <td scope="row" align="center" th:text="${#temporals.format(siteThesaurus._up_dated, 'yyyy-MM-dd HH:mm')}">${siteThesaurus.regDate}</td>-->
-<!--          </tr>-->
-<!--        </table>-->
-<!--      </form>-->
-<!--    </div>-->
+  <div class="manage">
+    <div class="manage_right">
+      <form id="manage" th:action="@{/siteUdic/manage}" method="POST" th:object="${siteThesaurusDTO}">
+        <table class="table table-hover" border="1">
+          <tr>
+            <td scope="row" align="center" width="100"><input type='checkbox' name='wordList1' value='selectall' onclick='selectAll(this)'>
+            <td scope="row" align="center" width="200" th:text="#{dic.head}">HEAD</td>
+            <td scope="row" align="center" width="200" th:text="#{dic.tail}">TAIL</td>
+            <td scope="row" align="center" width="200" th:text="#{dic.memo}">메모</td>
+            <td scope="row" align="center" width="200" th:text="#{dic.regdate}">등록일시</td>
+          </tr>
+          <tr th:if="${#lists.isEmpty(list_thesaurus)}"><td td scope="row" align="center" colspan="3" th:text="#{common.listEmpty}">List is empty.</td></tr>
+          <tr th:each="siteThesaurus : ${list_thesaurus}">
+            <td scope="row" align="center">
+              <input type="checkbox" name="wordList11" th:field="*{_head_word}" th:value="${siteThesaurus._head_word}" class="form-check-input">
+    <!--          <label th:for="${#ids.prev('_word')}" th:text="${siteUdic._word}" class="form-check-label"></label>-->
+            </td>
+<!--            <td scope="row" align="center"><a href="modfiy.html" th:href="'/siteUdic/modify?originWord=' + ${siteThesaurus._head_word}" th:text="${siteThesaurus._head_word}">${siteThesaurus._head_word}</a></td>-->
+            <td scope="row" align="center" th:text="${siteThesaurus._head_word}">${siteThesaurus.headWord}</td>
+            <td scope="row" align="center" th:text="${siteThesaurus._tail_word}">${siteThesaurus.tailWord}</td>
+            <td scope="row" align="center" th:text="${siteThesaurus._memo}">${siteThesaurus.memo}</td>
+            <td scope="row" align="center" th:text="${#temporals.format(siteThesaurus._up_dated, 'yyyy-MM-dd HH:mm')}">${siteThesaurus.regDate}</td>
+          </tr>
+        </table>
+      </form>
+    </div>
 
-<!--    <div class="manage_left">-->
+    <div class="manage_left">
       <form id="manage" th:action="@{/siteUdic/manage}" method="POST" th:object="${siteUdicDTO}">
         <table class="table table-hover" border="1">
           <tr>
@@ -69,8 +69,8 @@
           </tr>
         </table>
       </form>
-<!--    </div>-->
-<!--  </div>-->
+    </div>
+  </div>
 
   <div>
     <button type="submit" class="btn btn-primary" id="btnRenew" th:text="#{action.renew}">갱신</button>
