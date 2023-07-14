@@ -55,14 +55,35 @@ public class DictionaryController {
     }
 
 
-    @PostMapping("/manage") // 사용자 사전 단어 제거
+    @PostMapping("/manageThesaurus") // 사용자 사전 단어 제거
     @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
-    public String manageCheckedRemove(@RequestParam(value="wordList22", required=false) List<String> wordList22,
-                                      SiteUdicDTO siteUdicDTO, SiteThesaurusDTO siteThesaurusDTO, RedirectAttributes rttr, Authentication authentication) throws Exception {
+    public String manageCheckedRemove1(@RequestParam(value="wordList22", required=false) List<String> wordList22,
+                                      SiteThesaurusDTO siteThesaurusDTO, RedirectAttributes rttr, Authentication authentication) throws Exception {
 
 //        List<String> list = wordList22;
 
-        int success = service.checkedRemove(siteUdicDTO, siteThesaurusDTO, authentication);
+        int success = service.checkedRemoveThesaurus(siteThesaurusDTO, authentication);
+        String message = "";
+
+        if(success == 1) {
+            message = messageSource.getMessage("dic.removeComplete", null, Locale.KOREAN);
+        }
+        if(success == 0) {
+            message = messageSource.getMessage("dic.removeFail", null, Locale.KOREAN);
+        }
+        rttr.addFlashAttribute("msg", message);
+
+        return "redirect:/siteUdic/insertResult";
+    }
+
+    @PostMapping("/manageUdic") // 사용자 사전 단어 제거
+    @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
+    public String manageCheckedRemove2(@RequestParam(value="wordList22", required=false) List<String> wordList22,
+                                      SiteUdicDTO siteUdicDTO, RedirectAttributes rttr, Authentication authentication) throws Exception {
+
+//        List<String> list = wordList22;
+
+        int success = service.checkedRemoveUdic(siteUdicDTO, authentication);
         String message = "";
 
         if(success == 1) {
