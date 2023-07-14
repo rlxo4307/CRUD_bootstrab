@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.RequiredArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -41,8 +42,7 @@ public class DictionaryController {
 
     @GetMapping("/manage") // 사용자 사전 관리
     @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
-    public String manage(@RequestParam(value ="wordList22[]", required = false) List<String> wordList2,
-                       SiteUdicDTO siteUdicDTO, SiteThesaurus siteThesaurus, Model model, RedirectAttributes rttr, Authentication authentication) throws Exception {
+    public String manage(SiteUdicDTO siteUdicDTO, SiteThesaurus siteThesaurus, Model model, RedirectAttributes rttr, Authentication authentication) throws Exception {
 
         CustomUser customUser = (CustomUser) authentication.getPrincipal();
         Member member = customUser.getMember();
@@ -57,10 +57,9 @@ public class DictionaryController {
 
     @PostMapping("/manage") // 사용자 사전 단어 제거
     @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
-    public String manageCheckedRemove(@RequestParam(value ="wordList22[]", required = false) List<String> wordList22,
-                                      SiteUdicDTO siteUdicDTO, SiteThesaurus siteThesaurus, RedirectAttributes rttr, Authentication authentication) throws Exception {
+    public String manageCheckedRemove(SiteUdicDTO siteUdicDTO, SiteThesaurus siteThesaurus, RedirectAttributes rttr, Authentication authentication) throws Exception {
 
-        int success = service.checkedRemove(wordList22, authentication);
+        int success = service.checkedRemove(siteUdicDTO, authentication);
         String message = "";
 
         if(success == 1) {
