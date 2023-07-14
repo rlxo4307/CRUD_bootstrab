@@ -1,170 +1,186 @@
-package org.hdcd.service;
-
-import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.List;
-import java.time.LocalDateTime;
+package org.hdcd.controller;
 
 import org.hdcd.common.security.domain.CustomUser;
 import org.hdcd.domain.Member;
-import org.hdcd.domain.SiteThesaurus;
 import org.hdcd.domain.SiteUdic;
+import org.hdcd.dto.SiteThesaurusDTO;
 import org.hdcd.dto.SiteUdicDTO;
-import org.hdcd.repository.DictionaryRepository;
+import org.hdcd.service.DictionaryService;
+import org.springframework.context.MessageSource;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
+import java.util.Locale;
 
 @RequiredArgsConstructor
-@Service
-public class DictionaryServiceImpl implements DictionaryService {
+@Controller
+@RequestMapping("/siteUdic")
+public class DictionaryController {
+    private final DictionaryService service;
+    private final MessageSource messageSource;
 
-    private final DictionaryRepository dictionaryRepository;
-    LocalDateTime currentTime = LocalDateTime.now(ZoneId.of("Asia/Seoul"));
 
-    @Transactional
-    @Override // 사용자 사전에 단어 추가
-    public int insert(SiteUdic siteUdic, Authentication authentication) throws Exception {
+//    @GetMapping("/manage")
+//    @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
+//    public void manageForm(SiteUdic siteUdic, Model model) throws Exception {
+//        SiteUdic siteUdic = new SiteUdic();
+//        siteUdic.set_word("단어 관리");
+//
+//        model.addAttribute(siteUdic);
+//    }
+
+    @GetMapping("/manage") // 사용자 사전 관리
+    @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
+    public String manage(SiteUdicDTO siteUdicDTO, SiteThesaurusDTO siteThesaurusDTO, Model model, RedirectAttributes rttr, Authentication authentication) throws Exception {
+
         CustomUser customUser = (CustomUser) authentication.getPrincipal();
         Member member = customUser.getMember();
 
-
-        String word = siteUdic.get_word();
-        String memo = siteUdic.get_memo();
         String userId = member.getUserId();
 
-        List<SiteUdic> udicList = list_uDic(userId);
+        model.addAttribute("list_uDic", service.list_uDic(userId));
+        model.addAttribute("list_thesaurus", service.list_thesaurus(userId));
 
-        for(int i=0; i<udicList.size(); i++){
-            if(word.equals(udicList.get(i).get_word())) {
-                return 0;
-            }
-        }
-
-        try {
-            dictionaryRepository.renew(word, memo, userId, currentTime);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-        return 1;
+        return "siteUdic/manage";
     }
 
 
-    @Override // 사용자 사전의 단어 제거
-    public int remove(String word, Authentication authentication) throws Exception {
-        CustomUser customUser = (CustomUser) authentication.getPrincipal();
-        Member member = customUser.getMember();
+    @PostMapping("/manage") // 사용자 사전 단어 제거
+    @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
+    public String manageCheckedRemove(@RequestParam(value="wordList22", required=false) List<String> wordList22,
+                                      SiteUdicDTO siteUdicDTO, SiteThesaurusDTO siteThesaurusDTO, RedirectAttributes rttr, Authentication authentication) throws Exception {
 
-        String userId = member.getUserId();
+//        List<String> list = wordList22;
 
-        List<SiteUdic> udicList = list_uDic(userId);
+        int success = service.checkedRemove(siteUdicDTO, siteThesaurusDTO, authentication);
+        String message = "";
 
-        for(int i=0; i<udicList.size(); i++){
-            if(word.equals(udicList.get(i).get_word())) {
-                dictionaryRepository.personalDicDelete(word);
-                return 1;
-            }
+        if(success == 1) {
+            message = messageSource.getMessage("dic.removeComplete", null, Locale.KOREAN);
         }
-        return 0;
+        if(success == 0) {
+            message = messageSource.getMessage("dic.removeFail", null, Locale.KOREAN);
+        }
+        rttr.addFlashAttribute("msg", message);
+
+        return "redirect:/siteUdic/insertResult";
     }
 
-    @Override // 사용자 사전의 단어 제거
-    public int checkedRemove(SiteUdicDTO siteUdicDTO, Authentication authentication) throws Exception {
 
-        CustomUser customUser = (CustomUser) authentication.getPrincipal();
-        Member member = customUser.getMember();
-        String userId = member.getUserId();
+    @GetMapping("/renew")
+    @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
+    public void renewForm(SiteUdicDTO siteUdicDTO, Model model) throws Exception {
+    }
 
-        List<String> dicWordList = dictionaryRepository.personalWordList_uDic(userId);
+    @PostMapping("/renew") // 사용자 사전 갱신
+    @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
+    public String insert(SiteUdicDTO siteUdicDTO, RedirectAttributes rttr, Authentication authentication) throws Exception {
 
         String word = siteUdicDTO.get_word();
-        List<String> dtoWordList = new ArrayList<>();
+        String memo = siteUdicDTO.get_memo();
 
-        String[] splitWord = word.split(",");
-        for(int i=0; i<splitWord.length; i++){
-            dtoWordList.add(splitWord[i]);
-        }
+        SiteUdic siteUdic = new SiteUdic();
+        siteUdic.set_word(word);
+        siteUdic.set_memo(memo);
 
-        int count = 0;
-        for(int i=0; i<dtoWordList.size(); i++){
-            if(dicWordList.contains(dtoWordList.get(i))) {
-                dictionaryRepository.personalDicDelete(dtoWordList.get(i));
-                count++;
-            }
+        int success = service.insert(siteUdic, authentication);
+        String message = "";
+
+        if(success == 1) {
+            message = messageSource.getMessage("dic.renewComplete", null, Locale.KOREAN);
         }
-        if(count == dtoWordList.size()) {
-            return 1;
+        if(success == 0) {
+            message = messageSource.getMessage("dic.renewFail", null, Locale.KOREAN);
         }
-        return 0;
+        rttr.addFlashAttribute("msg", message);
+
+        return "redirect:/siteUdic/insertResult";
     }
 
-    @Override // 사용자 사전 단어 업데이트
-    public int update (String word, String memo, Authentication authentication) throws Exception {
+
+    @GetMapping("/remove")
+    @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
+    public void removeForm(SiteUdicDTO siteUdicDTO) throws Exception {
+    }
+
+    @PostMapping("/remove") // 사용자 사전 단어 제거
+    @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
+    public String remove(SiteUdicDTO siteUdicDTO, RedirectAttributes rttr, Authentication authentication) throws Exception {
+
+        String word = siteUdicDTO.get_word();
+
+        int success = service.remove(word, authentication);
+        String message = "";
+
+        if(success == 1) {
+            message = messageSource.getMessage("dic.removeComplete", null, Locale.KOREAN);
+        }
+        if(success == 0) {
+            message = messageSource.getMessage("dic.removeFail", null, Locale.KOREAN);
+        }
+        rttr.addFlashAttribute("msg", message);
+
+        return "redirect:/siteUdic/insertResult";
+    }
+
+
+    @GetMapping("/modify")
+    @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
+    public void updateForm(SiteUdicDTO siteUdicDTO, @RequestParam(value = "_word") String _word, Model model, Authentication authentication) throws Exception {
+
+        siteUdicDTO.set_word(_word);
+
+        model.addAttribute("siteUdicDTO", siteUdicDTO);
+    }
+
+    @PostMapping("/modify") // 사용자 사전 업데이트
+    @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
+    public String update(SiteUdicDTO siteUdicDTO, RedirectAttributes rttr, Authentication authentication) throws Exception {
+
+        String word = siteUdicDTO.get_word();
+        String memo = siteUdicDTO.get_memo();
+
+        int success = service.update(word, memo, authentication);
+        String message = "";
+
+        if(success == 1) {
+            message = messageSource.getMessage("dic.modifyComplete", null, Locale.KOREAN);
+        }
+        if(success == 0) {
+            message = messageSource.getMessage("dic.modifyFail", null, Locale.KOREAN);
+        }
+        rttr.addFlashAttribute("msg", message);
+
+        return "redirect:/siteUdic/insertResult";
+    }
+
+
+    @GetMapping("/list") // 사용자 사전 목록
+    @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
+    public void list(Model model, Authentication authentication) throws Exception {
         CustomUser customUser = (CustomUser) authentication.getPrincipal();
         Member member = customUser.getMember();
 
         String userId = member.getUserId();
 
-        List<SiteUdic> udicList = list_uDic(userId);
-
-        for(int i=0; i<udicList.size(); i++){
-            if(word.equals(udicList.get(i).get_word())) {
-                try {
-                    dictionaryRepository.personalDicUpdate(word, memo, currentTime);
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-                return 1;
-            }
-        }
-        return 0;
+        model.addAttribute("list", service.list_uDic(userId));
     }
 
 
-    @Override // 사용자 사전 리스트
-        public List<SiteUdic> list_uDic(String userId) throws Exception {
-            List<Object[]> dicArrays = dictionaryRepository.personalDicList_uDic(userId);
-
-            List<SiteUdic> udicList = new ArrayList<>();
-
-            for(Object[] valueArray : dicArrays) {
-                SiteUdic siteUdic = new SiteUdic();
-
-                siteUdic.set_word((String)valueArray[0]);
-                siteUdic.set_memo((String)valueArray[1]);
-                siteUdic.set_user_id((String)valueArray[2]);
-                siteUdic.set_up_dated((LocalDateTime) valueArray[3]);
-
-                udicList.add(siteUdic);
-            }
-
-            return udicList;
-    }
-
-
-    @Override // 사용자 사전 리스트
-    public List<SiteThesaurus> list_thesaurus(String userId) throws Exception {
-        List<Object[]> dicArrays = dictionaryRepository.personalDicList_thesaurus(userId);
-
-        List<SiteThesaurus> thesaurusList = new ArrayList<>();
-
-        for(Object[] valueArray : dicArrays) {
-            SiteThesaurus siteThesaurus = new SiteThesaurus();
-
-            siteThesaurus.set_head_word((String)valueArray[0]);
-            siteThesaurus.set_tail_word((String)valueArray[1]);
-            siteThesaurus.set_memo((String)valueArray[2]);
-            siteThesaurus.set_user_id((String)valueArray[3]);
-            siteThesaurus.set_up_dated((LocalDateTime) valueArray[4]);
-
-            thesaurusList.add(siteThesaurus);
-        }
-
-        return thesaurusList;
+    @GetMapping("/insertResult") // 사용자 사전 CRUD 결과
+    @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
+    public String success() throws Exception {
+        return "siteUdic/insertResult";
     }
 
 }
