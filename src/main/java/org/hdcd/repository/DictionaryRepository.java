@@ -26,6 +26,11 @@ public interface DictionaryRepository extends JpaRepository<SiteUdic, String> {
             + "WHERE _user_id LIKE ?1 ")
     List<Object[]> personalDicList_thesaurus(String userId);
 
+    @Query("SELECT _head_word "
+            + "FROM SiteThesaurus "
+            + "WHERE _user_id LIKE ?1 ")
+    List<String> personalWordList_thesaurus(String userId);
+
     @Transactional
     @Modifying
     @Query(value = "INSERT INTO $Site_Udic (_word, _memo, _user_id, _up_dated) VALUES (?1, ?2, ?3, ?4)", nativeQuery = true)
@@ -39,7 +44,12 @@ public interface DictionaryRepository extends JpaRepository<SiteUdic, String> {
     @Transactional
     @Modifying
     @Query(value = "DELETE FROM $Site_Udic WHERE _word LIKE :word", nativeQuery = true)
-    void personalDicDelete(@Param("word") String word);
+    void personaluDicDelete(@Param("word") String word);
+
+    @Transactional
+    @Modifying
+    @Query(value = "DELETE FROM $Site_Udic WHERE _word LIKE :word", nativeQuery = true)
+    void personalThesaurusDelete(@Param("word") String word);
 
 //    @Transactional
 //    @Modifying
