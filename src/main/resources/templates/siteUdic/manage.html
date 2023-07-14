@@ -25,8 +25,9 @@
     <div class="manage_right">
       <form id="manage" th:action="@{/siteUdic/manage}" method="POST" th:object="${siteThesaurusDTO}">
         <table class="table table-hover" border="1">
+          <tr><h2>유의어 사전</h2></tr>
           <tr>
-            <td scope="row" align="center" width="100"><input type='checkbox' name='wordList1' value='selectall' onclick='selectAll(this)'>
+            <td scope="row" align="center" width="100"><input type='checkbox' name='wordList1' value='selectall' onclick='selectAll1(this)'>
             <td scope="row" align="center" width="200" th:text="#{dic.head}">HEAD</td>
             <td scope="row" align="center" width="200" th:text="#{dic.tail}">TAIL</td>
             <td scope="row" align="center" width="200" th:text="#{dic.memo}">메모</td>
@@ -35,7 +36,7 @@
           <tr th:if="${#lists.isEmpty(list_thesaurus)}"><td td scope="row" align="center" colspan="3" th:text="#{common.listEmpty}">List is empty.</td></tr>
           <tr th:each="siteThesaurus : ${list_thesaurus}">
             <td scope="row" align="center">
-              <input type="checkbox" name="wordList11" th:field="*{_head_word}" th:value="${siteThesaurus._head_word}" class="form-check-input">
+              <input type="checkbox" id="checkbox1" name="wordList11" th:field="*{_head_word}" th:value="${siteThesaurus._head_word}" class="form-check-input">
     <!--          <label th:for="${#ids.prev('_word')}" th:text="${siteUdic._word}" class="form-check-label"></label>-->
             </td>
 <!--            <td scope="row" align="center"><a href="modfiy.html" th:href="'/siteUdic/modify?originWord=' + ${siteThesaurus._head_word}" th:text="${siteThesaurus._head_word}">${siteThesaurus._head_word}</a></td>-->
@@ -49,10 +50,11 @@
     </div>
 
     <div class="manage_left">
-      <form id="manage" th:action="@{/siteUdic/manage}" method="POST" th:object="${siteUdicDTO}">
+      <form id="manage2" th:action="@{/siteUdic/manage}" method="POST" th:object="${siteUdicDTO}">
         <table class="table table-hover" border="1">
+          <tr><h2>사용자 사전</h2></tr>
           <tr>
-            <td scope="row" align="center" width="100"><input type='checkbox' name='wordList' value='selectall' onclick='selectAll(this)'>
+            <td scope="row" align="center" width="100"><input type='checkbox' name='wordList' value='selectall' onclick='selectAll2(this)'>
             <td scope="row" align="center" width="200" th:text="#{dic.word}">단어</td>
             <td scope="row" align="center" width="200" th:text="#{dic.memo}">메모</td>
             <td scope="row" align="center" width="200" th:text="#{dic.regdate}">등록일시</td>
@@ -60,7 +62,7 @@
           <tr th:if="${#lists.isEmpty(list_uDic)}"><td td scope="row" align="center" colspan="3" th:text="#{common.listEmpty}">List is empty.</td></tr>
           <tr th:each="siteUdicDTO : ${list_uDic}">
             <td scope="row" align="center">
-              <input type="checkbox" name="wordList22" th:field="*{_word}" th:value="${siteUdicDTO._word}" class="form-check-input">
+              <input type="checkbox" id="checkbox2" name="wordList22" th:field="*{_word}" th:value="${siteUdicDTO._word}" class="form-check-input">
               <!--          <label th:for="${#ids.prev('_word')}" th:text="${siteUdicDTO._word}" class="form-check-label"></label>-->
             </td>
             <td scope="row" align="center"><a href="modfiy.html" th:href="'/siteUdic/modify?_word=' + ${siteUdicDTO._word}" th:text="${siteUdicDTO._word}">${siteUdicDTO._word}</a></td>
@@ -82,11 +84,19 @@
   <br>
 
   <script>
-    function selectAll(selectAll)  {
+    function selectAll1(selectAll)  {
       const checkboxes
-              = document.querySelectorAll('input[type="checkbox"]');
-      checkboxes.forEach((checkbox) => {
-        checkbox.checked = selectAll.checked
+              = document.querySelectorAll('input[id="checkbox1"]');
+      checkboxes.forEach((checkbox1) => {
+        checkbox1.checked = selectAll.checked
+      })
+    }
+
+    function selectAll2(selectAll)  {
+      const checkboxes
+              = document.querySelectorAll('input[id="checkbox2"]');
+      checkboxes.forEach((checkbox2) => {
+        checkbox2.checked = selectAll.checked
       })
     }
 
