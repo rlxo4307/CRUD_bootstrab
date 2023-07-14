@@ -1,56 +1,53 @@
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="layouts/main_template">
+package org.hdcd.repository;
 
-<head>
-    <title>siteUdic</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" href="../../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}"/>
-</head>
-<body>
-<div layout:fragment="content">
-    <h2 th:text="#{dic.header.modify}">사용자 사전 수정</h2>
+import org.hdcd.domain.SiteUdic;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
-    <form class="form-group" id="modify" action="list.html" th:action="@{/siteUdic/modify}" th:object="${siteUdicDTO}" method="POST">
-<!--        <input type="hidden" th:name="_word" th:value="${siteUdic._word}"/>-->
-        <table>
-            <tr>
-                <td><div class="form-display-inline"><input class="form-control" type="text" th:field="*{_word}" readonly/></div></td>
-                <td><div class="form-display-inline">단어</div></td>
-                <td><span class="error_message" th:if="${#fields.hasErrors('_word')}" th:errors="*{_word}">_word 에러 메시지</span></td>
-            </tr>
-            <tr>
-                <td><div class="form-display-inline"><input class="form-control" type="text" name="_memo" /></div></td>
-                <td><div class="form-display-inline">메모 수정</div></td>
-                <td><span class="error_message" th:if="${#fields.hasErrors('_memo')}" th:errors="*{_memo}">_memo 에러 메시지</span></td>
-            </tr>
-        </table>
-    </form>
+import java.time.LocalDateTime;
+import java.util.List;
 
-    <div>
-        <button type="submit" class="btn btn-primary" id="btnModify" th:text="#{action.modify}">수정</button>
-        <button type="submit" class="btn btn-primary" id="btnList" th:text="#{action.list}">목록</button>
-        <button type="submit" class="btn btn-primary" id="btnManage" th:text="#{action.manage}">관리</button>
-    </div>
-    <br>
+public interface DictionaryRepository extends JpaRepository<SiteUdic, String> {
+    @Query("SELECT _word, _memo, _user_id, _up_dated "
+            + "FROM SiteUdic "
+            + "WHERE _user_id LIKE ?1 ")
+    List<Object[]> personalDicList_uDic(String userId);
 
-    <script>
-        $(document).ready(function() {
-            var formObj = $("#modify");
+    @Query("SELECT _word "
+            + "FROM SiteUdic "
+            + "WHERE _user_id LIKE ?1 ")
+    List<String> personalWordList_uDic(String userId);
 
-            $("#btnModify").on("click", function() {
-                formObj.submit();
-            });
+    @Query("SELECT _head_word, _tail_word, _memo, _user_id, _up_dated "
+            + "FROM SiteThesaurus "
+            + "WHERE _user_id LIKE ?1 ")
+    List<Object[]> personalDicList_thesaurus(String userId);
 
-            $("#btnList").on("click", function() {
-                self.location = "list";
-            });
+    @Transactional
+    @Modifying
+    @Query(value = "INSERT INTO $Site_Udic (_word, _memo, _user_id, _up_dated) VALUES (?1, ?2, ?3, ?4)", nativeQuery = true)
+    void renew(@Param("word") String word, @Param("memo") String memo, @Param("userId") String userId, @Param("currentTime") LocalDateTime currentTime);
 
-            $("#btnManage").on("click", function() {
-                self.location = "manage";
-            });
-        });
-    </script>
-</div>
-</body>
-</html>
+    @Transactional
+    @Modifying
+    @Query(value = "UPDATE $Site_Udic SET _memo=:memo, _up_dated=:currentTime WHERE _word LIKE :word", nativeQuery = true)
+    void personalDicUpdate(@Param("word") String word, @Param("memo") String memo, @Param("currentTime") LocalDateTime currentTime);
+
+    @Transactional
+    @Modifying
+    @Query(value = "DELETE FROM $Site_Udic WHERE _word LIKE :word", nativeQuery = true)
+    void personalDicDelete(@Param("word") String word);
+
+//    @Transactional
+//    @Modifying
+//    @Query(value = "INSERT INTO $Site_Udic (_word, _memo, _user_id, _up_dated) VALUES (?1, ?2, ?3, ?4)", nativeQuery = true)
+//    void renew(String word, String memo, String userId, LocalDateTime currentTime);
+//
+//    @Transactional
+//    @Modifying
+//    @Query(value = "INSERT INTO $Site_Udic VALUES (?1, ?2, ?3, ?4)", nativeQuery = true)
+//    void renew(String word, String memo, String userId, LocalDateTime currentTime);
+}
