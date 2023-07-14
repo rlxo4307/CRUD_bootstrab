@@ -30,15 +30,6 @@ public class DictionaryController {
     private final MessageSource messageSource;
 
 
-//    @GetMapping("/manage")
-//    @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
-//    public void manageForm(SiteUdic siteUdic, Model model) throws Exception {
-//        SiteUdic siteUdic = new SiteUdic();
-//        siteUdic.set_word("단어 관리");
-//
-//        model.addAttribute(siteUdic);
-//    }
-
     @GetMapping("/manage") // 사용자 사전 관리
     @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
     public String manage(SiteUdicDTO siteUdicDTO, SiteThesaurusDTO siteThesaurusDTO, Model model, RedirectAttributes rttr, Authentication authentication) throws Exception {
@@ -58,7 +49,7 @@ public class DictionaryController {
     @PostMapping("/manageThesaurus") // 사용자 사전 단어 제거
     @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
     public String manageCheckedRemove1(@RequestParam(value="wordList22", required=false) List<String> wordList22,
-                                      SiteThesaurusDTO siteThesaurusDTO, RedirectAttributes rttr, Authentication authentication) throws Exception {
+                                       SiteThesaurusDTO siteThesaurusDTO, RedirectAttributes rttr, Authentication authentication) throws Exception {
 
 //        List<String> list = wordList22;
 
@@ -73,13 +64,13 @@ public class DictionaryController {
         }
         rttr.addFlashAttribute("msg", message);
 
-        return "redirect:/siteUdic/insertResult";
+        return "redirect:/siteUdic/manage";
     }
 
     @PostMapping("/manageUdic") // 사용자 사전 단어 제거
     @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
     public String manageCheckedRemove2(@RequestParam(value="wordList22", required=false) List<String> wordList22,
-                                      SiteUdicDTO siteUdicDTO, RedirectAttributes rttr, Authentication authentication) throws Exception {
+                                       SiteUdicDTO siteUdicDTO, RedirectAttributes rttr, Authentication authentication) throws Exception {
 
 //        List<String> list = wordList22;
 
@@ -94,7 +85,7 @@ public class DictionaryController {
         }
         rttr.addFlashAttribute("msg", message);
 
-        return "redirect:/siteUdic/insertResult";
+        return "redirect:/siteUdic/manage";
     }
 
 
