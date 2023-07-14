@@ -14,7 +14,7 @@ public interface DictionaryService {
 
     public int remove(String word, Authentication authentication) throws Exception;
 
-    public int checkedRemove(List<String> wordList, Authentication authentication) throws Exception;
+    public int checkedRemove(SiteUdicDTO siteUdicDTO, Authentication authentication) throws Exception;
 
     public int update (String word, String memo, Authentication authentication) throws Exception;
 
