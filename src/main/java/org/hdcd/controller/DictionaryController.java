@@ -42,7 +42,7 @@ public class DictionaryController {
     @GetMapping("/manage") // 사용자 사전 관리
     @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
     public String manage(@RequestParam(value ="wordList22[]", required = false) List<String> wordList2,
-                       SiteUdic siteUdic, SiteThesaurus siteThesaurus, Model model, RedirectAttributes rttr, Authentication authentication) throws Exception {
+                       SiteUdicDTO siteUdicDTO, SiteThesaurus siteThesaurus, Model model, RedirectAttributes rttr, Authentication authentication) throws Exception {
 
         CustomUser customUser = (CustomUser) authentication.getPrincipal();
         Member member = customUser.getMember();
@@ -58,7 +58,7 @@ public class DictionaryController {
     @PostMapping("/manage") // 사용자 사전 단어 제거
     @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
     public String manageCheckedRemove(@RequestParam(value ="wordList22[]", required = false) List<String> wordList22,
-                                      SiteUdic siteUdic, SiteThesaurus siteThesaurus, RedirectAttributes rttr, Authentication authentication) throws Exception {
+                                      SiteUdicDTO siteUdicDTO, SiteThesaurus siteThesaurus, RedirectAttributes rttr, Authentication authentication) throws Exception {
 
         int success = service.checkedRemove(wordList22, authentication);
         String message = "";
