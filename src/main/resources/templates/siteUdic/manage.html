@@ -62,7 +62,7 @@
             <td scope="row" align="center" width="200" th:text="#{dic.memo}">메모</td>
             <td scope="row" align="center" width="200" th:text="#{dic.regdate}">등록일시</td>
           </tr>
-          <tr th:if="${#lists.isEmpty(list_uDic)}"><td td scope="row" align="center" colspan="3" th:text="#{common.listEmpty}">List is empty.</td></tr>
+          <tr th:if="${#lists.isEmpty(list_uDic)}"><td scope="row" align="center" colspan="3" th:text="#{common.listEmpty}">List is empty.</td></tr>
           <tr th:each="siteUdicDTO : ${list_uDic}">
 <!--            <td scope="row" align="center"><input type="checkbox" class="wordList22" name="wordList22" th:value="${siteUdicDTO._word}" class="form-check-input"></td>-->
             <td scope="row" align="center" width="10"><input type="checkbox" name="wordList22" class="form-check-input" th:value="${siteUdicDTO._word}"/></td>
@@ -93,22 +93,23 @@
       document.getElementById("modal").style.display="none";
     }
 
+
     //체크박스 전체 선택
     function selectAll1(selectAll)  {
       const checkboxes
-              = document.querySelectorAll('input[id="checkbox1"]');
+              = document.querySelectorAll('input[name="wordList11"]');
       checkboxes.forEach((checkbox1) => {
         checkbox1.checked = selectAll.checked
       })
     }
-
     function selectAll2(selectAll)  {
       const checkboxes
-              = document.querySelectorAll('input[id="checkbox2"]');
+              = document.querySelectorAll('input[name="wordList22"]');
       checkboxes.forEach((checkbox2) => {
         checkbox2.checked = selectAll.checked
       })
     }
+
 
     //체크박스 선택 삭제
     var formObj = $("#manageThesaurus");
@@ -120,8 +121,6 @@
         formObj.submit();
       }
     });
-
-    var formObj = $("#manageUdic");
     $("#btncheckedRemove2").on("click", function() {
       if ($("input:checkbox[name='wordList22']:checked").length == 0) {
         alert("항목을 선택해 주세요.");
@@ -139,7 +138,6 @@
       });
 
       $("#btnRemove").on("click", function() {
-        removeUdic();
         self.location = "remove";
       });
 
