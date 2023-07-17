@@ -5,6 +5,7 @@ import org.hdcd.domain.Member;
 import org.hdcd.domain.SiteUdic;
 import org.hdcd.dto.SiteThesaurusDTO;
 import org.hdcd.dto.SiteUdicDTO;
+import org.hdcd.repository.DictionaryRepository;
 import org.hdcd.service.DictionaryService;
 import org.springframework.context.MessageSource;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.RequiredArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -27,6 +29,7 @@ import java.util.Locale;
 @RequestMapping("/siteUdic")
 public class DictionaryController {
     private final DictionaryService service;
+    private final DictionaryRepository dictionaryRepository;
     private final MessageSource messageSource;
 
 
@@ -124,7 +127,21 @@ public class DictionaryController {
 
     @GetMapping("/renew")
     @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
-    public void renewForm(SiteUdicDTO siteUdicDTO, Model model) throws Exception {
+    public void renewForm(SiteUdicDTO siteUdicDTO, Model model, RedirectAttributes rttr, Authentication authentication) throws Exception {
+
+        CustomUser customUser = (CustomUser) authentication.getPrincipal();
+        Member member = customUser.getMember();
+
+        String userId = member.getUserId();
+
+        List<SiteUdic> list = service.list_uDic(userId);
+        List<String> udicList = new ArrayList<>();
+
+        for(int i=0; i<list.size(); i++){
+            udicList.add(list.get(i).get_word());
+        }
+
+        model.addAttribute("udicList", udicList);
     }
 
     @PostMapping("/renew") // 사용자 사전 갱신
