@@ -20,9 +20,12 @@ public interface DictionaryService {
 
     public List<SiteUdic> list_uDic(String userId) throws Exception;
 
-    public int checkedRemoveThesaurus(SiteThesaurusDTO siteThesaurusDTO, Authentication authentication) throws Exception;
+    public int checkedRemoveThesaurus(List<String> wordList, Authentication authentication) throws Exception;
+
+    public int checkedRemoveUdic(List<String> wordList, Authentication authentication) throws Exception;
+
+//    public int checkedRemoveThesaurus(SiteThesaurusDTO siteThesaurusDTO, Authentication authentication) throws Exception;
 
 //    public int checkedRemoveUdic(SiteUdicDTO siteUdicDTO, Authentication authentication) throws Exception;
 
-    public int checkedRemoveUdic(List<String> wordList, Authentication authentication) throws Exception;
 }
