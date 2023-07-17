@@ -36,6 +36,7 @@
     <script>
         $(document).ready(function() {
             var formObj = $("#renew");
+            var list = document.getElementById("renew");
 
             $("#btnRenew").on("click", function() {
                 const space = /[\s]/g;
@@ -45,7 +46,16 @@
                     alert('단어를 입력해주세요.');
                 } else if(space.test(insertedWord) == true){
                     alert('공백을 제거해주세요');
-                } else {
+                } else if(list != null){
+                    for(var i=0; i<list.length; i++){
+                        alert("for문")
+                        if(insertedWord===list.get(i)._word){
+                            alert("중복된 단어입니다.");
+                            break;
+                        }
+                    }
+                }
+                else{
                     formObj.submit();
                 }
             });
