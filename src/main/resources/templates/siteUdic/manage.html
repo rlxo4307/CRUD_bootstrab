@@ -38,11 +38,8 @@
           </tr>
           <tr th:if="${#lists.isEmpty(list_thesaurus)}"><td td scope="row" align="center" colspan="3" th:text="#{common.listEmpty}">List is empty.</td></tr>
           <tr th:each="siteThesaurus : ${list_thesaurus}">
-            <td scope="row" align="center">
-              <input type="checkbox" id="checkbox1" name="wordList11" th:field="*{_head_word}" th:value="${siteThesaurus._head_word}" class="form-check-input">
-    <!--          <label th:for="${#ids.prev('_word')}" th:text="${siteUdic._word}" class="form-check-label"></label>-->
-            </td>
-<!--            <td scope="row" align="center"><a href="modfiy.html" th:href="'/siteUdic/modify?originWord=' + ${siteThesaurus._head_word}" th:text="${siteThesaurus._head_word}">${siteThesaurus._head_word}</a></td>-->
+<!--            <td scope="row" align="center"><input type="checkbox" id="checkbox1" name="wordList11" th:field="*{_head_word}" th:value="${siteThesaurus._head_word}" class="form-check-input"></td>-->
+            <td scope="row" align="center" width="10"><input type="checkbox" name="wordList11" class="form-check-input" th:value="${siteThesaurus._head_word}"/></td>
             <td scope="row" align="center" th:text="${siteThesaurus._head_word}">${siteThesaurus.headWord}</td>
             <td scope="row" align="center" th:text="${siteThesaurus._tail_word}">${siteThesaurus.tailWord}</td>
             <td scope="row" align="center" th:text="${siteThesaurus._memo}">${siteThesaurus.memo}</td>
@@ -67,10 +64,8 @@
           </tr>
           <tr th:if="${#lists.isEmpty(list_uDic)}"><td td scope="row" align="center" colspan="3" th:text="#{common.listEmpty}">List is empty.</td></tr>
           <tr th:each="siteUdicDTO : ${list_uDic}">
-            <td scope="row" align="center">
-              <input type="checkbox" id="checkbox2" name="wordList22" th:field="*{_word}" th:value="${siteUdicDTO._word}" class="form-check-input">
-              <!--          <label th:for="${#ids.prev('_word')}" th:text="${siteUdicDTO._word}" class="form-check-label"></label>-->
-            </td>
+<!--            <td scope="row" align="center"><input type="checkbox" class="wordList22" name="wordList22" th:value="${siteUdicDTO._word}" class="form-check-input"></td>-->
+            <td scope="row" align="center" width="10"><input type="checkbox" name="wordList22" class="form-check-input" th:value="${siteUdicDTO._word}"/></td>
             <td scope="row" align="center"><a href="modfiy.html" th:href="'/siteUdic/modify?_word=' + ${siteUdicDTO._word}" th:text="${siteUdicDTO._word}">${siteUdicDTO._word}</a></td>
             <td scope="row" align="center" th:text="${siteUdicDTO._memo}">${siteUdicDTO.memo}</td>
             <td scope="row" align="center" th:text="${#temporals.format(siteUdicDTO._up_dated, 'yyyy-MM-dd HH:mm')}">${siteUdicDTO.regDate}</td>
@@ -89,6 +84,8 @@
   <br>
 
   <script>
+
+    //모달 창 열기, 닫기
     document.getElementById("modal_opne_btn").onclick = function() {
       document.getElementById("modal").style.display="block";
     }
@@ -96,6 +93,7 @@
       document.getElementById("modal").style.display="none";
     }
 
+    //체크박스 전체 선택
     function selectAll1(selectAll)  {
       const checkboxes
               = document.querySelectorAll('input[id="checkbox1"]');
@@ -112,53 +110,36 @@
       })
     }
 
+    //체크박스 선택 삭제
     var formObj = $("#manageThesaurus");
     $("#btncheckedRemove1").on("click", function() {
-      removeUdic();
-      // formObj.submit();
+      if ($("input:checkbox[name='wordList11']:checked").length == 0) {
+        alert("항목을 선택해 주세요.");
+      } else {
+        formObj.attr("action", "/siteUdic/manageThesaurus");
+        formObj.submit();
+      }
     });
 
     var formObj = $("#manageUdic");
     $("#btncheckedRemove2").on("click", function() {
-      formObj.submit();
+      if ($("input:checkbox[name='wordList22']:checked").length == 0) {
+        alert("항목을 선택해 주세요.");
+      } else {
+        formObj.attr("action", "/siteUdic/manageUdic");
+        formObj.submit();
+      }
     });
 
 
-
-    function removeUdic(){
-      // name이 같은 체크박스의 값들을 배열에 담는다.
-      var wordList = [];
-      $("input[id='checkbox2']:checked").each(function(i) {
-        wordList.push($(this).val());
-      });
-
-      // 사용자 ID(문자열)와 체크박스 값들(배열)을 name/value 형태로 담는다.
-      var checkedWord = {"wordList": checkboxValues};
-
-      $.ajax({
-        url:"/manageUdic",
-        type:'POST',
-        data: wordList,
-        success:function(data){
-          alert("단어 삭제 완료");
-          window.opener.location.reload();
-          self.close();
-        },
-        error:function(jqXHR, textStatus, errorThrown){
-          alert("에러 발생 \n" + textStatus + " : " + errorThrown);
-          self.close();
-        }
-      });
-    }
-
-
-
+    //버튼
     $(document).ready(function() {
       $("#btnRenew").on("click", function() {
         self.location = "renew";
       });
 
       $("#btnRemove").on("click", function() {
+        removeUdic();
         self.location = "remove";
       });
 
