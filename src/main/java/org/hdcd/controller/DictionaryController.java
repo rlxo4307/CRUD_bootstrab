@@ -45,15 +45,12 @@ public class DictionaryController {
         return "siteUdic/manage";
     }
 
-
     @PostMapping("/manageThesaurus") // 사용자 사전 단어 제거
     @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
-    public String manageCheckedRemove1(@RequestParam(value="wordList22", required=false) List<String> wordList22,
-                                       SiteThesaurusDTO siteThesaurusDTO, RedirectAttributes rttr, Authentication authentication) throws Exception {
+    public String manageCheckedRemove1(@RequestParam List<String> wordList11, RedirectAttributes rttr, Authentication authentication) throws Exception {
 
-//        List<String> list = wordList22;
+        int success = service.checkedRemoveThesaurus(wordList11, authentication);
 
-        int success = service.checkedRemoveThesaurus(siteThesaurusDTO, authentication);
         String message = "";
 
         if(success == 1) {
@@ -67,14 +64,49 @@ public class DictionaryController {
         return "redirect:/siteUdic/manage";
     }
 
-//    @PostMapping("/manageUdic") // 사용자 사전 단어 제거
+    @PostMapping("/manageUdic") // 사용자 사전 단어 제거, List 방식
+    @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
+    public String manageCheckedRemove2(@RequestParam List<String> wordList22, RedirectAttributes rttr, Authentication authentication) throws Exception {
+
+        int success = service.checkedRemoveUdic(wordList22, authentication);
+
+        String message = "";
+
+        if(success == 1) {
+            message = messageSource.getMessage("dic.removeComplete", null, Locale.KOREAN);
+        }
+        if(success == 0) {
+            message = messageSource.getMessage("dic.removeFail", null, Locale.KOREAN);
+        }
+        rttr.addFlashAttribute("msg", message);
+
+        return "redirect:/siteUdic/manage";
+    }
+
+    //    @PostMapping("/manageThesaurus") // 사용자 사전 단어 제거, DTO 방식
 //    @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
-//    public String manageCheckedRemove2(@RequestParam(value="wordList22", required=false) List<String> wordList22,
-//                                       SiteUdicDTO siteUdicDTO, RedirectAttributes rttr, Authentication authentication) throws Exception {
+//    public String manageCheckedRemove1(SiteThesaurusDTO siteThesaurusDTO, RedirectAttributes rttr, Authentication authentication) throws Exception {
 //
-////        List<String> list = wordList22;
+//        int success = service.checkedRemoveThesaurus(siteThesaurusDTO, authentication);
+//        String message = "";
 //
-//        int success = service.checkedRemoveUdic(wordList, authentication);
+//        if(success == 1) {
+//            message = messageSource.getMessage("dic.removeComplete", null, Locale.KOREAN);
+//        }
+//        if(success == 0) {
+//            message = messageSource.getMessage("dic.removeFail", null, Locale.KOREAN);
+//        }
+//        rttr.addFlashAttribute("msg", message);
+//
+//        return "redirect:/siteUdic/manage";
+//    }
+//
+//
+//    @PostMapping("/manageUdic") // 사용자 사전 단어 제거, DTO 방식
+//    @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
+//    public String manageCheckedRemove2(SiteUdicDTO siteUdicDTO, RedirectAttributes rttr, Authentication authentication) throws Exception {
+//
+//        int success = service.checkedRemoveUdic(siteUdicDTO, authentication);
 //        String message = "";
 //
 //        if(success == 1) {
@@ -88,27 +120,6 @@ public class DictionaryController {
 //        return "redirect:/siteUdic/manage";
 //    }
 
-
-    @PostMapping("/manageUdic") // 사용자 사전 단어 제거
-    @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
-    public String manageCheckedRemove2(@RequestParam(value="wordList[]", required=false) List<String> wordList,
-                                       SiteUdicDTO siteUdicDTO, RedirectAttributes rttr, Authentication authentication) throws Exception {
-
-//        List<String> list = wordList22;
-
-        int success = service.checkedRemoveUdic(wordList, authentication);
-        String message = "";
-
-        if(success == 1) {
-            message = messageSource.getMessage("dic.removeComplete", null, Locale.KOREAN);
-        }
-        if(success == 0) {
-            message = messageSource.getMessage("dic.removeFail", null, Locale.KOREAN);
-        }
-        rttr.addFlashAttribute("msg", message);
-
-        return "redirect:/siteUdic/manage";
-    }
 
 
     @GetMapping("/renew")
