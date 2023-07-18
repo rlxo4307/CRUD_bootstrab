@@ -51,17 +51,9 @@
                     alert('단어를 입력해주세요.');
                 } else if(space.test(insertedWord) == true){
                     alert('공백을 제거해주세요');
-                } else if(udicList != null){
-                    alert('for문 밖');
-                    for(let i=0; i<udicList.size(); i++){
-                        alert('for문 안');
-                        if(insertedWord == udicList.get(i)){
-                            alert("중복된 단어입니다.");
-                            break;
-                        }
-                    }
-                }
-                else{
+                } else if(udicList.includes(insertedWord)){
+                    alert('중복된 단어입니다');
+                } else{
                     formObj.submit();
                 }
             });
