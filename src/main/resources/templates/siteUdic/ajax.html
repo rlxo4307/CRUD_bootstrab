@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Ajax 테스트</title>
+</head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> <!-- jQuery 사용 선언 -->
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<body>
+    <form action="" method="POST" id="form">
+        <input type="text" id="name">
+        <input type="text" id="age">
+        <input type="button" id="button1" onclick="passJson();" value="테스트 버튼">
+    </form>
+<!--    <button id="test">테스트 버튼</button>-->
+</body>
+<script>
+    function passJson() {
+        let param = {
+            name : $("#name").val(),
+            age : $("#age").val()
+        };
+
+        document.getElementById("test").onclick = function () {
+            $.ajax({
+                url:"ajax",
+                type:"POST",
+                data:JSON.stringify(param),
+                dataType : 'json',
+                contentType: "application/json; charset-utf-8",
+                success: function(result) {
+                    if (result) {
+                        alert("수신 성공");
+                        alert(JSON.parse(result));
+                    } else {
+                        alert("수신 실패");
+                    }
+                },
+                error: function() {
+                    alert("전송 실패");
+                }
+            });
+        };
+    }
+</script>
+</html>
