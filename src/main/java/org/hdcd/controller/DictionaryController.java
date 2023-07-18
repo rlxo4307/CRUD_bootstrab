@@ -12,17 +12,13 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.RequiredArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
+import javax.servlet.http.HttpServletRequest;
+import java.util.*;
 
 @RequiredArgsConstructor
 @Controller
@@ -64,6 +60,7 @@ public class DictionaryController {
             message = messageSource.getMessage("dic.removeFail", null, Locale.KOREAN);
         }
         rttr.addFlashAttribute("msg", message);
+        rttr.addFlashAttribute("url", url);
 
         return "redirect:/siteUdic/manage";
     }
@@ -246,6 +243,22 @@ public class DictionaryController {
     @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
     public String success() throws Exception {
         return "siteUdic/insertResult";
+    }
+
+    @GetMapping("/ajax") // 사용자 사전 CRUD 결과
+    @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
+    public void ajaxTestForm() throws Exception {
+
+    }
+
+    @RequestMapping(value = "/ajax", method = RequestMethod.POST) // 사용자 사전 CRUD 결과
+    @ResponseBody
+    @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
+    public List ajaxTest(@RequestBody Map<String, Object> param, HttpServletRequest request) throws Exception {
+
+        List list = new ArrayList<HashMap<String, Object>>();
+
+        return list;
     }
 
 }
