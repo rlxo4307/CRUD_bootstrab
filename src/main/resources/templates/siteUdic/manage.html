@@ -83,7 +83,15 @@
 
   <br>
 
-  <script>
+  <script th:inline="javascript">
+
+      let msg = [[${msg}]];
+      let url = [[${url}]];
+      if(msg) {
+          alert(msg);
+          document.location.href = url;
+      }
+
 
     //모달 창 열기, 닫기
     document.getElementById("modal_opne_btn").onclick = function() {
