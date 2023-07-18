@@ -69,24 +69,27 @@ public class DictionaryController {
 
     @PostMapping("/manageUdic") // 사용자 사전 단어 제거, List 방식
     @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
-    public String manageCheckedRemove2(@RequestParam List<String> wordList22, RedirectAttributes rttr, Authentication authentication) throws Exception {
+    public String manageCheckedRemove2(@RequestParam List<String> wordList22, Model model, RedirectAttributes rttr, Authentication authentication) throws Exception {
 
         int success = service.checkedRemoveUdic(wordList22, authentication);
 
         String message = "";
+        String url = "";
 
         if(success == 1) {
             message = messageSource.getMessage("dic.removeComplete", null, Locale.KOREAN);
+            url = "redirect:/siteUdic/manage";
         }
         if(success == 0) {
             message = messageSource.getMessage("dic.removeFail", null, Locale.KOREAN);
         }
         rttr.addFlashAttribute("msg", message);
+        rttr.addFlashAttribute("url", url);
 
         return "redirect:/siteUdic/manage";
     }
 
-    //    @PostMapping("/manageThesaurus") // 사용자 사전 단어 제거, DTO 방식
+    //    @PostMapping("/manageThesaurus") // 사용자 url 단어 제거, DTO 방식
 //    @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
 //    public String manageCheckedRemove1(SiteThesaurusDTO siteThesaurusDTO, RedirectAttributes rttr, Authentication authentication) throws Exception {
 //
