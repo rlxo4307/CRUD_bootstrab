@@ -55,6 +55,7 @@ public class DictionaryController {
         int success = service.checkedRemoveThesaurus(wordList11, authentication);
 
         String message = "";
+        String url = "redirect:/siteUdic/manage";
 
         if(success == 1) {
             message = messageSource.getMessage("dic.removeComplete", null, Locale.KOREAN);
@@ -74,11 +75,10 @@ public class DictionaryController {
         int success = service.checkedRemoveUdic(wordList22, authentication);
 
         String message = "";
-        String url = "";
+        String url = "redirect:/siteUdic/manage";
 
         if(success == 1) {
             message = messageSource.getMessage("dic.removeComplete", null, Locale.KOREAN);
-            url = "redirect:/siteUdic/manage";
         }
         if(success == 0) {
             message = messageSource.getMessage("dic.removeFail", null, Locale.KOREAN);
