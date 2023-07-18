@@ -9,12 +9,12 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> <!-- jQuery 사용 선언 -->
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <body>
-    <form action="" method="POST" id="form">
-        <input type="text" id="name">
-        <input type="text" id="age">
-        <input type="button" id="button1" onclick="passJson();" value="테스트 버튼">
-    </form>
-<!--    <button id="test">테스트 버튼</button>-->
+<!--    <form action="" method="POST" id="form">-->
+<!--        <input type="text" id="name">-->
+<!--        <input type="text" id="age">-->
+<!--        <input type="button" id="button1" onclick="passJson();" value="테스트 버튼">-->
+<!--    </form>-->
+<input type="button" id="test" onclick="passJson();" value="테스트 버튼" />
 </body>
 <script>
     function passJson() {
@@ -30,7 +30,7 @@
                 url:"ajax",
                 type:"POST",
                 data:JSON.stringify(param),
-                dataType : 'json',
+                // dataType : 'json',
                 contentType: "application/json; charset-utf-8",
                 success: function(result) {
                     if (result) {
