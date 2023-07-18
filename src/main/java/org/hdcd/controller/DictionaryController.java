@@ -1,5 +1,6 @@
 package org.hdcd.controller;
 
+import org.codehaus.jackson.map.util.JSONPObject;
 import org.hdcd.common.security.domain.CustomUser;
 import org.hdcd.domain.Member;
 import org.hdcd.domain.SiteUdic;
@@ -7,6 +8,7 @@ import org.hdcd.dto.SiteThesaurusDTO;
 import org.hdcd.dto.SiteUdicDTO;
 import org.hdcd.repository.DictionaryRepository;
 import org.hdcd.service.DictionaryService;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.context.MessageSource;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -254,11 +256,16 @@ public class DictionaryController {
     @RequestMapping(value = "/ajax", method = RequestMethod.POST) // 사용자 사전 CRUD 결과
     @ResponseBody
     @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
-    public List ajaxTest(@RequestBody Map<String, Object> param, HttpServletRequest request) throws Exception {
+    public JSONObject ajaxTest(@RequestBody Map<String, Object> param, HttpServletRequest request) throws Exception {
 
-        List list = new ArrayList<HashMap<String, Object>>();
+        JSONObject json = new JSONObject();
+        for(Map.Entry<String, Object> entry : param.entrySet()){
+            String key = entry.getKey();
+            Object value = entry.getValue();
+            json.put(key, value);
+        }
 
-        return list;
+        return json;
     }
 
 }
