@@ -35,7 +35,7 @@
                 success: function(result) {
                     if (result) {
                         alert("수신 성공");
-                        alert(JSON.parse(result));
+                        alert(JSON.parse(result).get("name"));
                     } else {
                         alert("수신 실패");
                     }
