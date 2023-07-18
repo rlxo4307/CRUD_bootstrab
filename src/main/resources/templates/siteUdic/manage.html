@@ -84,24 +84,6 @@
   <br>
 
   <script th:inline="javascript">
-
-      let msg = [[${msg}]];
-      let url = [[${url}]];
-      if(msg) {
-          alert(msg);
-          document.location.href = url;
-      }
-
-
-    //모달 창 열기, 닫기
-    document.getElementById("modal_opne_btn").onclick = function() {
-      document.getElementById("modal").style.display="block";
-    }
-    document.getElementById("modal_close_btn").onclick = function() {
-      document.getElementById("modal").style.display="none";
-    }
-
-
     //체크박스 전체 선택
     function selectAll1(selectAll)  {
       const checkboxes
@@ -118,27 +100,40 @@
       })
     }
 
-
     //체크박스 선택 삭제
-    var formObj = $("#manageThesaurus");
     $("#btncheckedRemove1").on("click", function() {
-      if ($("input:checkbox[name='wordList11']:checked").length == 0) {
-        alert("항목을 선택해 주세요.");
-      } else {
-        formObj.attr("action", "/siteUdic/manageThesaurus");
-        formObj.submit();
-      }
+        var formObj = $("#manageThesaurus");
+        if ($("input:checkbox[name='wordList11']:checked").length == 0) {
+            alert("항목을 선택해 주세요.");
+        } else {
+            formObj.submit();
+            // formObj.attr("action", "/siteUdic/manageThesaurus");
+        }
     });
     $("#btncheckedRemove2").on("click", function() {
-      if ($("input:checkbox[name='wordList22']:checked").length == 0) {
-        alert("항목을 선택해 주세요.");
-      } else {
-        formObj.attr("action", "/siteUdic/manageUdic");
-        formObj.submit();
-      }
+        var formObj = $("#manageUdic");
+        if ($("input:checkbox[name='wordList22']:checked").length == 0) {
+            alert("항목을 선택해 주세요.");
+        } else {
+            formObj.submit();
+        }
     });
 
+    let msg = [[${msg}]];
+    let url = [[${url}]];
+    if(msg) {
+        alert(msg);
+        document.location.href = url;
+    }
 
+    //모달 창 열기, 닫기
+    document.getElementById("modal_opne_btn").onclick = function() {
+        document.getElementById("modal").style.display="block";
+    }
+    document.getElementById("modal_close_btn").onclick = function() {
+        document.getElementById("modal").style.display="none";
+    }
+    
     //버튼
     $(document).ready(function() {
       $("#btnRenew").on("click", function() {
