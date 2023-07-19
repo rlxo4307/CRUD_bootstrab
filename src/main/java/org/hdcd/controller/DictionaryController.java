@@ -16,6 +16,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.RequiredArgsConstructor;
 
@@ -253,19 +255,15 @@ public class DictionaryController {
 
     }
 
-    @RequestMapping(value = "/ajax", method = RequestMethod.POST) // 사용자 사전 CRUD 결과
     @ResponseBody
+    @RequestMapping(value = "/ajax")
     @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
-    public JSONObject ajaxTest(@RequestBody Map<String, Object> param, HttpServletRequest request) throws Exception {
+    public HashMap<String, Object> ajaxTest(@RequestBody HashMap<String, Object> map) throws Exception {
 
-        JSONObject json = new JSONObject();
-        for(Map.Entry<String, Object> entry : param.entrySet()){
-            String key = entry.getKey();
-            Object value = entry.getValue();
-            json.put(key, value);
-        }
+        map.put("name", "한기태");
+        map.put("phone", "010-1588-3082");
 
-        return json;
+        return map;
     }
 
 }
