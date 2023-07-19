@@ -87,7 +87,7 @@ public class DictionaryServiceImpl implements DictionaryService {
         int wordSize = wordList11.size();
         int count = 0;
 
-        for (int i = 0; i < wordList11.size(); i++) {
+        for (int i = 0; i < wordSize; i++) {
             String word = wordList11.get(i);
             if (dicList.contains(word)) {
                 dictionaryRepository.personalThesaurusDelete(word);
