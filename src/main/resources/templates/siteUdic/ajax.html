@@ -11,6 +11,7 @@
 <body>
 <div layout:fragment="content">
     <button onclick="Ajax()">Ajax</button>
+    <h2><span id="go">클릭 전</span></h2>
 
     <script type="text/javascript">
         function Ajax(){
@@ -27,6 +28,8 @@
                 contentType: "application/json",
                 success: function(data) {
                     alert("송신 성공");
+                    $('#go').text("클릭 후");
+
                     alert("data : " + data);
 
                     alert("param : " + param);
@@ -37,6 +40,8 @@
                     alert("JSON.stringify(data.name) : " + JSON.stringify(data.name));
                     alert("data.age : " + data.age);
                     alert("JSON.stringify(data.age) : " + JSON.stringify(data.age));
+                    alert("data.age : " + data.phone);
+                    alert("JSON.stringify(data.age) : " + JSON.stringify(data.phone));
 
                     // alert("JSON.parse(data).name : " + JSON.parse(data).name);
                     // alert("JSON.parse(data).age : " + JSON.parse(data).age);
