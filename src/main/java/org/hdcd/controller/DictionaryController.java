@@ -263,6 +263,11 @@ public class DictionaryController {
         map.put("name", "한기태");
         map.put("phone", "010-1588-3082");
 
+        String check = "";
+        String check2 = "";
+        check = (String)map.get("name");
+        check2 = (String)map.get("age");
+
         return map;
     }
 
