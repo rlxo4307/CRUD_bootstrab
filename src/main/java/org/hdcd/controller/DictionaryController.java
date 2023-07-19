@@ -252,11 +252,6 @@ public class DictionaryController {
 
         param.put("phone", "010-1588-3082");
 
-        String check = "";
-        String check2 = "";
-        check = (String)param.get("name");
-        check2 = (String)param.get("phone");
-
         return param;
     }
 
