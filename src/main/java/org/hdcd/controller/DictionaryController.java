@@ -46,10 +46,9 @@ public class DictionaryController {
     @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
     public String manageCheckedRemove1(@RequestParam List<String> wordList11, RedirectAttributes rttr, Authentication authentication) throws Exception {
 
-        int success = service.checkedRemoveThesaurus(wordList11, authentication);
-
         String message = "";
-        String url = "redirect:/siteUdic/manage";
+
+        int success = service.checkedRemoveThesaurus(wordList11, authentication);
 
         if(success == 1) {
             message = messageSource.getMessage("dic.removeComplete", null, Locale.KOREAN);
@@ -58,7 +57,6 @@ public class DictionaryController {
             message = messageSource.getMessage("dic.removeFail", null, Locale.KOREAN);
         }
         rttr.addFlashAttribute("msg", message);
-        rttr.addFlashAttribute("url", url);
 
         return "redirect:/siteUdic/manage";
     }
@@ -67,10 +65,9 @@ public class DictionaryController {
     @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
     public String manageCheckedRemove2(@RequestParam List<String> wordList22, Model model, RedirectAttributes rttr, Authentication authentication) throws Exception {
 
-        int success = service.checkedRemoveUdic(wordList22, authentication);
-
         String message = "";
-        String url = "redirect:/siteUdic/manage";
+
+        int success = service.checkedRemoveUdic(wordList22, authentication);
 
         if(success == 1) {
             message = messageSource.getMessage("dic.removeComplete", null, Locale.KOREAN);
@@ -79,7 +76,6 @@ public class DictionaryController {
             message = messageSource.getMessage("dic.removeFail", null, Locale.KOREAN);
         }
         rttr.addFlashAttribute("msg", message);
-        rttr.addFlashAttribute("url", url);
 
         return "redirect:/siteUdic/manage";
     }
