@@ -1,6 +1,5 @@
 package org.hdcd.controller;
 
-import org.codehaus.jackson.map.util.JSONPObject;
 import org.hdcd.common.security.domain.CustomUser;
 import org.hdcd.domain.Member;
 import org.hdcd.domain.SiteUdic;
@@ -8,7 +7,6 @@ import org.hdcd.dto.SiteThesaurusDTO;
 import org.hdcd.dto.SiteUdicDTO;
 import org.hdcd.repository.DictionaryRepository;
 import org.hdcd.service.DictionaryService;
-import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.context.MessageSource;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -16,12 +14,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.RequiredArgsConstructor;
-
-import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 @RequiredArgsConstructor
@@ -258,17 +252,16 @@ public class DictionaryController {
     @ResponseBody
     @RequestMapping(value = "/ajax")
     @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
-    public HashMap<String, Object> ajaxTest(@RequestBody HashMap<String, Object> map) throws Exception {
+    public HashMap<String, Object> ajaxTest(@RequestBody HashMap<String, Object> param) throws Exception {
 
-        map.put("name", "한기태");
-        map.put("phone", "010-1588-3082");
+        param.put("phone", "010-1588-3082");
 
         String check = "";
         String check2 = "";
-        check = (String)map.get("name");
-        check2 = (String)map.get("age");
+        check = (String)param.get("name");
+        check2 = (String)param.get("phone");
 
-        return map;
+        return param;
     }
 
 }
