@@ -90,6 +90,13 @@
         checkbox1.checked = selectAll.checked
       })
     }
+    function selectAll2(selectAll)  {
+      const checkboxes
+              = document.querySelectorAll('input[name="wordList22"]');
+      checkboxes.forEach((checkbox2) => {
+        checkbox2.checked = selectAll.checked
+      })
+    }
 
     //체크박스 선택 삭제
     $("#btncheckedRemove1").on("click", function() {
@@ -100,20 +107,6 @@
             formObj.submit();
         }
     });
-
-    let msg = [[${msg}]];
-    if(msg) {
-        alert(msg);
-    }
-
-
-    function selectAll2(selectAll)  {
-      const checkboxes
-              = document.querySelectorAll('input[name="wordList22"]');
-      checkboxes.forEach((checkbox2) => {
-        checkbox2.checked = selectAll.checked
-      })
-    }
     $("#btncheckedRemove2").on("click", function() {
       var formObj = $("#manageUdic");
       if ($("input:checkbox[name='wordList22']:checked").length == 0) {
@@ -123,6 +116,10 @@
       }
     });
 
+    let msg = [[${msg}]];
+    if(msg) {
+        alert(msg);
+    }
 
     //버튼
     $(document).ready(function() {
