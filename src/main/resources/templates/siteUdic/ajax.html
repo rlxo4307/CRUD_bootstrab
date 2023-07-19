@@ -1,50 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Ajax 테스트</title>
-</head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> <!-- jQuery 사용 선언 -->
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<body>
-<!--    <form action="" method="POST" id="form">-->
-<!--        <input type="text" id="name">-->
-<!--        <input type="text" id="age">-->
-<!--        <input type="button" id="button1" onclick="passJson();" value="테스트 버튼">-->
-<!--    </form>-->
-<input type="button" id="test" onclick="passJson();" value="테스트 버튼" />
-</body>
-<script>
-    function passJson() {
-        let param = {
-            // name : $("#name").val(),
-            // age : $("#age").val()
-            "name" : "한기태",
-            "age" : "29"
-        };
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layouts/main_template">
 
-        document.getElementById("test").onclick = function () {
+<head>
+    <title>ajax</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="../../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}"/>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+<div layout:fragment="content">
+    <button onclick="Ajax()">Ajax</button>
+
+    <script type="text/javascript">
+        function Ajax(){
+            let param = {
+                "name" : "한기태",
+                "age" : "29"
+            };
+
             $.ajax({
-                url:"ajax",
-                type:"POST",
-                data:JSON.stringify(param),
-                // dataType : 'json',
-                contentType: "application/json; charset-utf-8",
-                success: function(result) {
-                    if (result) {
-                        alert("수신 성공");
-                        alert(JSON.parse(result).get("name"));
-                    } else {
-                        alert("수신 실패");
-                    }
+                url: "ajax",
+                method: "POST",
+                data: JSON.stringify(param),
+                // dataType: "json",
+                contentType: "application/json",
+                success: function(data) {
+                    alert("송신 성공");
+
+                    alert("data.name : " + data.name);
+                    alert("JSON.stringify(data.name) : " + JSON.stringify(data.name));
+                    alert("data.age : " + data.age);
+                    alert("JSON.stringify(data.age) : " + JSON.stringify(data.age));
+
+                    // alert("JSON.parse(data).name : " + JSON.parse(data).name);
+                    // alert("JSON.parse(data).age : " + JSON.parse(data).age);
                 },
-                error: function() {
-                    alert("전송 실패");
-                }
+                error: function(error) {
+                    alert("송신 실패");
+                },
             });
-        };
-    }
-</script>
+        }
+    </script>
+</div>
+</body>
 </html>
