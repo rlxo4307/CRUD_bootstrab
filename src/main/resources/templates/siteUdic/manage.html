@@ -22,7 +22,7 @@
 <!--  </div>-->
 
   <div class="manage">
-    <div class="manage_right">
+    <div class="manage_left">
       <form id="manageThesaurus" th:action="@{/siteUdic/manageThesaurus}" method="POST" th:object="${siteThesaurusDTO}">
         <table class="table table-hover" border="1">
           <tr><h2>유의어 사전</h2></tr>
@@ -48,7 +48,7 @@
       </form>
     </div>
 
-    <div class="manage_left">
+    <div class="manage_right">
       <form id="manageUdic" th:action="@{/siteUdic/manageUdic}" method="POST" th:object="${siteUdicDTO}">
         <table class="table table-hover" border="1">
           <tr><h2>사용자 사전</h2></tr>
@@ -75,7 +75,7 @@
 
   <div>
     <button type="submit" class="btn btn-primary" id="btnRenew" th:text="#{action.renew}">갱신</button>
-    <button type="submit" class="btn btn-primary" id="btnRemove" th:text="#{action.remove}">삭제</button>
+<!--    <button type="submit" class="btn btn-primary" id="btnRemove" th:text="#{action.remove}">삭제</button>-->
     <button type="submit" class="btn btn-primary" id="btnList" th:text="#{action.list}">목록</button>
   </div>
 
@@ -90,13 +90,6 @@
         checkbox1.checked = selectAll.checked
       })
     }
-    function selectAll2(selectAll)  {
-      const checkboxes
-              = document.querySelectorAll('input[name="wordList22"]');
-      checkboxes.forEach((checkbox2) => {
-        checkbox2.checked = selectAll.checked
-      })
-    }
 
     //체크박스 선택 삭제
     $("#btncheckedRemove1").on("click", function() {
@@ -105,24 +98,31 @@
             alert("항목을 선택해 주세요.");
         } else {
             formObj.submit();
-            // formObj.attr("action", "/siteUdic/manageThesaurus");
-        }
-    });
-    $("#btncheckedRemove2").on("click", function() {
-        var formObj = $("#manageUdic");
-        if ($("input:checkbox[name='wordList22']:checked").length == 0) {
-            alert("항목을 선택해 주세요.");
-        } else {
-            formObj.submit();
         }
     });
 
     let msg = [[${msg}]];
-    let url = [[${url}]];
     if(msg) {
         alert(msg);
-        document.location.href = url;
     }
+
+
+    function selectAll2(selectAll)  {
+      const checkboxes
+              = document.querySelectorAll('input[name="wordList22"]');
+      checkboxes.forEach((checkbox2) => {
+        checkbox2.checked = selectAll.checked
+      })
+    }
+    $("#btncheckedRemove2").on("click", function() {
+      var formObj = $("#manageUdic");
+      if ($("input:checkbox[name='wordList22']:checked").length == 0) {
+        alert("항목을 선택해 주세요.");
+      } else {
+        formObj.submit();
+      }
+    });
+
 
     //버튼
     $(document).ready(function() {
@@ -130,9 +130,9 @@
         self.location = "renew";
       });
 
-      $("#btnRemove").on("click", function() {
-        self.location = "remove";
-      });
+      // $("#btnRemove").on("click", function() {
+      //   self.location = "remove";
+      // });
 
       $("#btnList").on("click", function() {
         self.location = "list";
