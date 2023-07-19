@@ -28,23 +28,19 @@
                 contentType: "application/json",
                 success: function(data) {
                     alert("송신 성공");
-                    $('#go').text("클릭 후");
-
                     alert("data : " + data);
-
                     alert("param : " + param);
+
                     alert("param.name : " + param.name);
                     alert("JSON.stringify(param.name) : " + JSON.stringify(param.name));
 
-                    alert("data.name : " + data.name);
-                    alert("JSON.stringify(data.name) : " + JSON.stringify(data.name));
-                    alert("data.age : " + data.age);
-                    alert("JSON.stringify(data.age) : " + JSON.stringify(data.age));
                     alert("data.age : " + data.phone);
                     alert("JSON.stringify(data.age) : " + JSON.stringify(data.phone));
 
                     // alert("JSON.parse(data).name : " + JSON.parse(data).name);
                     // alert("JSON.parse(data).age : " + JSON.parse(data).age);
+
+                    $('#go').text("클릭 후");
                 },
                 error: function(error) {
                     alert("송신 실패");
