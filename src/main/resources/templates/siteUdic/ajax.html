@@ -27,6 +27,11 @@
                 contentType: "application/json",
                 success: function(data) {
                     alert("송신 성공");
+                    alert("data : " + data);
+
+                    alert("param : " + param);
+                    alert("param.name : " + param.name);
+                    alert("JSON.stringify(param.name) : " + JSON.stringify(param.name));
 
                     alert("data.name : " + data.name);
                     alert("JSON.stringify(data.name) : " + JSON.stringify(data.name));
