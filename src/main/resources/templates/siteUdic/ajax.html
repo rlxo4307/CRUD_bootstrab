@@ -6,12 +6,14 @@
     <title>ajax</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" href="../../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}"/>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<!--    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>-->
 </head>
 <body>
 <div layout:fragment="content">
     <button onclick="Ajax()">Ajax</button>
-    <h2><span id="go">클릭 전</span></h2>
+    <h4><span id="name">이름</span></h4>
+    <h4><span id="age">나이</span></h4>
 
     <script type="text/javascript">
         function Ajax(){
@@ -24,23 +26,15 @@
                 url: "ajax",
                 method: "POST",
                 data: JSON.stringify(param),
+                async : false,
                 // dataType: "json",
                 contentType: "application/json",
                 success: function(data) {
                     alert("송신 성공");
                     alert("data : " + data);
-                    alert("param : " + param);
 
-                    alert("param.name : " + param.name);
-                    alert("JSON.stringify(param.name) : " + JSON.stringify(param.name));
-
-                    alert("data.age : " + data.phone);
-                    alert("JSON.stringify(data.age) : " + JSON.stringify(data.phone));
-
-                    // alert("JSON.parse(data).name : " + JSON.parse(data).name);
-                    // alert("JSON.parse(data).age : " + JSON.parse(data).age);
-
-                    $('#go').text("클릭 후");
+                    $('#name').text("Name: " + data.name);
+                    $('#age').text("Age: " + data.age);
                 },
                 error: function(error) {
                     alert("송신 실패");
