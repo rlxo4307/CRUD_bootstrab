@@ -250,6 +250,7 @@ public class DictionaryController {
     @PreAuthorize("hasAnyRole('ADMIN','MEMBER')")
     public HashMap<String, Object> ajaxTest(@RequestBody HashMap<String, Object> param) throws Exception {
 
+        param.put("name", "hankitae");
         param.put("phone", "010-1588-3082");
 
         return param;
