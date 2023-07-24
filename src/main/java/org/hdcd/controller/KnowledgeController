@@ -1,0 +1,40 @@
+package org.hdcd.controller;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@RequiredArgsConstructor
+@Controller
+@RequestMapping("/")
+public class KnowledgeController {
+
+    @GetMapping("/auth_login")
+    public String auth_login() {
+        return "auth_login";
+    }
+
+    @GetMapping("/category_mng")
+    public String category_mng() {
+        return "category_mng";
+    }
+
+    @GetMapping("/dic_mng")
+    public String dic_mng() {return "dic_mng";}
+
+    @GetMapping("/domain_mng")
+    public String domain_mng() {
+        return "domain_mng";
+    }
+
+    @GetMapping("/service_statistics")
+    public String service_statistics() {
+        return "service_statistics";
+    }
+
+    @GetMapping("/account_mng")
+    public String account_mng() {
+        return "account_mng";
+    }
+}
